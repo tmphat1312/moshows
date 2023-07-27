@@ -3,11 +3,16 @@ import forms from "@tailwindcss/forms"
 import cntQueries from "@tailwindcss/container-queries"
 import typo from "@tailwindcss/typography"
 import colors from "tailwindcss/colors"
+import defaultTheme from "tailwindcss/defaultTheme"
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Dai Banna SIL", ...defaultTheme.fontFamily.sans],
+        display: ["Concert One", ...defaultTheme.fontFamily.serif],
+      },
       colors: {
         primary: {
           100: colors.orange[100],
