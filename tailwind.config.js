@@ -4,14 +4,9 @@ import cntQueries from "@tailwindcss/container-queries"
 import typo from "@tailwindcss/typography"
 import colors from "tailwindcss/colors"
 import defaultTheme from "tailwindcss/defaultTheme"
-import preline from "preline/plugin"
 
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "node_modules/preline/dist/*.js",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -37,5 +32,5 @@ export default {
       },
     },
   },
-  plugins: [forms, cntQueries, typo, preline],
+  plugins: [forms, cntQueries, typo],
 }
