@@ -1,11 +1,11 @@
-import logo from "./assets/images/logo-light.svg"
+import Header from "./layout/Header"
 
 function App() {
   return (
-    <div>
-      <h1>App</h1>
-      <img src={logo} alt="logo" />
-    </div>
+    <>
+      <Header />
+      <div className="h-[2000px]"></div>
+    </>
   )
 }
 
