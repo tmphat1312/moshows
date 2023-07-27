@@ -1,8 +1,11 @@
+import Header from "./layout/Header"
+
 function App() {
   return (
-    <div className="prose">
-      <h1 className="text-sky-500">App</h1>
-    </div>
+    <>
+      <Header />
+      <div className="h-[2000px]"></div>
+    </>
   )
 }
 

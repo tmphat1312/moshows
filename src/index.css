@@ -4,10 +4,10 @@
 
 @layer base {
   body {
-    background-color: #fff;
-    color: #222;
-    /* font-family: "Dai Banna SIL", serif; */
+    color: theme("colors.slate.800");
     @apply font-sans;
+    @apply tracking-wide;
+    @apply bg-slate-100;
   }
 
   h1,
@@ -16,7 +16,41 @@
   h4,
   h5,
   h6 {
-    /* font-family: "Concert One", cursive; */
     @apply font-display;
+  }
+
+  a {
+    @apply inline-block text-inherit;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply capitalize rounded-md active:bg-active;
+    @apply bg-slate-50 text-slate-700;
+    padding: 0.25em 1em;
+  }
+
+  .btn--primary {
+    @apply bg-primary-500 text-slate-100;
+  }
+}
+
+@layer utilities {
+  .flex-btw {
+    @apply flex items-center justify-between;
+  }
+  .flex-btw-center {
+    @apply flex items-center justify-between;
+  }
+
+  .full-bleed {
+    box-shadow: 0 0 0 100vmax var(--tw-shadow-color);
+    clip-path: inset(0 -100vmax);
+  }
+
+  .app-width {
+    inline-size: min(92%, 75rem);
+    margin-inline: auto;
   }
 }
