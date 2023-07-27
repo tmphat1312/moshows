@@ -1,10 +1,7 @@
-import logo from "./assets/images/logo-light.svg"
-
 function App() {
   return (
-    <div>
-      <h1>App</h1>
-      <img src={logo} alt="logo" />
+    <div className="prose">
+      <h1 className="text-sky-500">App</h1>
     </div>
   )
 }
