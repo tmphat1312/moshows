@@ -1,11 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Landing from "./routes/Landing"
+import PageNotFound from "./routes/PageNotFound"
 import Root from "./routes/Root"
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <PageNotFound />,
     children: [
       {
         index: true,
