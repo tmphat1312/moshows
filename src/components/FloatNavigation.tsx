@@ -1,15 +1,18 @@
+import clsx from "clsx"
+import { NavLink } from "react-router-dom"
+
 const links = [
   {
     name: "home",
-    path: "/home",
+    path: "home",
   },
   {
     name: "movies",
-    path: "/movies",
+    path: "movies",
   },
   {
-    name: "tv shows",
-    path: "/tv-shows",
+    name: "TV shows",
+    path: "tv-shows",
   },
 ]
 
@@ -17,13 +20,18 @@ function Navigation() {
   return (
     <nav className="absolute right-[4%] flex flex-col gap-4 text-xl font-medium capitalize top-[120%] text-center">
       {links.map((link) => (
-        <a
+        <NavLink
           key={link.name}
-          href={link.path}
-          className="px-4 py-2 rounded-md bg-slate-600 active:text-active"
+          to={link.path}
+          className={({ isActive }) =>
+            clsx(
+              "px-4 py-2 rounded-md bg-slate-600 active:text-active",
+              isActive && "text-primary-500 underline"
+            )
+          }
         >
           {link.name}
-        </a>
+        </NavLink>
       ))}
     </nav>
   )

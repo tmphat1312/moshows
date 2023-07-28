@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import heroBg from "../assets/images/hero-bg.webp"
 import heroIll from "../assets/images/hero-illustration.svg"
 
@@ -23,9 +24,9 @@ function Hero() {
               with a great number of trailers
             </p>
             <div className="flex justify-center gap-8">
-              <button className="btn btn--large btn--primary">
+              <Link to="home" className="btn btn--large btn--primary">
                 Browse now
-              </button>
+              </Link>
               <button className="btn btn--large">sign me up</button>
             </div>
           </div>
