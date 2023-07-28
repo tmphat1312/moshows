@@ -20,7 +20,7 @@ function Navigation() {
         <a
           key={link.name}
           href={link.path}
-          className="px-4 py-2 bg-white rounded-md active:text-active drop-shadow-sm"
+          className="px-4 py-2 rounded-md bg-slate-600 active:text-active"
         >
           {link.name}
         </a>
