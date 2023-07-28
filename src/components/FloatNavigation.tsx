@@ -1,25 +1,11 @@
 import clsx from "clsx"
 import { NavLink } from "react-router-dom"
-
-const links = [
-  {
-    name: "home",
-    path: "home",
-  },
-  {
-    name: "movies",
-    path: "movies",
-  },
-  {
-    name: "TV shows",
-    path: "tv-shows",
-  },
-]
+import { navigationLinks } from "../constants"
 
 function Navigation() {
   return (
     <nav className="absolute right-[4%] flex flex-col gap-4 text-xl font-medium capitalize top-[120%] text-center">
-      {links.map((link) => (
+      {navigationLinks.map((link) => (
         <NavLink
           key={link.name}
           to={link.path}
