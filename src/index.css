@@ -28,6 +28,17 @@
     @apply capitalize rounded-md active:bg-active;
     @apply bg-slate-50 text-slate-700;
     padding: 0.25em 1em;
+    transition: transform 200ms ease-in-out;
+
+    &:hover {
+      @apply scale-105;
+    }
+  }
+
+  .btn--large {
+    @apply text-lg;
+    @apply rounded-xl;
+    padding: 0.5em 1.5em;
   }
 
   .btn--primary {
@@ -51,5 +62,9 @@
   .app-width {
     inline-size: min(92%, 75rem);
     margin-inline: auto;
+  }
+
+  .section-separator {
+    @apply border-b-8 border-slate-700;
   }
 }
