@@ -22,15 +22,15 @@ function SearchForm() {
   }, [])
 
   return (
-    <form className="flex items-center px-4 transition-all bg-slate-50 rounded-3xl focus-within:ring-2 focus-within:ring-primary-400 group">
-      <span className="text-slate-400 group-focus-within:text-primary-400">
+    <form className="flex items-center px-4 transition-all bg-slate-600 rounded-3xl focus-within:ring-2 focus-within:ring-primary-400 group">
+      <span className="group-focus-within:text-primary-400">
         <FaSearch />
       </span>
       <input
         type="text"
         name="search"
         id="search"
-        className="w-full py-1 bg-transparent border-0 border-r-2 border-gray-200 focus:ring-0 focus:border-primary-400"
+        className="w-full py-1 bg-transparent border-0 border-r-2 border-gray-200 focus:ring-0 focus:border-primary-400 placeholder-slate-400"
         placeholder="Type / to search"
         ref={ref}
       />
