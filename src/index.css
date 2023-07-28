@@ -25,7 +25,7 @@
 
 @layer components {
   .btn {
-    @apply capitalize rounded-md active:bg-active;
+    @apply capitalize rounded-md;
     @apply bg-slate-50 text-slate-700;
     padding: 0.25em 1em;
     transition: transform 200ms ease-in-out;

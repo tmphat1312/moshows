@@ -11,7 +11,7 @@ function Navigation() {
           to={link.path}
           className={({ isActive }) =>
             clsx(
-              "px-4 py-2 rounded-md bg-slate-600 active:text-active",
+              "px-4 py-2 rounded-md bg-slate-600",
               isActive && "text-primary-500 underline"
             )
           }
