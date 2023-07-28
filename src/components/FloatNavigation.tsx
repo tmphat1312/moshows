@@ -8,7 +8,7 @@ const links = [
     path: "/movies",
   },
   {
-    name: "tv shows",
+    name: "TV shows",
     path: "/tv-shows",
   },
 ]
