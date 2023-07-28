@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const SECRET_TOKEN = import.meta.env.VITE_TMDB_TOKEN
+const SECRET_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN
 const BASE_URL = import.meta.env.VITE_APP_BASE_API
 
 export const authorizedFetcher = axios.create({
