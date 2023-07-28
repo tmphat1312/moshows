@@ -33,6 +33,7 @@ function SearchForm() {
         className="w-full py-1 bg-transparent border-0 border-r-2 border-gray-200 focus:ring-0 focus:border-primary-400 placeholder-slate-400"
         placeholder="Type / to search"
         ref={ref}
+        autoComplete="off"
       />
       <label htmlFor="search" hidden>
         search
