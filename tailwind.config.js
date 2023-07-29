@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-import forms from "@tailwindcss/forms"
 import cntQueries from "@tailwindcss/container-queries"
+import forms from "@tailwindcss/forms"
 import typo from "@tailwindcss/typography"
 import colors from "tailwindcss/colors"
 import defaultTheme from "tailwindcss/defaultTheme"
