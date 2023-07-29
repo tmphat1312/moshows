@@ -44,6 +44,15 @@
   .btn--primary {
     @apply bg-primary-500 text-slate-100;
   }
+
+  .section {
+    @apply app-width;
+    @apply py-16;
+
+    .title {
+      @apply text-3xl;
+    }
+  }
 }
 
 @layer utilities {
@@ -66,5 +75,32 @@
 
   .section-separator {
     @apply border-b-8 border-slate-700;
+  }
+
+  .peer-space-x-sm {
+    &:not(:last-of-type) {
+      margin-inline-end: 1.6rem;
+    }
+  }
+
+  .children-no-shrink {
+    & > * {
+      flex-shrink: 0;
+    }
+  }
+
+  .scrollbar-behavior {
+    scroll-snap-type: x mandatory;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }

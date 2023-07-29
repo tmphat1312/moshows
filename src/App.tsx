@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import Landing from "./routes/Landing"
 import PageNotFound from "./routes/PageNotFound"
 import Root from "./routes/Root"
+import Landing from "./routes/landing/Landing"
 
 const routes = createBrowserRouter([
   {
