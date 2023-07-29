@@ -26,7 +26,7 @@ function CustomScrollingCarousel({ children }: CustomScrollingCarouselProps) {
     return () => {
       carousel.removeEventListener("scroll", updateScrollProgress)
     }
-  }, [])
+  }, [thumbSize])
 
   return (
     <div className="relative">
