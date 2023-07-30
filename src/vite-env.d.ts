@@ -9,6 +9,8 @@ interface ImportMetaEnv {
   readonly VITE_TMDB_IMG_2X_BASE_URL: string
   readonly VITE_TMDB_BD_1X_BASE_URL: string
   readonly VITE_TMDB_BD_2X_BASE_URL: string
+  readonly VITE_TMDB_PF_1X_BASE_URL: string
+  readonly VITE_TMDB_PF_2X_BASE_URL: string
 }
 
 interface ImportMeta {
