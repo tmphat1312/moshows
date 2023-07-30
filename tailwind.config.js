@@ -30,6 +30,9 @@ export default {
       width: {
         app: "75rem",
       },
+      brightness: {
+        20: ".2",
+      },
     },
   },
   plugins: [forms, cntQueries, typo],
