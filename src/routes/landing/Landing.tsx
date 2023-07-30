@@ -1,5 +1,6 @@
 import Hero from "../../layout/Hero"
 import Latest from "./Latest"
+import Popular from "./Popular"
 import Trending from "./Trending"
 
 function Landing() {
@@ -9,6 +10,7 @@ function Landing() {
       <div className="section-separator">
         <Trending />
         <Latest />
+        <Popular />
       </div>
     </>
   )
