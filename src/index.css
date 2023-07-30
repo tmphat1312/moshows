@@ -50,7 +50,7 @@
     @apply py-16;
 
     .title {
-      @apply text-3xl;
+      @apply text-3xl capitalize;
     }
   }
 }
@@ -102,5 +102,15 @@
   .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+
+  .inset-center {
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
   }
 }
