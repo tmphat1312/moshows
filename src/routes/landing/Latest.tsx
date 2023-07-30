@@ -39,7 +39,7 @@ function Latest() {
       <section className="section">
         <BackgroundWall>
           <div className="flex-btw">
-            <h2 className="title">Latest trailers</h2>
+            <h2 className="title">Latest</h2>
             <TabSwitcher tabs={trailerTypes} action={toggleTrailerType} />
           </div>
           <CustomScrollingCarousel>
@@ -64,7 +64,7 @@ function Latest() {
     <section className="section">
       <BackgroundWall>
         <div className="flex-btw">
-          <h2 className="title">Latest trailers</h2>
+          <h2 className="title">Latest</h2>
           <TabSwitcher tabs={trailerTypes} action={toggleTrailerType} />
         </div>
         <CustomScrollingCarousel>
