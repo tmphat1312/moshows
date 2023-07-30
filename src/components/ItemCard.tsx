@@ -1,11 +1,8 @@
-import dayjs from "dayjs"
-import localizedFormat from "dayjs/plugin/localizedFormat"
+import dayjs from "../services/dayjs"
 import { BsBookmark } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import RatingCircle from "./RatingCircle"
 import { SkeletonBox } from "./Skeleton"
-
-dayjs.extend(localizedFormat)
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_IMG_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_IMG_2X_BASE_URL
