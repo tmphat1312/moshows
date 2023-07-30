@@ -1,26 +1,16 @@
 import { useState } from "react"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
-import ItemCard, {
-  ItemCardProps,
-  ItemCardSkeleton,
-} from "../../components/ItemCard"
-import { useFetch } from "../../hooks/useFetch"
+import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import TabSwitcher from "../../components/TabSwitcher"
-
-// TODO: extract API types to a separate file
-export type TrendingAPIResponse = {
-  page: number
-  results: ItemCardProps[]
-  total_pages: number
-  total_results: number
-}
+import { useFetch } from "../../hooks/useFetch"
+import { APIResponse } from "../../types/API"
 
 const timeWindows = ["day", "week"]
 export type TimeWindow = (typeof timeWindows)[number]
 
 function Trending() {
   const [timeWindow, setTimeWindow] = useState<TimeWindow>("day")
-  const { data, status, error } = useFetch<TrendingAPIResponse>(
+  const { data, status, error } = useFetch<APIResponse>(
     `/trending/all/${timeWindow}`
   )
 
