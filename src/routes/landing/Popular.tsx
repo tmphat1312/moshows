@@ -3,7 +3,12 @@ import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import TabSwitcher from "../../components/TabSwitcher"
 import { useFetch } from "../../hooks/useFetch"
-import { APIResponse, APIResponseMovie, APIResponseTV } from "../../types/API"
+import {
+  APIResponse,
+  APIResponseMovie,
+  APIResponseTV,
+  APIResults,
+} from "../../types/API"
 import { TrailerType } from "./Latest"
 
 const popularTypes = ["In Theaters", "On TV"]
@@ -18,7 +23,9 @@ function getMediaType(tab: PopularType) {
 function Popular() {
   const [trailerType, setTrailerType] = useState<TrailerType>("In Theaters")
   const mediaType = getMediaType(trailerType)
-  const { data, status, error } = useFetch<APIResponse>(`${mediaType}/popular`)
+  const { data, status, error } = useFetch<APIResponse<APIResults>>(
+    `${mediaType}/popular`
+  )
 
   function togglePopularType(tab: string) {
     if (tab == trailerType) return
