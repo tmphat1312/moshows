@@ -106,7 +106,13 @@
   }
 
   .section-separator {
-    @apply border-b-8 border-slate-700;
+    border-block-end: 0.25rem solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+      to right,
+      theme("colors.slate.600"),
+      theme("colors.slate.800")
+    );
   }
 
   .peer-space-x-sm {
