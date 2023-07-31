@@ -1,7 +1,11 @@
 export const navigationLinks = [
   {
-    name: "explore",
-    path: "/home",
+    name: "home",
+    path: "/",
+  },
+  {
+    name: "discover",
+    path: "/discover",
   },
   {
     name: "movies",
@@ -10,5 +14,9 @@ export const navigationLinks = [
   {
     name: "TV shows",
     path: "/tv-shows",
+  },
+  {
+    name: "People",
+    path: "/people",
   },
 ]
