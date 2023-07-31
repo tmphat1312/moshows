@@ -155,4 +155,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  .h-dvh {
+    min-block-size: 100dvh;
+  }
 }

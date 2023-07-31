@@ -9,7 +9,7 @@ function Hero() {
         <img
           src={heroBg}
           alt="Poster of movies and TV shows trailers available on MoShows webapp"
-          className="object-cover w-full h-screen"
+          className="object-cover w-full h-dvh"
         />
       </div>
       <div className="absolute inset-0 grid bg-gradient-to-b from-black to-black/50">
