@@ -4,7 +4,12 @@ import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import TabSwitcher from "../../components/TabSwitcher"
 import VideoCard, { VideoCardSkeleton } from "../../components/VideoCard"
 import { useFetch } from "../../hooks/useFetch"
-import { APIResponse, APIResponseMovie, APIResponseTV } from "../../types/API"
+import {
+  APIResponse,
+  APIResponseMovie,
+  APIResponseTV,
+  APIResults,
+} from "../../types/API"
 
 const trailerTypes = ["In Theaters", "On TV"]
 export type TrailerType = (typeof trailerTypes)[number]
@@ -25,7 +30,7 @@ function getMediaType(tab: TrailerType) {
 function Latest() {
   const [trailerType, setTrailerType] = useState<TrailerType>("In Theaters")
   const mediaType = getMediaType(trailerType)
-  const { data, status, error } = useFetch<APIResponse>(
+  const { data, status, error } = useFetch<APIResponse<APIResults>>(
     `discover/${urlsMap[mediaType]}}`
   )
 
@@ -39,7 +44,7 @@ function Latest() {
       <section className="section">
         <BackgroundWall>
           <div className="flex-btw">
-            <h2 className="title">Latest trailers</h2>
+            <h2 className="title">Latest</h2>
             <TabSwitcher tabs={trailerTypes} action={toggleTrailerType} />
           </div>
           <CustomScrollingCarousel>
@@ -64,7 +69,7 @@ function Latest() {
     <section className="section">
       <BackgroundWall>
         <div className="flex-btw">
-          <h2 className="title">Latest trailers</h2>
+          <h2 className="title">Latest</h2>
           <TabSwitcher tabs={trailerTypes} action={toggleTrailerType} />
         </div>
         <CustomScrollingCarousel>

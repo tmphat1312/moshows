@@ -1,6 +1,6 @@
-export type APIResponse = {
+export type APIResponse<T> = {
   page: number
-  results: APIResults[]
+  results: T[]
   total_pages: number
   total_results: number
 }
@@ -38,3 +38,27 @@ export type APIResponseTV = {
 }
 
 export type APIResults = APIResponseMovie | APIResponseTV
+
+export type APIPersonResults = {
+  adult: boolean
+  gender: 0 | 1 | 2
+  id: number
+  known_for: APIResults[]
+  known_for_department: string
+  name: string
+  popularity: number
+  profile_path: string
+}
+
+export type APIProviderResults = {
+  display_priority: number
+  logo_path: string
+  provider_name: string
+  provider_id: number
+}
+
+export type APIRegionResults = {
+  iso_3166_1: string
+  english_name: string
+  native_name: string
+}
