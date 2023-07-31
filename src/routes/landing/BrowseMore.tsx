@@ -1,14 +1,15 @@
-import BackgroundWall from "../../components/BackgroundWall"
-import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
+import CommonErrorMessage from "../../components/CommonErrorMessage"
 import { useFetch } from "../../hooks/useFetch"
+import DiscoverHint from "../../layout/DiscoverHint"
 import {
   APIProviderResults,
   APIRegionResults,
   APIResponse,
 } from "../../types/API"
-import ProvidersShowcase from "./ProvidersShowcase"
-
-// TODO: implement skeleton loading
+import ProvidersShowcase, {
+  ProvidersShowcaseSkeleton,
+} from "./ProvidersShowcase"
+import RegionsShowcase, { RegionsShowcaseSkeleton } from "./RegionsShowcase"
 
 function BrowseMore() {
   const movieProvidersResp = useFetch<APIResponse<APIProviderResults>>(
@@ -18,59 +19,67 @@ function BrowseMore() {
     `watch/providers/regions`
   )
 
+  if (movieProvidersResp.error || availableRegionsResp.error) {
+    return (
+      <section className="section">
+        <h2 className="px-2 mx-auto text-center title ">
+          A variety of trailers, all of what you're looking for
+        </h2>
+        <CommonErrorMessage />
+        <DiscoverHint />
+      </section>
+    )
+  }
+
+  let moviesProvidersContent
   if (
     movieProvidersResp.status == "pending" ||
-    availableRegionsResp.status == "pending" ||
-    !movieProvidersResp.data ||
-    !availableRegionsResp.data
+    movieProvidersResp.data === null
   ) {
-    return <p>loading...</p>
+    moviesProvidersContent = <ProvidersShowcaseSkeleton />
+  } else {
+    const prioritizedMovieProviders = movieProvidersResp.data.results.sort(
+      (a, b) => a.display_priority - b.display_priority
+    )
+
+    moviesProvidersContent = (
+      <ProvidersShowcase
+        title="from prestigious providers"
+        providers={prioritizedMovieProviders}
+      />
+    )
   }
 
-  if (movieProvidersResp.error || availableRegionsResp.error) {
-    return <p>error</p>
-  }
+  let regionsContent
+  if (
+    availableRegionsResp.status == "pending" ||
+    availableRegionsResp.data === null
+  ) {
+    regionsContent = <RegionsShowcaseSkeleton />
+  } else {
+    const alphabetizedRegions = availableRegionsResp.data.results.sort((a, b) =>
+      a.english_name.localeCompare(b.english_name)
+    )
 
-  const prioritizedMovieProviders = movieProvidersResp.data.results
-    .slice(0, 10)
-    .sort((a, b) => a.display_priority - b.display_priority)
-  const alphabetizedRegions = availableRegionsResp.data.results.sort((a, b) =>
-    a.english_name.localeCompare(b.english_name)
-  )
+    regionsContent = (
+      <RegionsShowcase
+        title="including your region"
+        regions={alphabetizedRegions}
+      />
+    )
+  }
 
   return (
-    <section className="section">
+    <section className="space-y-12 section">
       <h2 className="px-2 mx-auto text-center title ">
         A variety of trailers, all of what you're looking for
       </h2>
-      <div className="grid items-center grid-cols-1 gap-12 my-16 text-center md:grid-cols-2">
-        <div className="space-y-8">
-          <ProvidersShowcase
-            title="from prestigious providers"
-            providers={prioritizedMovieProviders}
-          />
-          <section>
-            <h3 className="subtitle">Including your region</h3>
-            <CustomScrollingCarousel>
-              {alphabetizedRegions.map((region) => (
-                <div className="flex flex-col items-center justify-center w-32 py-4 my-4 rounded-md peer-space-x-sm bg-slate-200 text-slate-900">
-                  <h6>{region.english_name}</h6>
-                  <hr className="bg-black w-full h-[1px]" />
-                  <p>{region.native_name}</p>
-                </div>
-              ))}
-            </CustomScrollingCarousel>
-          </section>
+      <div className="grid items-center grid-cols-1 gap-16 text-center md:grid-cols-2">
+        <div className="space-y-10">
+          {moviesProvidersContent}
+          {regionsContent}
         </div>
-        <BackgroundWall>
-          <div className="space-y-4 text-center">
-            <h3 className="subtitle">
-              Sound somewhat interesting, you can discover more to find your
-              way!!!
-            </h3>
-            <button className="btn btn--primary">browse now</button>
-          </div>
-        </BackgroundWall>
+        <DiscoverHint />
       </div>
     </section>
   )

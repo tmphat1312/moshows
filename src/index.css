@@ -7,6 +7,9 @@
     @apply font-sans;
     @apply tracking-wide;
     @apply bg-slate-900 text-slate-200;
+    scrollbar-gutter: stable;
+    scrollbar-color: theme("colors.primary.500") theme("colors.primary.800");
+    scrollbar-width: thin;
   }
 
   h1,
@@ -20,6 +23,29 @@
 
   a {
     @apply inline-block text-inherit;
+  }
+
+  ::-webkit-scrollbar {
+    block-size: 0.2rem;
+    inline-size: 0.4rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(
+      to right,
+      theme("colors.primary.500"),
+      theme("colors.primary.800")
+    );
+    border-radius: theme("borderRadius.lg");
+  }
+
+  ::-webkit-scrollbar-track {
+    background-image: linear-gradient(
+      to bottom,
+      theme("colors.slate.800"),
+      theme("colors.slate.700")
+    );
+    border-radius: theme("borderRadius.lg");
   }
 }
 
@@ -50,7 +76,7 @@
     @apply py-16;
 
     .title {
-      @apply text-3xl capitalize;
+      @apply text-3xl capitalize text-gradient-primary;
       text-wrap: balance;
     }
 
@@ -63,10 +89,13 @@
 
 @layer utilities {
   .flex-btw {
-    @apply flex items-center justify-between;
+    @apply flex justify-between;
   }
   .flex-btw-center {
     @apply flex items-center justify-between;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
   }
 
   .full-bleed {
@@ -80,13 +109,13 @@
   }
 
   .section-separator {
-    @apply border-b-8 border-slate-700;
-  }
-
-  .peer-space-x-sm {
-    &:not(:last-of-type) {
-      margin-inline-end: 1.6rem;
-    }
+    border-block-end: 0.25rem solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+      to right,
+      theme("colors.slate.600"),
+      theme("colors.slate.800")
+    );
   }
 
   .children-no-shrink {
@@ -118,5 +147,22 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  .text-gradient-primary {
+    background-image: linear-gradient(
+      to right,
+      theme("colors.primary.400"),
+      theme("colors.primary.700")
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .h-dvh {
+    block-size: 100dvh;
+  }
+  .min-h-dvh {
+    min-block-size: 100dvh;
   }
 }

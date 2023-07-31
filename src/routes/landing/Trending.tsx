@@ -1,16 +1,17 @@
 import { useState } from "react"
+import CommonErrorMessage from "../../components/CommonErrorMessage"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import TabSwitcher from "../../components/TabSwitcher"
 import { useFetch } from "../../hooks/useFetch"
-import { APIResponse } from "../../types/API"
+import { APIResponse, APIResults } from "../../types/API"
 
 const timeWindows = ["day", "week"]
 export type TimeWindow = (typeof timeWindows)[number]
 
 function Trending() {
   const [timeWindow, setTimeWindow] = useState<TimeWindow>("day")
-  const { data, status, error } = useFetch<APIResponse>(
+  const { data, status, error } = useFetch<APIResponse<APIResults>>(
     `/trending/all/${timeWindow}`
   )
 
@@ -19,29 +20,36 @@ function Trending() {
     setTimeWindow(tab)
   }
 
-  if (status == "pending") {
+  if (error) {
     return (
       <section className="section">
         <div className="flex-btw">
           <h2 className="title">Trending</h2>
           <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
         </div>
-        <CustomScrollingCarousel>
-          <ItemCardSkeleton />
-          <ItemCardSkeleton />
-          <ItemCardSkeleton />
-          <ItemCardSkeleton />
-          <ItemCardSkeleton />
-          <ItemCardSkeleton />
-          <ItemCardSkeleton />
-        </CustomScrollingCarousel>
+        <CommonErrorMessage />
       </section>
     )
   }
 
-  if (error) {
-    return <p>{error.message}</p>
-  }
+  const carouselContent =
+    status == "pending" ? (
+      <CustomScrollingCarousel>
+        <ItemCardSkeleton />
+        <ItemCardSkeleton />
+        <ItemCardSkeleton />
+        <ItemCardSkeleton />
+        <ItemCardSkeleton />
+        <ItemCardSkeleton />
+        <ItemCardSkeleton />
+      </CustomScrollingCarousel>
+    ) : (
+      <CustomScrollingCarousel>
+        {data?.results.map((item) => (
+          <ItemCard key={item.id} item={item} />
+        ))}
+      </CustomScrollingCarousel>
+    )
 
   return (
     <section className="section">
@@ -49,11 +57,7 @@ function Trending() {
         <h2 className="title">Trending</h2>
         <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
       </div>
-      <CustomScrollingCarousel>
-        {data?.results.map((item) => (
-          <ItemCard key={item.id} item={item} />
-        ))}
-      </CustomScrollingCarousel>
+      {carouselContent}
     </section>
   )
 }

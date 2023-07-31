@@ -4,12 +4,12 @@ import heroIll from "../assets/images/hero-illustration.svg"
 
 function Hero() {
   return (
-    <section className="relative section-separator">
+    <section className="relative">
       <div>
         <img
           src={heroBg}
           alt="Poster of movies and TV shows trailers available on MoShows webapp"
-          className="object-cover w-full h-screen"
+          className="object-cover w-full h-dvh"
         />
       </div>
       <div className="absolute inset-0 grid bg-gradient-to-b from-black to-black/50">
@@ -24,7 +24,7 @@ function Hero() {
               with a great number of trailers
             </p>
             <div className="flex justify-center gap-8">
-              <Link to="home" className="btn btn--large btn--primary">
+              <Link to="discover" className="btn btn--large btn--primary">
                 Browse now
               </Link>
               <button className="btn btn--large">sign me up</button>

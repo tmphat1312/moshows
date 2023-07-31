@@ -1,8 +1,13 @@
 import { AiFillFacebook, AiFillGithub, AiTwotoneMail } from "react-icons/ai"
+import Logo from "../components/Logo"
 
 function Footer() {
   return (
-    <section className="space-y-8 section">
+    <section className="space-y-12 section">
+      <h2 className="flex justify-center gap-2 text-3xl text-center text-gradient-primary">
+        About <Logo />
+      </h2>
+
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
         <div className="flex flex-col items-center gap-8">
           <section className="p-2 space-y-3 text-center border-2 rounded-lg md:border-0">
@@ -19,7 +24,9 @@ function Footer() {
                 <AiFillFacebook />
                 <a
                   className="hover:underline hover:text-primary-500 underline-offset-2"
-                  href=""
+                  href="https://www.facebook.com/tmphat1312"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   tmphat1312
                 </a>
@@ -28,7 +35,7 @@ function Footer() {
                 <AiTwotoneMail />
                 <a
                   className="hover:underline hover:text-primary-500 underline-offset-2"
-                  href=""
+                  href="mailto:tmphat1312@gmail.com"
                 >
                   tmphat1312@gmail.com
                 </a>
@@ -37,7 +44,8 @@ function Footer() {
                 <AiFillGithub />
                 <a
                   className="hover:underline hover:text-primary-500 underline-offset-2"
-                  href=""
+                  href="https://github.com/tmphat1312"
+                  rel="noopener noreferrer"
                 >
                   tmphat1312
                 </a>

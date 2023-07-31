@@ -11,7 +11,7 @@ function PersonCard({ person }: { person: APIPersonResults }) {
   })
 
   return (
-    <article className="flex flex-col w-48 my-4 overflow-hidden text-center transition-transform rounded-lg peer-space-x-sm md:w-52 hover:scale-105 bg-slate-500">
+    <article className="flex flex-col w-48 my-4 overflow-hidden text-center transition-transform rounded-lg  md:w-52 hover:scale-105 bg-slate-500">
       <Link to={`/person/${person.id}`}>
         <img
           alt={person.name}
@@ -36,7 +36,7 @@ function PersonCard({ person }: { person: APIPersonResults }) {
 
 export function PersonCardSkeleton() {
   return (
-    <article className="flex flex-col w-48 my-4 space-y-2 overflow-hidden rounded-lg peer-space-x-sm md:w-52">
+    <article className="flex flex-col w-48 my-4 space-y-2 overflow-hidden rounded-lg  md:w-52">
       <SkeletonBox>
         <div className="w-full aspect-square" />
       </SkeletonBox>
