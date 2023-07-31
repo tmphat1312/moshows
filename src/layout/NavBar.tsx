@@ -31,7 +31,9 @@ function NavBar() {
 
   return (
     <nav className="gap-8 py-4 mx-auto flex-btw-center app-width">
-      <Logo />
+      <div className="text-3xl">
+        <Logo />
+      </div>
       <div className="hidden max-w-lg lg:block grow">
         <SearchForm />
       </div>
