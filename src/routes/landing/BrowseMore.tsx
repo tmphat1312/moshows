@@ -39,12 +39,12 @@ function BrowseMore() {
   )
 
   return (
-    <section className="section">
+    <section className="space-y-12 section">
       <h2 className="px-2 mx-auto text-center title ">
         A variety of trailers, all of what you're looking for
       </h2>
-      <div className="grid items-center grid-cols-1 gap-12 my-16 text-center md:grid-cols-2">
-        <div className="space-y-8">
+      <div className="grid items-center grid-cols-1 gap-16 text-center md:grid-cols-2">
+        <div className="space-y-10">
           <ProvidersShowcase
             title="from prestigious providers"
             providers={prioritizedMovieProviders}
@@ -53,7 +53,7 @@ function BrowseMore() {
             <h3 className="subtitle">Including your region</h3>
             <CustomScrollingCarousel>
               {alphabetizedRegions.map((region) => (
-                <div className="flex flex-col items-center justify-center w-32 py-4 my-4 rounded-md  bg-slate-200 text-slate-900">
+                <div className="flex flex-col items-center justify-center w-32 py-4 my-4 rounded-md bg-slate-200 text-slate-900">
                   <h6>{region.english_name}</h6>
                   <hr className="bg-black w-full h-[1px]" />
                   <p>{region.native_name}</p>
