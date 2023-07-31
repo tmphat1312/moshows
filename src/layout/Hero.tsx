@@ -24,7 +24,7 @@ function Hero() {
               with a great number of trailers
             </p>
             <div className="flex justify-center gap-8">
-              <Link to="home" className="btn btn--large btn--primary">
+              <Link to="discover" className="btn btn--large btn--primary">
                 Browse now
               </Link>
               <button className="btn btn--large">sign me up</button>
