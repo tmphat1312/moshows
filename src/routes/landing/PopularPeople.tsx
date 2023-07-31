@@ -22,7 +22,7 @@ function Popular() {
 
   const carouselContent =
     status == "pending" ? (
-      <>
+      <CustomScrollingCarousel>
         <PersonCardSkeleton />
         <PersonCardSkeleton />
         <PersonCardSkeleton />
@@ -30,20 +30,20 @@ function Popular() {
         <PersonCardSkeleton />
         <PersonCardSkeleton />
         <PersonCardSkeleton />
-      </>
+      </CustomScrollingCarousel>
     ) : (
-      <>
+      <CustomScrollingCarousel>
         {data?.results.map((person) => {
           return <PersonCard key={person.id} person={person} />
         })}
-      </>
+      </CustomScrollingCarousel>
     )
 
   return (
     <section className="section">
       <BackgroundWall>
         <h2 className="title">Popular people</h2>
-        <CustomScrollingCarousel>{carouselContent}</CustomScrollingCarousel>
+        {carouselContent}
       </BackgroundWall>
     </section>
   )

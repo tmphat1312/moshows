@@ -45,7 +45,7 @@ function Latest() {
 
   const carouselContent =
     status == "pending" ? (
-      <>
+      <CustomScrollingCarousel>
         <VideoCardSkeleton />
         <VideoCardSkeleton />
         <VideoCardSkeleton />
@@ -53,16 +53,19 @@ function Latest() {
         <VideoCardSkeleton />
         <VideoCardSkeleton />
         <VideoCardSkeleton />
-      </>
+      </CustomScrollingCarousel>
     ) : (
-      <>
+      <CustomScrollingCarousel>
+        <div className="invisible w-0 -ml-6">
+          <VideoCardSkeleton />
+        </div>
         {data?.results.map((item) => {
           const mediaItem = getMediaItem(item, mediaType)
           if (!item.backdrop_path || !mediaItem) return null
 
           return <VideoCard key={item.id} item={mediaItem} />
         })}
-      </>
+      </CustomScrollingCarousel>
     )
 
   return (
@@ -72,7 +75,7 @@ function Latest() {
           <h2 className="title">Latest</h2>
           <TabSwitcher tabs={trailerTypes} action={toggleTrailerType} />
         </div>
-        <CustomScrollingCarousel>{carouselContent}</CustomScrollingCarousel>
+        {carouselContent}
       </BackgroundWall>
     </section>
   )

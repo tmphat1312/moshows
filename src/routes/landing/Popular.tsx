@@ -38,7 +38,7 @@ function Popular() {
 
   const carouselContent =
     status == "pending" ? (
-      <>
+      <CustomScrollingCarousel>
         <ItemCardSkeleton />
         <ItemCardSkeleton />
         <ItemCardSkeleton />
@@ -46,16 +46,20 @@ function Popular() {
         <ItemCardSkeleton />
         <ItemCardSkeleton />
         <ItemCardSkeleton />
-      </>
+        <ItemCardSkeleton />
+      </CustomScrollingCarousel>
     ) : (
-      <>
+      <CustomScrollingCarousel>
+        <div className="invisible w-0 -ml-6">
+          <ItemCardSkeleton />
+        </div>
         {data?.results.map((item) => {
           const mediaItem = getMediaItem(item, mediaType)
           if (!item.backdrop_path || !mediaItem) return null
 
           return <ItemCard key={item.id} item={mediaItem} />
         })}
-      </>
+      </CustomScrollingCarousel>
     )
 
   return (
@@ -64,7 +68,7 @@ function Popular() {
         <h2 className="title">Popular</h2>
         <TabSwitcher tabs={trailerTypes} action={togglePopularType} />
       </div>
-      <CustomScrollingCarousel>{carouselContent}</CustomScrollingCarousel>
+      {carouselContent}
     </section>
   )
 }

@@ -34,7 +34,7 @@ function Trending() {
 
   const carouselContent =
     status == "pending" ? (
-      <>
+      <CustomScrollingCarousel>
         <ItemCardSkeleton />
         <ItemCardSkeleton />
         <ItemCardSkeleton />
@@ -42,13 +42,13 @@ function Trending() {
         <ItemCardSkeleton />
         <ItemCardSkeleton />
         <ItemCardSkeleton />
-      </>
+      </CustomScrollingCarousel>
     ) : (
-      <>
+      <CustomScrollingCarousel>
         {data?.results.map((item) => (
           <ItemCard key={item.id} item={item} />
         ))}
-      </>
+      </CustomScrollingCarousel>
     )
 
   return (
@@ -57,7 +57,7 @@ function Trending() {
         <h2 className="title">Trending</h2>
         <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
       </div>
-      <CustomScrollingCarousel>{carouselContent}</CustomScrollingCarousel>
+      {carouselContent}
     </section>
   )
 }
