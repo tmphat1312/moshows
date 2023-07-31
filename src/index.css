@@ -7,6 +7,9 @@
     @apply font-sans;
     @apply tracking-wide;
     @apply bg-slate-900 text-slate-200;
+    scrollbar-gutter: stable;
+    scrollbar-color: theme("colors.primary.500") theme("colors.primary.800");
+    scrollbar-width: thin;
   }
 
   h1,
@@ -20,6 +23,29 @@
 
   a {
     @apply inline-block text-inherit;
+  }
+
+  ::-webkit-scrollbar {
+    block-size: 0.2rem;
+    inline-size: 0.4rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(
+      to right,
+      theme("colors.primary.500"),
+      theme("colors.primary.800")
+    );
+    border-radius: theme("borderRadius.lg");
+  }
+
+  ::-webkit-scrollbar-track {
+    background-image: linear-gradient(
+      to bottom,
+      theme("colors.slate.800"),
+      theme("colors.slate.700")
+    );
+    border-radius: theme("borderRadius.lg");
   }
 }
 
