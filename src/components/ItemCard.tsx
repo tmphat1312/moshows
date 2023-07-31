@@ -12,7 +12,7 @@ function ItemCard({ item }: { item: APIResults }) {
   const title = item.media_type == "movie" ? item.title : item.name
 
   return (
-    <article className="inline-block py-4 space-y-5 text-center w-36 md:w-44 peer-space-x-sm">
+    <article className="inline-block py-4 space-y-5 text-center w-36 md:w-44 ">
       <div className="relative flex">
         <Link
           to={`/movie/${item.id}`}
@@ -56,7 +56,7 @@ function ItemCard({ item }: { item: APIResults }) {
 
 export function ItemCardSkeleton() {
   return (
-    <article className="inline-flex flex-col py-4 space-y-4 peer-space-x-sm w-36 md:w-44">
+    <article className="inline-flex flex-col py-4 space-y-4  w-36 md:w-44">
       <SkeletonBox>
         <div className="aspect-[9/14] rounded-lg" />
       </SkeletonBox>

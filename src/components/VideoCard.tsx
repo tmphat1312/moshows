@@ -13,7 +13,7 @@ function VideoCard({ item }: { item: APIResults }) {
   const title = item.media_type == "movie" ? item.title : item.name
 
   return (
-    <article className="w-64 py-4 space-y-3 text-center peer-space-x-sm md:w-72">
+    <article className="w-64 py-4 space-y-3 text-center  md:w-72">
       <div className="relative aspect-video">
         {item.backdrop_path ? (
           <Link to={`/${item.media_type}/${item.id}`}>
@@ -59,7 +59,7 @@ function VideoCard({ item }: { item: APIResults }) {
 
 export function VideoCardSkeleton() {
   return (
-    <article className="w-64 py-4 space-y-3 text-center peer-space-x-sm md:w-72">
+    <article className="w-64 py-4 space-y-3 text-center  md:w-72">
       <SkeletonBox>
         <div className="rounded-lg aspect-video" />
       </SkeletonBox>

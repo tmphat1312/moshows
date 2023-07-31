@@ -2,7 +2,7 @@ import { APIProviderResults } from "../types/API"
 
 function ProviderCard({ provider }: { provider: APIProviderResults }) {
   return (
-    <article className="w-20 my-4 space-y-2 text-center md:w-16 peer-space-x-sm">
+    <article className="w-20 my-4 space-y-2 text-center md:w-16 ">
       <img
         src={`https://image.tmdb.org/t/p/w500${provider.logo_path}`}
         alt="apple tv"

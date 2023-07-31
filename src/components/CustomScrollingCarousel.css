@@ -1,5 +1,5 @@
 .scrolling-carousel {
-  @apply flex gap-4 children-no-shrink;
+  @apply flex gap-6 children-no-shrink;
   @apply overflow-x-auto;
 
   &::-webkit-scrollbar {

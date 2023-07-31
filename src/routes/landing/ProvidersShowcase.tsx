@@ -8,7 +8,7 @@ function ProvidersShowcase({ title, providers }: ProvidersShowcaseProps) {
       <h3 className="subtitle">{title}</h3>
       <CustomScrollingCarousel>
         {providers.map((provider) => (
-          <div className="peer-space-x-sm">
+          <div className="">
             <ProviderCard key={provider.provider_id} provider={provider} />
           </div>
         ))}

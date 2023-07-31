@@ -115,12 +115,6 @@
     );
   }
 
-  .peer-space-x-sm {
-    &:not(:last-of-type) {
-      margin-inline-end: 1.6rem;
-    }
-  }
-
   .children-no-shrink {
     & > * {
       flex-shrink: 0;
