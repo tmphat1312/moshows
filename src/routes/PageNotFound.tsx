@@ -13,7 +13,7 @@ function PageNotFound() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-center gap-8 text-center min-h-dvh app-width">
+    <main className="flex-col gap-8 text-center flex-center min-h-dvh app-width">
       <h1 className="text-5xl">{errorText}</h1>
       <img
         src={notfoundImg}

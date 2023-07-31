@@ -94,6 +94,9 @@
   .flex-btw-center {
     @apply flex items-center justify-between;
   }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
 
   .full-bleed {
     box-shadow: 0 0 0 100vmax var(--tw-shadow-color);
