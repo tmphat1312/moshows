@@ -49,3 +49,10 @@ export type APIPersonResults = {
   popularity: number
   profile_path: string
 }
+
+export type APIProviderResults = {
+  display_priority: number
+  logo_path: string
+  provider_name: string
+  provider_id: number
+}
