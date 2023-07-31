@@ -24,7 +24,9 @@ function Footer() {
                 <AiFillFacebook />
                 <a
                   className="hover:underline hover:text-primary-500 underline-offset-2"
-                  href=""
+                  href="https://www.facebook.com/tmphat1312"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   tmphat1312
                 </a>
@@ -33,7 +35,7 @@ function Footer() {
                 <AiTwotoneMail />
                 <a
                   className="hover:underline hover:text-primary-500 underline-offset-2"
-                  href=""
+                  href="mailto:tmphat1312@gmail.com"
                 >
                   tmphat1312@gmail.com
                 </a>
@@ -42,7 +44,8 @@ function Footer() {
                 <AiFillGithub />
                 <a
                   className="hover:underline hover:text-primary-500 underline-offset-2"
-                  href=""
+                  href="https://github.com/tmphat1312"
+                  rel="noopener noreferrer"
                 >
                   tmphat1312
                 </a>
