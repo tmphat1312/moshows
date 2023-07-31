@@ -63,6 +63,9 @@ function Popular() {
         <TabSwitcher tabs={popularTypes} action={togglePopularType} />
       </div>
       <CustomScrollingCarousel>
+        <div className="w-[1px] invisible">
+          <ItemCardSkeleton />
+        </div>
         {data?.results.map((item) => {
           if (!item.backdrop_path) return null
 
