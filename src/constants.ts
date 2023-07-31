@@ -20,3 +20,5 @@ export const navigationLinks = [
     path: "/people",
   },
 ]
+
+export const trailerTypes = ["In Theaters", "On TV"]

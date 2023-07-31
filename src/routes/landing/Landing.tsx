@@ -15,11 +15,13 @@ function Landing() {
         <Latest />
         <Popular />
         <PopularPeople />
-        <div className="section-separator">
-          <BrowseMore />
-        </div>
       </div>
-      <Footer />
+      <div className="section-separator">
+        <BrowseMore />
+      </div>
+      <div className="section-separator">
+        <Footer />
+      </div>
     </>
   )
 }
