@@ -51,6 +51,12 @@
 
     .title {
       @apply text-3xl capitalize;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      @apply text-2xl capitalize;
+      text-wrap: balance;
     }
   }
 }
