@@ -157,6 +157,9 @@
   }
 
   .h-dvh {
+    block-size: 100dvh;
+  }
+  .min-h-dvh {
     min-block-size: 100dvh;
   }
 }
