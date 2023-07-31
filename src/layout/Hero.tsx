@@ -4,7 +4,7 @@ import heroIll from "../assets/images/hero-illustration.svg"
 
 function Hero() {
   return (
-    <section className="relative section-separator">
+    <section className="relative">
       <div>
         <img
           src={heroBg}

@@ -9,7 +9,9 @@ import Trending from "./Trending"
 function Landing() {
   return (
     <>
-      <Hero />
+      <div className="section-separator">
+        <Hero />
+      </div>
       <div className="section-separator">
         <Trending />
         <Latest />
