@@ -13,7 +13,7 @@ function VideoCard({ item }: { item: APIResults }) {
   const title = item.media_type == "movie" ? item.title : item.name
 
   return (
-    <article className="w-64 py-4 space-y-3 text-center  md:w-72">
+    <article className="w-64 py-4 space-y-3 text-center md:w-72">
       <div className="relative aspect-video">
         {item.backdrop_path ? (
           <Link to={`/${item.media_type}/${item.id}`}>
@@ -48,8 +48,10 @@ function VideoCard({ item }: { item: APIResults }) {
         </button>
       </div>
       <section>
-        <h3 className="transition-all line-clamp-2 text-balance hover:text-primary-500 hover:scale-105">
-          <Link to={`/${item.media_type}/${item.id}`}>{title}</Link>
+        <h3 className="transition-all text-balance hover:text-primary-500 hover:scale-105">
+          <Link to={`/${item.media_type}/${item.id}`} className="line-clamp-2">
+            {title}
+          </Link>
         </h3>
         <p className="line-clamp-2">{item.overview || <i>No overview</i>}</p>
       </section>
@@ -59,7 +61,7 @@ function VideoCard({ item }: { item: APIResults }) {
 
 export function VideoCardSkeleton() {
   return (
-    <article className="w-64 py-4 space-y-3 text-center  md:w-72">
+    <article className="w-64 py-4 space-y-3 text-center md:w-72">
       <SkeletonBox>
         <div className="rounded-lg aspect-video" />
       </SkeletonBox>
