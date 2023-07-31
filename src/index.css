@@ -89,7 +89,7 @@
 
 @layer utilities {
   .flex-btw {
-    @apply flex items-center justify-between;
+    @apply flex justify-between;
   }
   .flex-btw-center {
     @apply flex items-center justify-between;
