@@ -56,3 +56,9 @@ export type APIProviderResults = {
   provider_name: string
   provider_id: number
 }
+
+export type APIRegionResults = {
+  iso_3166_1: string
+  english_name: string
+  native_name: string
+}

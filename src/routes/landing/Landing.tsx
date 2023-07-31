@@ -1,4 +1,5 @@
 import Hero from "../../layout/Hero"
+import BrowseMore from "./BrowseMore"
 import Latest from "./Latest"
 import Popular from "./Popular"
 import PopularPeople from "./PopularPeople"
@@ -13,6 +14,9 @@ function Landing() {
         <Latest />
         <Popular />
         <PopularPeople />
+        <div className="section-separator">
+          <BrowseMore />
+        </div>
       </div>
     </>
   )
