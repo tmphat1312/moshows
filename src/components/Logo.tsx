@@ -4,9 +4,9 @@ function Logo() {
   return (
     <a
       href="/"
-      className="flex items-center gap-1 text-[1em] font-display text-primary-500"
+      className="flex items-center text-[0.8em] sm:text-[1em] font-display text-gradient-primary"
     >
-      <span className="translate-y-[2px]">
+      <span className="translate-y-[1px] text-primary-500">
         <BiMoviePlay />
       </span>
       MoShows

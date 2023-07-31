@@ -76,7 +76,7 @@
     @apply py-16;
 
     .title {
-      @apply text-3xl capitalize;
+      @apply text-3xl capitalize text-gradient-primary;
       text-wrap: balance;
     }
 
@@ -144,5 +144,15 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  .text-gradient-primary {
+    background-image: linear-gradient(
+      to right,
+      theme("colors.primary.400"),
+      theme("colors.primary.700")
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
