@@ -1,3 +1,4 @@
+import Footer from "../../layout/Footer"
 import Hero from "../../layout/Hero"
 import BrowseMore from "./BrowseMore"
 import Latest from "./Latest"
@@ -18,6 +19,7 @@ function Landing() {
           <BrowseMore />
         </div>
       </div>
+      <Footer />
     </>
   )
 }
