@@ -46,7 +46,7 @@ function Trending() {
     ) : (
       <CustomScrollingCarousel>
         {data?.results.map((item) => (
-          <ItemCard key={item.id} item={item} />
+          <ItemCard key={item.id} item={item} type={item.media_type} />
         ))}
       </CustomScrollingCarousel>
     )

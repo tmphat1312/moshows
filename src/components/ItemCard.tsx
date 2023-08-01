@@ -4,33 +4,36 @@ import dayjs from "../services/dayjs"
 import { APIResults } from "../types/API"
 import RatingCircle from "./RatingCircle"
 import { SkeletonBox } from "./Skeleton"
+import { getMediaItem } from "../services/constantMap"
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_IMG_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_IMG_2X_BASE_URL
 
-function ItemCard({ item }: { item: APIResults }) {
-  const title = item.media_type == "movie" ? item.title : item.name
+function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
+  const mappedItem = getMediaItem(item, type)
+  const title =
+    mappedItem.media_type == "movie" ? mappedItem.title : mappedItem.name
 
   return (
     <article className="inline-block py-4 space-y-5 text-center w-36 md:w-44">
       <div className="relative flex">
         <Link
-          to={`/movie/${item.id}`}
+          to={`/movie/${mappedItem.id}`}
           className="overflow-hidden rounded-lg drop-shadow-lg"
         >
           <img
             loading="lazy"
             className="object-cover w-36 md:w-44 aspect-[9/14] hover:scale-105 transition-transform"
-            src={IMG_1X_BASE_URL + item.poster_path}
-            srcSet={`${IMG_1X_BASE_URL}${item.poster_path} 1x, ${IMG_2X_BASE_URL}${item.poster_path} 2x`}
+            src={IMG_1X_BASE_URL + mappedItem.poster_path}
+            srcSet={`${IMG_1X_BASE_URL}${mappedItem.poster_path} 1x, ${IMG_2X_BASE_URL}${mappedItem.poster_path} 2x`}
             alt={title}
             decoding="async"
           />
         </Link>
         <div className="absolute bottom-0 left-0 translate-y-1/2 translate-x-1/4">
-          <RatingCircle rating={item.vote_average} />
+          <RatingCircle rating={mappedItem.vote_average} />
         </div>
-        {item.adult && (
+        {mappedItem.adult && (
           <div className="absolute top-0 right-0 font-bold text-black bg-white">
             18+
           </div>
@@ -44,11 +47,11 @@ function ItemCard({ item }: { item: APIResults }) {
       </div>
       <section className="text-center">
         <h3 className="transition-colors hover:text-primary-500 hover:scale-105">
-          <Link to={`/movie/${item.id}`} className="line-clamp-2">
+          <Link to={`/movie/${mappedItem.id}`} className="line-clamp-2">
             {title}
           </Link>
         </h3>
-        <p>{dayjs(item.release_date).format("LL")}</p>
+        <p>{dayjs(mappedItem.release_date).format("LL")}</p>
       </section>
     </article>
   )
