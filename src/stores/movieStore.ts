@@ -11,12 +11,10 @@ export const queriesMap = new Map([
   ["now playing", "movie/now_playing"],
 ])
 export const sortsMap = new Map([
-  ["popularity asc", "popularity.asc"],
   ["popularity desc", "popularity.desc"],
-  ["revenue asc", "revenue.asc"],
+  ["popularity asc", "popularity.asc"],
   ["revenue desc", "revenue.desc"],
-  ["primary release date asc", "primary_release_date.asc"],
-  ["primary release date desc", "primary_release_date.desc"],
+  ["revenue asc", "revenue.asc"],
   ["vote average asc", "vote_average.asc"],
   ["vote average desc", "vote_average.desc"],
 ])
@@ -54,7 +52,7 @@ export const useMovieStore = create<MovieState>()((set, get) => ({
     getMovies()
   },
   getMovies: async () => {
-    const { movieTypeQuery } = get()
+    const { movieTypeQuery, sortQuery } = get()
     const BASE_URL = import.meta.env.VITE_APP_BASE_API
 
     set({ status: "pending" })
@@ -62,7 +60,7 @@ export const useMovieStore = create<MovieState>()((set, get) => ({
     try {
       const response = await authorizedFetcher.get<
         APIResponse<APIResponseMovie>
-      >(`${BASE_URL}/${movieTypeQuery}`)
+      >(`${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}`)
 
       set({ movies: response.data.results, status: "resolved" })
     } catch (error) {
