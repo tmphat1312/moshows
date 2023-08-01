@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import { useState } from "react"
 import { AiFillCaretRight } from "react-icons/ai"
 
@@ -11,7 +12,9 @@ function Collapse({ title, children }: CollapseProps) {
         onClick={() => setDropDown(!dropDown)}
       >
         {title}
-        <AiFillCaretRight />
+        <span className={clsx(dropDown && "rotate-90")}>
+          <AiFillCaretRight />
+        </span>
       </div>
       {dropDown && <div className="p-2">{children}</div>}
     </div>
