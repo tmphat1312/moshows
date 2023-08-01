@@ -13,7 +13,7 @@ function Movies() {
       <div className="section-separator">
         <TitleSection title="Movies" />
         <MovieNav />
-        <div className="flex gap-8 app-width section">
+        <div className="relative flex gap-8 app-width section">
           <div className="basis-1/5 shrink-0">
             <MovieActions />
           </div>
