@@ -2,9 +2,9 @@ import CustomSelect from "../../components/CustomSelect"
 import TabSwitcher from "../../components/TabSwitcher"
 import { queriesMap, useMovieStore } from "../../stores/movieStore"
 
-const movieNavSelects = Array.from(queriesMap.entries(), ([key]) => ({
+const movieNavSelects = Array.from(queriesMap.entries(), ([key, value]) => ({
   text: key,
-  value: key,
+  value,
 }))
 const movieNavTabs = Array.from(queriesMap.keys())
 
@@ -14,7 +14,13 @@ function MovieNav() {
   return (
     <nav className="app-width">
       <div className="justify-center hidden sm:flex">
-        <TabSwitcher tabs={movieNavTabs} action={(tab) => setQuery(tab)} />
+        <TabSwitcher
+          tabs={movieNavTabs}
+          action={(tab) => {
+            const mapped = queriesMap.get(tab)
+            if (mapped) setQuery(mapped)
+          }}
+        />
       </div>
       <CustomSelect items={movieNavSelects} action={setQuery} />
     </nav>

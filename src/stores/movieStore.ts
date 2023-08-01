@@ -45,14 +45,12 @@ export const useMovieStore = create<MovieState>()((set, get) => ({
   error: null,
   setQuery: (query) => {
     const { getMovies } = get()
-    const mappedQuery = queriesMap.get(query)
-    set({ movieTypeQuery: mappedQuery })
+    set({ movieTypeQuery: query })
     getMovies()
   },
   setSort: (sort) => {
     const { getMovies } = get()
-    const mappedSort = sortsMap.get(sort)
-    set({ sortQuery: mappedSort })
+    set({ sortQuery: sort })
     getMovies()
   },
   getMovies: async () => {
