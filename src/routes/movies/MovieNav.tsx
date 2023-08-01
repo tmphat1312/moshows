@@ -22,7 +22,9 @@ function MovieNav() {
           }}
         />
       </div>
-      <CustomSelect items={movieNavSelects} action={setQuery} />
+      <div className="sm:hidden">
+        <CustomSelect items={movieNavSelects} action={setQuery} />
+      </div>
     </nav>
   )
 }
