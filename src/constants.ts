@@ -4,19 +4,15 @@ export const navigationLinks = [
     path: "/",
   },
   {
-    name: "discover",
-    path: "/discover",
-  },
-  {
     name: "movies",
     path: "/movies",
   },
   {
     name: "TV shows",
-    path: "/tv-shows",
+    path: "/tv",
   },
   {
-    name: "People",
+    name: "people",
     path: "/people",
   },
 ]

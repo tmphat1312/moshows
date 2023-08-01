@@ -2,6 +2,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import PageNotFound from "./routes/PageNotFound"
 import Root from "./routes/Root"
 import Landing from "./routes/landing/Landing"
+import Movies from "./routes/movies/Movies"
+import Tv from "./routes/tv/Tv"
+import People from "./routes/people/People"
 
 const routes = createBrowserRouter([
   {
@@ -14,20 +17,16 @@ const routes = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "/home",
-        element: <div>Home</div>,
-      },
-      {
         path: "/movies",
-        element: <div>Movies</div>,
+        element: <Movies />,
       },
       {
-        path: "/tv-shows",
-        element: <div>Tv Shows</div>,
+        path: "/tv",
+        element: <Tv />,
       },
       {
-        path: "/single-item/:id",
-        element: <div>Single Item</div>,
+        path: "people",
+        element: <People />,
       },
     ],
   },
