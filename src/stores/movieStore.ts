@@ -15,8 +15,12 @@ export const sortsMap = new Map([
   ["popularity asc", "popularity.asc"],
   ["revenue desc", "revenue.desc"],
   ["revenue asc", "revenue.asc"],
-  ["vote average asc", "vote_average.asc"],
   ["vote average desc", "vote_average.desc"],
+  ["vote average asc", "vote_average.asc"],
+  ["release date desc", "release_date.desc"],
+  ["release date asc", "release_date.asc"],
+  ["Title (A-Z)", "original_title.asc"],
+  ["Title (Z-A)", "original_title.desc"],
 ])
 
 export const queries = Array.from(queriesMap.keys())
@@ -30,6 +34,9 @@ export type MovieState = {
   sortQuery: Sort
   status: "pending" | "resolved" | "rejected" | "idle"
   error: null | Error
+  filter: {
+    keyword: string
+  }
   setQuery: (query: Query) => void
   setSort: (sort: Sort) => void
   getMovies: () => void
@@ -41,6 +48,9 @@ export const useMovieStore = create<MovieState>()((set, get) => ({
   sortQuery: "popularity.desc",
   status: "idle",
   error: null,
+  filter: {
+    keyword: " ",
+  },
   setQuery: (query) => {
     const { getMovies } = get()
     set({ movieTypeQuery: query })
