@@ -17,13 +17,15 @@ function Pagination({
   }
 
   function handleNext() {
-    setCurrentPage((prev) => prev + 1)
-    onPageChange(currentPage)
+    const nextPage = currentPage + 1
+    setCurrentPage(nextPage)
+    onPageChange(nextPage)
   }
 
   function handlePrev() {
-    setCurrentPage((prev) => prev - 1)
-    onPageChange(currentPage)
+    const prevPage = currentPage - 1
+    setCurrentPage(prevPage)
+    onPageChange(prevPage)
   }
 
   return (
