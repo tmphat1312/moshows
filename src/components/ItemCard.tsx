@@ -5,6 +5,7 @@ import { APIResults } from "../types/API"
 import RatingCircle from "./RatingCircle"
 import { SkeletonBox } from "./Skeleton"
 import { getMediaItem } from "../services/constantMap"
+import noPoster from "../assets/images/no-poster.webp"
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_IMG_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_IMG_2X_BASE_URL
@@ -21,14 +22,24 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
           to={`/movie/${mappedItem.id}`}
           className="overflow-hidden rounded-lg drop-shadow-lg"
         >
-          <img
-            loading="lazy"
-            className="object-cover w-36 md:w-44 aspect-[9/14] hover:scale-105 transition-transform"
-            src={IMG_1X_BASE_URL + mappedItem.poster_path}
-            srcSet={`${IMG_1X_BASE_URL}${mappedItem.poster_path} 1x, ${IMG_2X_BASE_URL}${mappedItem.poster_path} 2x`}
-            alt={title}
-            decoding="async"
-          />
+          {item.poster_path ? (
+            <img
+              loading="lazy"
+              className="object-cover w-36 md:w-44 aspect-[9/14] hover:scale-105 transition-transform"
+              src={IMG_1X_BASE_URL + mappedItem.poster_path}
+              srcSet={`${IMG_1X_BASE_URL}${mappedItem.poster_path} 1x, ${IMG_2X_BASE_URL}${mappedItem.poster_path} 2x`}
+              alt={title}
+              decoding="async"
+            />
+          ) : (
+            <img
+              loading="lazy"
+              className="object-cover w-36 md:w-44 aspect-[9/14] hover:scale-105 transition-transform filter grayscale"
+              src={noPoster}
+              alt={title}
+              decoding="async"
+            />
+          )}
         </Link>
         <div className="absolute bottom-0 left-0 translate-y-1/2 translate-x-1/4">
           <RatingCircle rating={mappedItem.vote_average} />
