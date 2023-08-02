@@ -31,6 +31,7 @@ export type Sort = (typeof sorts)[number]
 export type Filter = {
   keywords: number[]
   language: string
+  voteAvg: number | null
 }
 
 export type MovieState = {
@@ -45,6 +46,7 @@ export type MovieState = {
   getMovies: () => void
   setKeywords: (keywords: number[]) => void
   setLanguage: (language: string) => void
+  setVoteAvg: (voteAvg: number | null) => void
 }
 
 export const useMovieStore = create<MovieState>()(
@@ -57,6 +59,7 @@ export const useMovieStore = create<MovieState>()(
     filter: {
       keywords: [],
       language: "en",
+      voteAvg: null,
     },
     setQuery: (query) => {
       const { getMovies } = get()
@@ -76,6 +79,10 @@ export const useMovieStore = create<MovieState>()(
       const { filter } = get()
       set({ filter: { ...filter, language } })
     },
+    setVoteAvg(voteAvg: number | null) {
+      const { filter } = get()
+      set({ filter: { ...filter, voteAvg } })
+    },
     getMovies: async () => {
       const BASE_URL = import.meta.env.VITE_APP_BASE_API
       const { movieTypeQuery, sortQuery, filter } = get()
@@ -88,6 +95,8 @@ export const useMovieStore = create<MovieState>()(
         filter.language.length > 0
           ? `&with_original_language=${filter.language}`
           : ""
+      const voteAvgQuery =
+        filter.voteAvg !== null ? `&vote_average.gte=${filter.voteAvg}` : ""
 
       set({ status: "pending" })
 
@@ -95,7 +104,7 @@ export const useMovieStore = create<MovieState>()(
         const response = await authorizedFetcher.get<
           APIResponse<APIResponseMovie>
         >(
-          `${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}${languageQuery}`
+          `${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}`
         )
 
         set({ movies: response.data.results, status: "resolved" })
