@@ -62,3 +62,19 @@ export type APIRegionResults = {
   english_name: string
   native_name: string
 }
+
+export type APIKeywordResults = {
+  id: number
+  name: string
+}
+
+export type APILanguageResults = {
+  iso_639_1: string
+  english_name: string
+  name: string
+}
+
+export type APIGenreResults = {
+  id: number
+  name: string
+}

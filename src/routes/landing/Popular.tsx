@@ -5,11 +5,7 @@ import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import TabSwitcher from "../../components/TabSwitcher"
 import { trailerTypes } from "../../constants"
 import { useFetch } from "../../hooks/useFetch"
-import {
-  TrailerType,
-  getMediaItem,
-  getMediaType,
-} from "../../services/constantMap"
+import { TrailerType, getMediaType } from "../../services/constantMap"
 import { APIResponse, APIResults } from "../../types/API"
 
 function Popular() {
@@ -54,10 +50,9 @@ function Popular() {
           <ItemCardSkeleton />
         </div>
         {data?.results.map((item) => {
-          const mediaItem = getMediaItem(item, mediaType)
-          if (!item.backdrop_path || !mediaItem) return null
+          // if (!item.backdrop_path) return null
 
-          return <ItemCard key={item.id} item={mediaItem} />
+          return <ItemCard key={item.id} item={item} type={mediaType} />
         })}
       </CustomScrollingCarousel>
     )

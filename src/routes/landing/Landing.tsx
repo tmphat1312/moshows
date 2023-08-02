@@ -1,4 +1,3 @@
-import Footer from "../../layout/Footer"
 import Hero from "../../layout/Hero"
 import BrowseMore from "./BrowseMore"
 import Latest from "./Latest"
@@ -20,9 +19,6 @@ function Landing() {
       </div>
       <div className="section-separator">
         <BrowseMore />
-      </div>
-      <div className="section-separator">
-        <Footer />
       </div>
     </>
   )

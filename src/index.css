@@ -85,6 +85,16 @@
       text-wrap: balance;
     }
   }
+
+  .title-section {
+    @apply app-width;
+    @apply py-4;
+
+    .title {
+      @apply text-3xl capitalize text-gradient-primary;
+      text-wrap: balance;
+    }
+  }
 }
 
 @layer utilities {

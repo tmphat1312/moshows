@@ -21,7 +21,7 @@ function ProvidersShowcase({ title, providers }: ProvidersShowcaseProps) {
 export function ProvidersShowcaseSkeleton() {
   const sampleProvider: APIProviderResults = {
     display_priority: 1,
-    logo_path: "sample",
+    logo_path: "/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg",
     provider_id: 8,
     provider_name: "sample",
   }
