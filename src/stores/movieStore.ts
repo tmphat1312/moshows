@@ -56,7 +56,7 @@ export const useMovieStore = create<MovieState>()(
     error: null,
     filter: {
       keywords: [],
-      language: "en-US",
+      language: "en",
     },
     setQuery: (query) => {
       const { getMovies } = get()
