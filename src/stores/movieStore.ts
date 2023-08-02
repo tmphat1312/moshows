@@ -105,6 +105,7 @@ export const useMovieStore = create<MovieState>()(
       set({
         filter: defaultFilter,
       })
+      get().getMovies()
     },
     getMovies: async () => {
       const BASE_URL = import.meta.env.VITE_APP_BASE_API
