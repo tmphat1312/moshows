@@ -32,6 +32,7 @@ export type Filter = {
   keywords: number[]
   language: string
   voteAvg: number | null
+  genres: number[]
 }
 
 export type MovieState = {
@@ -47,6 +48,7 @@ export type MovieState = {
   setKeywords: (keywords: number[]) => void
   setLanguage: (language: string) => void
   setVoteAvg: (voteAvg: number | null) => void
+  toggleGenre: (genre: number) => void
 }
 
 export const useMovieStore = create<MovieState>()(
@@ -60,6 +62,7 @@ export const useMovieStore = create<MovieState>()(
       keywords: [],
       language: "en",
       voteAvg: null,
+      genres: [],
     },
     setQuery: (query) => {
       const { getMovies } = get()
@@ -83,6 +86,19 @@ export const useMovieStore = create<MovieState>()(
       const { filter } = get()
       set({ filter: { ...filter, voteAvg } })
     },
+    toggleGenre(genre: number) {
+      const { filter } = get()
+      const index = filter.genres.indexOf(genre)
+
+      if (index !== -1) {
+        const genres = [...filter.genres]
+        genres.splice(index, 1)
+        set({ filter: { ...filter, genres } })
+        return
+      }
+
+      set({ filter: { ...filter, genres: [...filter.genres, genre] } })
+    },
     getMovies: async () => {
       const BASE_URL = import.meta.env.VITE_APP_BASE_API
       const { movieTypeQuery, sortQuery, filter } = get()
@@ -97,6 +113,10 @@ export const useMovieStore = create<MovieState>()(
           : ""
       const voteAvgQuery =
         filter.voteAvg !== null ? `&vote_average.gte=${filter.voteAvg}` : ""
+      const genresQuery =
+        filter.genres.length > 0
+          ? `&with_genres=${filter.genres.join(",")}`
+          : ""
 
       set({ status: "pending" })
 
@@ -104,7 +124,7 @@ export const useMovieStore = create<MovieState>()(
         const response = await authorizedFetcher.get<
           APIResponse<APIResponseMovie>
         >(
-          `${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}`
+          `${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}${genresQuery}`
         )
 
         set({ movies: response.data.results, status: "resolved" })
