@@ -84,13 +84,19 @@ export const useMovieStore = create<MovieState>()(
         filter.keywords.length > 0
           ? `&with_keywords=${filter.keywords.join(",")}`
           : ""
+      const languageQuery =
+        filter.language.length > 0
+          ? `&with_original_language=${filter.language}`
+          : ""
 
       set({ status: "pending" })
 
       try {
         const response = await authorizedFetcher.get<
           APIResponse<APIResponseMovie>
-        >(`${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}`)
+        >(
+          `${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}${languageQuery}`
+        )
 
         set({ movies: response.data.results, status: "resolved" })
       } catch (error) {
