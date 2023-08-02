@@ -1,17 +1,9 @@
 import clsx from "clsx"
-import { useState } from "react"
 
-function ActiveBadge({ text, action }: ActiveBadgeProps) {
-  const [isActive, setIsActive] = useState(false)
-
-  function handleBadgeClick() {
-    setIsActive(!isActive)
-    action()
-  }
-
+function ActiveBadge({ text, action, isActive }: ActiveBadgeProps) {
   return (
     <span
-      onClick={handleBadgeClick}
+      onClick={action}
       className={clsx(
         "px-1 border rounded-full border-slate-900 cursor-pointer",
         isActive && "bg-slate-400"
@@ -25,6 +17,7 @@ function ActiveBadge({ text, action }: ActiveBadgeProps) {
 export type ActiveBadgeProps = {
   text: string
   action: () => void
+  isActive: boolean
 }
 
 export default ActiveBadge
