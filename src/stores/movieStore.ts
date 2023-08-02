@@ -65,14 +65,17 @@ const defaultFilter: Filter = {
 export const useMovieStore = create<MovieState>()(
   devtools((set, get) => ({
     movies: [],
+    page: 1,
+    totalItems: 0,
     movieTypeQuery: "discover/movie",
     sortQuery: "popularity.desc",
     status: "idle",
     error: null,
     filter: defaultFilter,
     setQuery: (query) => {
-      const { getMovies } = get()
+      const { getMovies, resetFilter } = get()
       set({ movieTypeQuery: query })
+      resetFilter()
       getMovies()
     },
     setSort: (sort) => {
