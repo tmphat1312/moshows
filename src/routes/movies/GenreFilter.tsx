@@ -65,7 +65,7 @@ function GenreFilter() {
     )
 
   return (
-    <TextCollapse title="Genres" open>
+    <TextCollapse title="Genres">
       <div className="flex flex-wrap gap-1">{badgesContent}</div>
     </TextCollapse>
   )
