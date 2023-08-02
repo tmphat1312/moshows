@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply text-[85%] sm:text-[100%] md:text-[112.5%];
+  }
+
   body {
-    @apply font-sans text-sm sm:text-base md:text-lg;
+    @apply font-sans;
     @apply tracking-wide;
     @apply bg-slate-900 text-slate-200;
     scrollbar-gutter: stable;
