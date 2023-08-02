@@ -73,3 +73,8 @@ export type APILanguageResults = {
   english_name: string
   name: string
 }
+
+export type APIGenreResults = {
+  id: number
+  name: string
+}
