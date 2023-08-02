@@ -1,5 +1,6 @@
 import ActiveBadge from "../../components/ActiveBadge"
 import { SkeletonBox } from "../../components/Skeleton"
+import TextCollapse from "../../components/TextCollapse"
 import { useFetch } from "../../hooks/useFetch"
 import { useMovieStore } from "../../stores/movieStore"
 import { APIGenreResults } from "../../types/API"
@@ -64,10 +65,9 @@ function GenreFilter() {
     )
 
   return (
-    <div className="space-y-1">
-      <h6>Genres</h6>
+    <TextCollapse title="Genres" open>
       <div className="flex flex-wrap gap-1">{badgesContent}</div>
-    </div>
+    </TextCollapse>
   )
 }
 
