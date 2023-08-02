@@ -2,8 +2,8 @@ import { useDeferredValue, useState } from "react"
 import { LiaTimesSolid } from "react-icons/lia"
 import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
-import { APIKeywordResults, APIResponse } from "../../types/API"
 import { useMovieStore } from "../../stores/movieStore"
+import { APIKeywordResults, APIResponse } from "../../types/API"
 
 function KeywordFilter() {
   const setKeywords = useMovieStore((state) => state.setKeywords)
