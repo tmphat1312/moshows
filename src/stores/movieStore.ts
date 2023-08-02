@@ -37,6 +37,8 @@ export type Filter = {
 
 export type MovieState = {
   movies: APIResponseMovie[]
+  page: number
+  totalItems: number
   movieTypeQuery: Query
   sortQuery: Sort
   status: "pending" | "resolved" | "rejected" | "idle"
@@ -50,6 +52,7 @@ export type MovieState = {
   setVoteAvg: (voteAvg: number | null) => void
   toggleGenre: (genre: number) => void
   resetFilter: () => void
+  setPage: (page: number) => void
 }
 
 const defaultFilter: Filter = {
@@ -107,9 +110,13 @@ export const useMovieStore = create<MovieState>()(
       })
       get().getMovies()
     },
+    setPage(page: number) {
+      set({ page })
+      get().getMovies()
+    },
     getMovies: async () => {
       const BASE_URL = import.meta.env.VITE_APP_BASE_API
-      const { movieTypeQuery, sortQuery, filter } = get()
+      const { movieTypeQuery, sortQuery, filter, page } = get()
       const genresArray = Array.from(filter.genres.values())
 
       const keywordsQuery =
@@ -131,10 +138,14 @@ export const useMovieStore = create<MovieState>()(
         const response = await authorizedFetcher.get<
           APIResponse<APIResponseMovie>
         >(
-          `${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}${genresQuery}`
+          `${BASE_URL}/${movieTypeQuery}?page=${page}&sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}${genresQuery}`
         )
 
-        set({ movies: response.data.results, status: "resolved" })
+        set({
+          movies: response.data.results,
+          status: "resolved",
+          totalItems: response.data.total_results,
+        })
       } catch (error) {
         let customError
         if (isAxiosError(error)) {

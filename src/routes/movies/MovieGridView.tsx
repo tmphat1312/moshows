@@ -11,6 +11,8 @@ function MovieGridView() {
   const data = useMovieStore((state) => state.movies)
   const status = useMovieStore((state) => state.status)
   const error = useMovieStore((state) => state.error)
+  const totalItems = useMovieStore((state) => state.totalItems)
+  const setPage = useMovieStore((state) => state.setPage)
 
   useEffect(() => {
     getMovies()
@@ -63,10 +65,7 @@ function MovieGridView() {
         )}
       </div>
       <div className="flex justify-center mt-4">
-        <Pagination
-          totalItems={621}
-          onPageChange={(page) => console.log(page)}
-        />
+        <Pagination totalItems={totalItems} onPageChange={setPage} />
       </div>
     </BackgroundWall>
   )
