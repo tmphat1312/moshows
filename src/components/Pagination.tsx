@@ -29,7 +29,7 @@ function Pagination({
   }
 
   return (
-    <div className="inline-flex gap-2 text-lg">
+    <div className="inline-flex gap-2 text-sm sm:text-base md:text-lg">
       <button
         className="inline-flex items-center px-2 capitalize rounded-md drop-shadow-lg bg-slate-900 disabled:cursor-not-allowed disabled:bg-gray-500"
         onClick={handlePrev}
