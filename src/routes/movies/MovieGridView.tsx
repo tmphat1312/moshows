@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
+import Pagination from "../../components/Pagination"
 import { useMovieStore } from "../../stores/movieStore"
 import "./MovieGridView.css"
 
@@ -60,6 +61,12 @@ function MovieGridView() {
             ))}
           </>
         )}
+      </div>
+      <div className="flex justify-center mt-4">
+        <Pagination
+          totalItems={621}
+          onPageChange={(page) => console.log(page)}
+        />
       </div>
     </BackgroundWall>
   )
