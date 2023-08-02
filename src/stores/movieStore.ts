@@ -32,7 +32,7 @@ export type Filter = {
   keywords: number[]
   language: string
   voteAvg: number | null
-  genres: number[]
+  genres: Set<number>
 }
 
 export type MovieState = {
@@ -49,6 +49,14 @@ export type MovieState = {
   setLanguage: (language: string) => void
   setVoteAvg: (voteAvg: number | null) => void
   toggleGenre: (genre: number) => void
+  resetFilter: () => void
+}
+
+const defaultFilter: Filter = {
+  keywords: [],
+  language: "en",
+  voteAvg: null,
+  genres: new Set<number>(),
 }
 
 export const useMovieStore = create<MovieState>()(
@@ -58,12 +66,7 @@ export const useMovieStore = create<MovieState>()(
     sortQuery: "popularity.desc",
     status: "idle",
     error: null,
-    filter: {
-      keywords: [],
-      language: "en",
-      voteAvg: null,
-      genres: [],
-    },
+    filter: defaultFilter,
     setQuery: (query) => {
       const { getMovies } = get()
       set({ movieTypeQuery: query })
@@ -88,20 +91,25 @@ export const useMovieStore = create<MovieState>()(
     },
     toggleGenre(genre: number) {
       const { filter } = get()
-      const index = filter.genres.indexOf(genre)
+      const genres = new Set(filter.genres)
 
-      if (index !== -1) {
-        const genres = [...filter.genres]
-        genres.splice(index, 1)
-        set({ filter: { ...filter, genres } })
-        return
+      if (genres.has(genre)) {
+        genres.delete(genre)
+      } else {
+        genres.add(genre)
       }
-
-      set({ filter: { ...filter, genres: [...filter.genres, genre] } })
+      set({ filter: { ...filter, genres } })
+      return
+    },
+    resetFilter() {
+      set({
+        filter: defaultFilter,
+      })
     },
     getMovies: async () => {
       const BASE_URL = import.meta.env.VITE_APP_BASE_API
       const { movieTypeQuery, sortQuery, filter } = get()
+      const genresArray = Array.from(filter.genres.values())
 
       const keywordsQuery =
         filter.keywords.length > 0
@@ -114,9 +122,7 @@ export const useMovieStore = create<MovieState>()(
       const voteAvgQuery =
         filter.voteAvg !== null ? `&vote_average.gte=${filter.voteAvg}` : ""
       const genresQuery =
-        filter.genres.length > 0
-          ? `&with_genres=${filter.genres.join(",")}`
-          : ""
+        genresArray.length > 0 ? `&with_genres=${genresArray.join(",")}` : ""
 
       set({ status: "pending" })
 

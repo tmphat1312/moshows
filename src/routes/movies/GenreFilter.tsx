@@ -6,6 +6,7 @@ import { APIGenreResults } from "../../types/API"
 
 function GenreFilter() {
   const toggleGenre = useMovieStore((state) => state.toggleGenre)
+  const { genres } = useMovieStore((state) => state.filter)
   const { data, status } = useFetch<{ genres: APIGenreResults[] }>(
     "genre/movie/list"
   )
@@ -14,19 +15,39 @@ function GenreFilter() {
     status == "pending" || !data ? (
       <>
         <SkeletonBox>
-          <ActiveBadge text="action" action={() => console.log("action")} />
+          <ActiveBadge
+            isActive={false}
+            text="action"
+            action={() => console.log("action")}
+          />
         </SkeletonBox>
         <SkeletonBox>
-          <ActiveBadge text="action" action={() => console.log("action")} />
+          <ActiveBadge
+            isActive={false}
+            text="action"
+            action={() => console.log("action")}
+          />
         </SkeletonBox>
         <SkeletonBox>
-          <ActiveBadge text="action" action={() => console.log("action")} />
+          <ActiveBadge
+            isActive={false}
+            text="action"
+            action={() => console.log("action")}
+          />
         </SkeletonBox>
         <SkeletonBox>
-          <ActiveBadge text="action" action={() => console.log("action")} />
+          <ActiveBadge
+            isActive={false}
+            text="action"
+            action={() => console.log("action")}
+          />
         </SkeletonBox>
         <SkeletonBox>
-          <ActiveBadge text="action" action={() => console.log("action")} />
+          <ActiveBadge
+            isActive={false}
+            text="action"
+            action={() => console.log("action")}
+          />
         </SkeletonBox>
       </>
     ) : (
@@ -36,6 +57,7 @@ function GenreFilter() {
             key={genre.id}
             text={genre.name}
             action={() => toggleGenre(genre.id)}
+            isActive={genres.has(genre.id)}
           />
         ))}
       </>
