@@ -2,6 +2,7 @@ import { isAxiosError } from "axios"
 import { create } from "zustand"
 import { authorizedFetcher } from "../services/axios"
 import { APIResponse, APIResponseMovie } from "../types/API"
+import { devtools } from "zustand/middleware"
 
 export const queriesMap = new Map([
   ["all", "discover/movie"],
@@ -27,6 +28,10 @@ export const queries = Array.from(queriesMap.keys())
 export const sorts = Array.from(sortsMap.keys())
 export type Query = (typeof queries)[number]
 export type Sort = (typeof sorts)[number]
+export type Filter = {
+  keywords: number[]
+  language: string
+}
 
 export type MovieState = {
   movies: APIResponseMovie[]
@@ -34,60 +39,76 @@ export type MovieState = {
   sortQuery: Sort
   status: "pending" | "resolved" | "rejected" | "idle"
   error: null | Error
-  filter: {
-    keyword: string
-  }
+  filter: Filter
   setQuery: (query: Query) => void
   setSort: (sort: Sort) => void
   getMovies: () => void
+  setKeywords: (keywords: number[]) => void
+  setLanguage: (language: string) => void
 }
 
-export const useMovieStore = create<MovieState>()((set, get) => ({
-  movies: [],
-  movieTypeQuery: "discover/movie",
-  sortQuery: "popularity.desc",
-  status: "idle",
-  error: null,
-  filter: {
-    keyword: " ",
-  },
-  setQuery: (query) => {
-    const { getMovies } = get()
-    set({ movieTypeQuery: query })
-    getMovies()
-  },
-  setSort: (sort) => {
-    const { getMovies } = get()
-    set({ sortQuery: sort })
-    getMovies()
-  },
-  getMovies: async () => {
-    const { movieTypeQuery, sortQuery } = get()
-    const BASE_URL = import.meta.env.VITE_APP_BASE_API
+export const useMovieStore = create<MovieState>()(
+  devtools((set, get) => ({
+    movies: [],
+    movieTypeQuery: "discover/movie",
+    sortQuery: "popularity.desc",
+    status: "idle",
+    error: null,
+    filter: {
+      keywords: [],
+      language: "en-US",
+    },
+    setQuery: (query) => {
+      const { getMovies } = get()
+      set({ movieTypeQuery: query })
+      getMovies()
+    },
+    setSort: (sort) => {
+      const { getMovies } = get()
+      set({ sortQuery: sort })
+      getMovies()
+    },
+    setKeywords(keywords: number[]) {
+      const { filter } = get()
+      set({ filter: { ...filter, keywords } })
+    },
+    setLanguage(language: string) {
+      const { filter } = get()
+      set({ filter: { ...filter, language } })
+    },
+    getMovies: async () => {
+      const BASE_URL = import.meta.env.VITE_APP_BASE_API
+      const { movieTypeQuery, sortQuery, filter } = get()
 
-    set({ status: "pending" })
+      const keywordsQuery =
+        filter.keywords.length > 0
+          ? `&with_keywords=${filter.keywords.join(",")}`
+          : ""
 
-    try {
-      const response = await authorizedFetcher.get<
-        APIResponse<APIResponseMovie>
-      >(`${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}`)
+      set({ status: "pending" })
 
-      set({ movies: response.data.results, status: "resolved" })
-    } catch (error) {
-      let customError
-      if (isAxiosError(error)) {
-        customError = new Error(error.response?.data.status_message)
-      } else if (error instanceof Error) {
-        customError = error
-      } else {
-        customError = new Error(
-          "Unknown error: Something went wrong! @movieStore"
-        )
+      try {
+        const response = await authorizedFetcher.get<
+          APIResponse<APIResponseMovie>
+        >(`${BASE_URL}/${movieTypeQuery}?sort_by=${sortQuery}${keywordsQuery}`)
+
+        set({ movies: response.data.results, status: "resolved" })
+      } catch (error) {
+        let customError
+        if (isAxiosError(error)) {
+          customError = new Error(error.response?.data.status_message)
+        } else if (error instanceof Error) {
+          customError = error
+        } else {
+          customError = new Error(
+            "Unknown error: Something went wrong! @movieStore"
+          )
+        }
+
+        console.error(error)
+
+        set({ error: customError, status: "rejected" })
       }
-
-      console.error(error)
-
-      set({ error: customError, status: "rejected" })
-    }
-  },
-}))
+    },
+  }))
+)
