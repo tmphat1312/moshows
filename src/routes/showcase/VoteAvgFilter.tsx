@@ -12,7 +12,16 @@ function VoteAvgFilter({ setVoteAvg }: VoteAvgFilterProps) {
         min={0}
         max={10}
         step={0.1}
-        onChange={(e) => setVoteAvg(e.target.valueAsNumber)}
+        aria-description="min vote average from 0 to 10"
+        onChange={(e) => {
+          const vote = e.target.valueAsNumber
+
+          if (vote >= 0 && vote <= 10) setVoteAvg(vote)
+          else {
+            if (e.target.value != "") e.target.value = "10"
+            setVoteAvg(10)
+          }
+        }}
       />
     </label>
   )
