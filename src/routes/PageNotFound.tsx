@@ -10,6 +10,8 @@ function PageNotFound() {
   if (isRouteErrorResponse(error)) {
     errorText = error.statusText
     errorMessage = error.data
+  } else if (error instanceof Error) {
+    errorMessage = error.message
   }
 
   return (
