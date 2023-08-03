@@ -2,9 +2,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import PageNotFound from "./routes/PageNotFound"
 import Root from "./routes/Root"
 import Landing from "./routes/landing/Landing"
-import Movies from "./routes/movies/Movies"
-import Tv from "./routes/tv/Tv"
 import People from "./routes/people/People"
+import Showcase from "./routes/showcase/Showcase"
 
 const routes = createBrowserRouter([
   {
@@ -17,12 +16,8 @@ const routes = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "/movies",
-        element: <Movies />,
-      },
-      {
-        path: "/tv",
-        element: <Tv />,
+        path: "/showcase/:type",
+        element: <Showcase />,
       },
       {
         path: "people",

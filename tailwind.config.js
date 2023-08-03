@@ -33,6 +33,9 @@ export default {
       brightness: {
         20: ".2",
       },
+      screens: {
+        xs: "475px",
+      },
     },
   },
   plugins: [forms, cntQueries, typo],

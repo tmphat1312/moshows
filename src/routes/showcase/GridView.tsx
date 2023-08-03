@@ -3,19 +3,19 @@ import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import Pagination from "../../components/Pagination"
-import { useMovieStore } from "../../stores/movieStore"
-import "./MovieGridView.css"
+import { useShowcaseStore } from "../../stores/showcaseStore"
 
-function MovieGridView() {
-  const getMovies = useMovieStore((state) => state.getMovies)
-  const data = useMovieStore((state) => state.movies)
-  const status = useMovieStore((state) => state.status)
-  const error = useMovieStore((state) => state.error)
-  const totalItems = useMovieStore((state) => state.totalItems)
-  const setPage = useMovieStore((state) => state.setPage)
+function GridView() {
+  const getData = useShowcaseStore((state) => state.getData)
+  const data = useShowcaseStore((state) => state.data)
+  const status = useShowcaseStore((state) => state.status)
+  const error = useShowcaseStore((state) => state.error)
+  const totalItems = useShowcaseStore((state) => state.totalItems)
+  const setPage = useShowcaseStore((state) => state.setPage)
+  const type = useShowcaseStore((state) => state.type)
 
   useEffect(() => {
-    getMovies()
+    getData()
   }, [])
 
   if (error) {
@@ -35,10 +35,8 @@ function MovieGridView() {
       </>
     ) : (
       <>
-        {data.length > 0 ? (
-          data.map((item) => (
-            <ItemCard key={item.id} item={item} type="movie" />
-          ))
+        {data != null && data.length > 0 ? (
+          data.map((item) => <ItemCard key={item.id} item={item} type={type} />)
         ) : (
           <p className="text-2xl font-display text-gradient-primary">
             No movies found
@@ -49,7 +47,7 @@ function MovieGridView() {
 
   return (
     <BackgroundWall>
-      <div className="grid-view">{items}</div>
+      <div className="flex flex-wrap justify-center gap-8">{items}</div>
       {totalItems > 0 && (
         <div className="flex justify-center mt-4">
           <Pagination
@@ -63,4 +61,4 @@ function MovieGridView() {
   )
 }
 
-export default MovieGridView
+export default GridView

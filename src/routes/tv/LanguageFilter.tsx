@@ -1,12 +1,11 @@
 import CustomSelect from "../../components/CustomSelect"
 import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
-import { useMovieStore } from "../../stores/movieStore"
+import { useTvStore } from "../../stores/tvStore"
 import { APILanguageResults } from "../../types/API"
 
 function LanguageFilter() {
-  const setLanguage = useMovieStore((state) => state.setLanguage)
-  const language = useMovieStore((state) => state.filter.language)
+  const setLanguage = useTvStore((state) => state.setLanguage)
   const { data, status } = useFetch<APILanguageResults[]>(
     "/configuration/languages"
   )
@@ -35,8 +34,7 @@ function LanguageFilter() {
       <CustomSelect
         items={languageSelectOptions}
         action={(value) => setLanguage(value)}
-        defaultValue={language}
-        key={language}
+        defaultValue="en"
       />
     </label>
   )

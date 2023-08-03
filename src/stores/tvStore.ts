@@ -1,15 +1,15 @@
 import { isAxiosError } from "axios"
 import { create } from "zustand"
-import { authorizedFetcher } from "../services/axios"
-import { APIResponse, APIResponseMovie } from "../types/API"
 import { devtools } from "zustand/middleware"
+import { authorizedFetcher } from "../services/axios"
+import { APIResponse, APIResponseTV } from "../types/API"
 
 export const queriesMap = new Map([
-  ["all", "discover/movie"],
-  ["popular", "movie/popular"],
-  ["top rated", "movie/top_rated"],
-  ["upcoming", "movie/upcoming"],
-  ["now playing", "movie/now_playing"],
+  ["all", "discover/tv"],
+  ["popular", "tv/popular"],
+  ["top rated", "tv/top_rated"],
+  ["airing today", "tv/airing_today"],
+  ["on the air", "tv/on_the_air"],
 ])
 export const sortsMap = new Map([
   ["popularity desc", "popularity.desc"],
@@ -35,18 +35,18 @@ export type Filter = {
   genres: Set<number>
 }
 
-export type MovieState = {
-  movies: APIResponseMovie[]
+export type TvState = {
+  tvs: APIResponseTV[]
   page: number
   totalItems: number
-  movieTypeQuery: Query
+  tvTypeQuery: Query
   sortQuery: Sort
   status: "pending" | "resolved" | "rejected" | "idle"
   error: null | Error
   filter: Filter
   setQuery: (query: Query) => void
   setSort: (sort: Sort) => void
-  getMovies: () => void
+  getTvs: () => void
   setKeywords: (keywords: number[]) => void
   setLanguage: (language: string) => void
   setVoteAvg: (voteAvg: number | null) => void
@@ -62,26 +62,26 @@ const defaultFilter: Filter = {
   genres: new Set<number>(),
 }
 
-export const useMovieStore = create<MovieState>()(
+export const useTvStore = create<TvState>()(
   devtools((set, get) => ({
-    movies: [],
+    tvs: [],
     page: 1,
     totalItems: 0,
-    movieTypeQuery: "discover/movie",
+    tvTypeQuery: "discover/tv",
     sortQuery: "popularity.desc",
     status: "idle",
     error: null,
     filter: defaultFilter,
     setQuery: (query) => {
-      const { getMovies, resetFilter } = get()
-      set({ movieTypeQuery: query, page: 1 })
+      const { getTvs, resetFilter } = get()
+      set({ tvTypeQuery: query, page: 1 })
       resetFilter()
-      getMovies()
+      getTvs()
     },
     setSort: (sort) => {
-      const { getMovies } = get()
+      const { getTvs } = get()
       set({ sortQuery: sort })
-      getMovies()
+      getTvs()
     },
     setKeywords(keywords: number[]) {
       const { filter } = get()
@@ -112,15 +112,15 @@ export const useMovieStore = create<MovieState>()(
         filter: defaultFilter,
         page: 1,
       })
-      get().getMovies()
+      get().getTvs()
     },
     setPage(page: number) {
       set({ page })
-      get().getMovies()
+      get().getTvs()
     },
-    getMovies: async () => {
+    getTvs: async () => {
       const BASE_URL = import.meta.env.VITE_APP_BASE_API
-      const { movieTypeQuery, sortQuery, filter, page } = get()
+      const { tvTypeQuery, sortQuery, filter, page } = get()
       const genresArray = Array.from(filter.genres.values())
 
       const keywordsQuery =
@@ -140,13 +140,13 @@ export const useMovieStore = create<MovieState>()(
 
       try {
         const response = await authorizedFetcher.get<
-          APIResponse<APIResponseMovie>
+          APIResponse<APIResponseTV>
         >(
-          `${BASE_URL}/${movieTypeQuery}?&page=${page}&sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}${genresQuery}`
+          `${BASE_URL}/${tvTypeQuery}?page=${page}&sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}${genresQuery}`
         )
 
         set({
-          movies: response.data.results,
+          tvs: response.data.results,
           status: "resolved",
           totalItems: response.data.total_results,
         })
@@ -158,7 +158,7 @@ export const useMovieStore = create<MovieState>()(
           customError = error
         } else {
           customError = new Error(
-            "Unknown error: Something went wrong! @movieStore"
+            "Unknown error: Something went wrong! @tvStore"
           )
         }
 
