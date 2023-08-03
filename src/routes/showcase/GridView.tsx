@@ -39,7 +39,7 @@ function GridView() {
           data.map((item) => <ItemCard key={item.id} item={item} type={type} />)
         ) : (
           <p className="text-2xl font-display text-gradient-primary">
-            No movies found
+            No items found
           </p>
         )}
       </>
