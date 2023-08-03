@@ -2,8 +2,8 @@ import Hero from "../../layout/Hero"
 import BrowseMore from "./BrowseMore"
 import Latest from "./Latest"
 import Popular from "./Popular"
-import PopularPeople from "./PopularPeople"
 import Trending from "./Trending"
+import TrendingPeople from "./TrendingPeople"
 
 function Landing() {
   return (
@@ -15,7 +15,7 @@ function Landing() {
         <Trending />
         <Latest />
         <Popular />
-        <PopularPeople />
+        <TrendingPeople />
       </div>
       <div className="section-separator">
         <BrowseMore />
