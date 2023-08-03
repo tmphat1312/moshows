@@ -52,7 +52,11 @@ function MovieGridView() {
       <div className="grid-view">{items}</div>
       {totalItems > 0 && (
         <div className="flex justify-center mt-4">
-          <Pagination totalItems={totalItems} onPageChange={setPage} />
+          <Pagination
+            key={totalItems}
+            totalItems={totalItems}
+            onPageChange={setPage}
+          />
         </div>
       )}
     </BackgroundWall>

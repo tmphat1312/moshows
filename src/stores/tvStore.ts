@@ -74,7 +74,7 @@ export const useTvStore = create<TvState>()(
     filter: defaultFilter,
     setQuery: (query) => {
       const { getTvs, resetFilter } = get()
-      set({ tvTypeQuery: query })
+      set({ tvTypeQuery: query, page: 1 })
       resetFilter()
       getTvs()
     },
@@ -110,6 +110,7 @@ export const useTvStore = create<TvState>()(
     resetFilter() {
       set({
         filter: defaultFilter,
+        page: 1,
       })
       get().getTvs()
     },

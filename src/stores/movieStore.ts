@@ -74,7 +74,7 @@ export const useMovieStore = create<MovieState>()(
     filter: defaultFilter,
     setQuery: (query) => {
       const { getMovies, resetFilter } = get()
-      set({ movieTypeQuery: query })
+      set({ movieTypeQuery: query, page: 1 })
       resetFilter()
       getMovies()
     },
@@ -110,6 +110,7 @@ export const useMovieStore = create<MovieState>()(
     resetFilter() {
       set({
         filter: defaultFilter,
+        page: 1,
       })
       get().getMovies()
     },
@@ -141,7 +142,7 @@ export const useMovieStore = create<MovieState>()(
         const response = await authorizedFetcher.get<
           APIResponse<APIResponseMovie>
         >(
-          `${BASE_URL}/${movieTypeQuery}?page=${page}&sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}${genresQuery}`
+          `${BASE_URL}/${movieTypeQuery}?&page=${page}&sort_by=${sortQuery}${keywordsQuery}${languageQuery}${voteAvgQuery}${genresQuery}`
         )
 
         set({
