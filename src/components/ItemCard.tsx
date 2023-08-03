@@ -15,8 +15,10 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
   const title =
     mappedItem.media_type == "movie" ? mappedItem.title : mappedItem.name
 
+  const cardWidth = "w-32 sm:w-36 md:w-44"
+
   return (
-    <article className="inline-block w-32 py-4 space-y-5 text-center sm:w-36 md:w-44">
+    <article className={`inline-block py-4 space-y-5 text-center ${cardWidth}`}>
       <div className="relative flex">
         <Link
           to={`/movie/${mappedItem.id}`}
@@ -25,7 +27,7 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
           {item.poster_path ? (
             <img
               loading="lazy"
-              className="object-cover w-full aspect-[9/14] hover:scale-105 transition-transform"
+              className={`object-cover ${cardWidth} aspect-[9/14] hover:scale-105 transition-transform bg-stone-400`}
               src={IMG_1X_BASE_URL + mappedItem.poster_path}
               srcSet={`${IMG_1X_BASE_URL}${mappedItem.poster_path} 1x, ${IMG_2X_BASE_URL}${mappedItem.poster_path} 2x`}
               alt={title}
@@ -34,7 +36,7 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
           ) : (
             <img
               loading="lazy"
-              className="object-cover w-full aspect-[9/14] hover:scale-105 transition-transform filter grayscale"
+              className={`object-cover ${cardWidth} aspect-[9/14] hover:scale-105 transition-transform filter grayscale`}
               src={noPoster}
               alt={title}
               decoding="async"
