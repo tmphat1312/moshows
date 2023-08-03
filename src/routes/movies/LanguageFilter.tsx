@@ -6,6 +6,7 @@ import { APILanguageResults } from "../../types/API"
 
 function LanguageFilter() {
   const setLanguage = useMovieStore((state) => state.setLanguage)
+  const language = useMovieStore((state) => state.filter.language)
   const { data, status } = useFetch<APILanguageResults[]>(
     "/configuration/languages"
   )
@@ -34,7 +35,8 @@ function LanguageFilter() {
       <CustomSelect
         items={languageSelectOptions}
         action={(value) => setLanguage(value)}
-        defaultValue="en"
+        defaultValue={language}
+        key={language}
       />
     </label>
   )
