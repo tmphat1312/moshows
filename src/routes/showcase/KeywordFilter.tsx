@@ -13,6 +13,7 @@ function KeywordFilter({ setKeywords }: KeywordFilterProps) {
   const { data, status } = useFetch<APIResponse<APIKeywordResults>>(
     `/search/keyword?query=${deferredQuery}`
   )
+  const searchKeywords = Array.from(keywordsList.values())
 
   function addKeyword(item: APIKeywordResults) {
     const newMap = new Map(keywordsList)
@@ -36,38 +37,8 @@ function KeywordFilter({ setKeywords }: KeywordFilterProps) {
         <p className="px-2 py-1 text-white">Loading...</p>
       </SkeletonBox>
     ) : (
-      <ul>
-        {keywords.map((item) => (
-          <li
-            className="px-2 py-1 cursor-pointer hover:bg-slate-200"
-            key={item.id}
-          >
-            <button
-              className="w-full text-start"
-              onClick={() => addKeyword(item)}
-              type="button"
-            >
-              {item.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <KeywordSuggestions keywords={keywords} addKeyword={addKeyword} />
     )
-  const searchKeywords = Array.from(keywordsList.values()).map((item) => (
-    <li
-      className="inline-flex items-center gap-1 px-2 text-sm rounded-full bg-slate-600 text-slate-50 drop-shadow-md"
-      key={item.id}
-    >
-      {item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
-      <button
-        type="button"
-        className="hover:text-red-500"
-        onClick={() => removeKeyword(item.id)}
-      >
-        <LiaTimesSolid />
-      </button>
-    </li>
-  ))
 
   return (
     <div className="relative">
@@ -75,7 +46,10 @@ function KeywordFilter({ setKeywords }: KeywordFilterProps) {
         keyword
       </label>
       {searchKeywords.length > 0 && (
-        <ul className="flex gap-1 py-2">{searchKeywords}</ul>
+        <SearchKeywords
+          keywords={searchKeywords}
+          removeKeyword={removeKeyword}
+        />
       )}
       <input
         type="text"
@@ -91,6 +65,59 @@ function KeywordFilter({ setKeywords }: KeywordFilterProps) {
       </div>
     </div>
   )
+}
+
+function KeywordSuggestions({ keywords, addKeyword }: KeywordSuggestionsProps) {
+  return (
+    <ul>
+      {keywords.map((item) => (
+        <li
+          className="px-2 py-1 cursor-pointer hover:bg-slate-200"
+          key={item.id}
+        >
+          <button
+            className="w-full text-start"
+            onClick={() => addKeyword(item)}
+            type="button"
+          >
+            {item.name}
+          </button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function SearchKeywords({ keywords, removeKeyword }: SearchKeywordsProps) {
+  return (
+    <ul className="flex gap-1 py-2">
+      {keywords.map((item) => (
+        <li
+          className="inline-flex items-center gap-1 px-2 text-sm rounded-full bg-slate-600 text-slate-50 drop-shadow-md"
+          key={item.id}
+        >
+          {item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
+          <button
+            type="button"
+            className="hover:text-red-500"
+            onClick={() => removeKeyword(item.id)}
+          >
+            <LiaTimesSolid />
+          </button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export type KeywordSuggestionsProps = {
+  keywords: APIKeywordResults[]
+  addKeyword: (keyword: APIKeywordResults) => void
+}
+
+export type SearchKeywordsProps = {
+  keywords: APIKeywordResults[]
+  removeKeyword: (id: number) => void
 }
 
 export type KeywordFilterProps = {
