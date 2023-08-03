@@ -9,6 +9,7 @@ export type Filter = {
   language: string
   voteAvg: number | null
   genres: Set<number>
+  includeAdult: boolean
 }
 
 const defaultFilter: Filter = {
@@ -16,6 +17,7 @@ const defaultFilter: Filter = {
   language: "en",
   voteAvg: null,
   genres: new Set<number>(),
+  includeAdult: false,
 }
 
 function urlMap({ tabQuery, sortQuery, filter, page }: ShowcaseState) {
@@ -35,6 +37,7 @@ function urlMap({ tabQuery, sortQuery, filter, page }: ShowcaseState) {
     filter.voteAvg !== null ? `&vote_average.gte=${filter.voteAvg}` : ""
   const genresQuery =
     genresArray.length > 0 ? `&with_genres=${genresArray.join(",")}` : ""
+  const adultQuery = filter.includeAdult ? "&include_adult=true" : ""
 
   return (
     BASE_URL +
@@ -46,7 +49,8 @@ function urlMap({ tabQuery, sortQuery, filter, page }: ShowcaseState) {
     keywordsQuery +
     languageQuery +
     voteAvgQuery +
-    genresQuery
+    genresQuery +
+    adultQuery
   )
 }
 
@@ -72,6 +76,7 @@ export type ShowcaseState = {
   setKeywords: (keywords: number[]) => void
   setLanguage: (language: string) => void
   setVoteAvg: (voteAvg: number | null) => void
+  setIncludeAdult: (includeAdult: boolean) => void
   toggleGenre: (genre: number) => void
   setFilter: (newFilter: Filter) => void
   resetFilter: () => void
@@ -154,6 +159,11 @@ export const useShowcaseStore = create<ShowcaseState>()(
 
     setVoteAvg(voteAvg: number | null) {
       const newFilter = { ...structuredClone(get().filter), voteAvg }
+      set({ filter: newFilter })
+    },
+
+    setIncludeAdult(includeAdult: boolean) {
+      const newFilter = { ...structuredClone(get().filter), includeAdult }
       set({ filter: newFilter })
     },
 

@@ -1,6 +1,7 @@
 import Collapse from "../../components/Collapse"
 import { useShowcaseStore } from "../../stores/showcaseStore"
 import GenreFilter from "./GenreFilter"
+import IncludeAdultFilter from "./IncludeAdultFilter"
 import KeywordFilter from "./KeywordFilter"
 import LanguageFilter from "./LanguageFilter"
 import VoteAvgFilter from "./VoteAvgFilter"
@@ -22,6 +23,7 @@ function Filter() {
         <LanguageFilter currentLanguage={language} setLanguage={setLanguage} />
         <VoteAvgFilter setVoteAvg={setVoteAvg} />
         <GenreFilter activeGenres={genres} toggleGenre={toggleGenre} />
+        <IncludeAdultFilter />
         <div className="flex flex-col gap-2">
           <button className="btn btn--primary" onClick={getData}>
             Filter
