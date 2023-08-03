@@ -20,7 +20,7 @@ function VideoCard({ item }: { item: APIResults }) {
             <img
               alt={title}
               loading="lazy"
-              className="object-cover h-full transition-transform rounded-md bg-slate-900 drop-shadow-xl hover:scale-95"
+              className="object-cover h-full transition-transform rounded-md bg-slate-600 drop-shadow-xl hover:scale-95"
               src={IMG_1X_BASE_URL + item.backdrop_path}
               srcSet={`${IMG_1X_BASE_URL}${item.backdrop_path} 1x, ${IMG_2X_BASE_URL}${item.backdrop_path} 2x`}
               decoding="async"

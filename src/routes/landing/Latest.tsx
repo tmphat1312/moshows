@@ -61,7 +61,7 @@ function Latest() {
         </div>
         {data?.results.map((item) => {
           const mediaItem = getMediaItem(item, mediaType)
-          if (!item.backdrop_path || !mediaItem) return null
+          if (!mediaItem) return null
 
           return <VideoCard key={item.id} item={mediaItem} />
         })}
