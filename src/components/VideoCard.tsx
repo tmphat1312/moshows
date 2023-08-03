@@ -15,8 +15,8 @@ function VideoCard({ item }: { item: APIResults }) {
   return (
     <article className="py-4 space-y-3 text-center w-52 sm:w-64 md:w-72">
       <div className="relative aspect-video">
-        {item.backdrop_path ? (
-          <Link to={`/${item.media_type}/${item.id}`}>
+        <Link to={`/${item.media_type}/${item.id}`} className="h-full">
+          {item.backdrop_path ? (
             <img
               alt={title}
               loading="lazy"
@@ -25,10 +25,10 @@ function VideoCard({ item }: { item: APIResults }) {
               srcSet={`${IMG_1X_BASE_URL}${item.backdrop_path} 1x, ${IMG_2X_BASE_URL}${item.backdrop_path} 2x`}
               decoding="async"
             />
-          </Link>
-        ) : (
-          <UnavailablePlaceholder text="Unavailable backdrop" />
-        )}
+          ) : (
+            <UnavailablePlaceholder text="Unavailable backdrop" />
+          )}
+        </Link>
         <div className="absolute text-lg inset-center">
           <PlayButton />
         </div>

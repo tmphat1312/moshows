@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { APIPersonResults } from "../types/API"
 import { SkeletonBox } from "./Skeleton"
+import UnavailablePlaceholder from "./UnavailablePlaceholder"
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_PF_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_PF_2X_BASE_URL
@@ -11,16 +12,22 @@ function PersonCard({ person }: { person: APIPersonResults }) {
   })
 
   return (
-    <article className="flex flex-col w-48 my-4 overflow-hidden text-center transition-transform rounded-lg  md:w-52 hover:scale-105 bg-slate-500">
+    <article className="flex flex-col w-48 my-4 overflow-hidden text-center transition-transform rounded-lg md:w-52 hover:scale-105 bg-slate-500">
       <Link to={`/person/${person.id}`}>
-        <img
-          alt={person.name}
-          loading="lazy"
-          className="object-cover w-full mx-auto aspect-square bg-slate-900 drop-shadow-xl"
-          src={IMG_1X_BASE_URL + person.profile_path}
-          srcSet={`${IMG_1X_BASE_URL}${person.profile_path} 1x, ${IMG_2X_BASE_URL}${person.profile_path} 2x`}
-          decoding="async"
-        />
+        {person.profile_path ? (
+          <img
+            alt={person.name}
+            loading="lazy"
+            className="object-cover w-full mx-auto aspect-square bg-slate-900 drop-shadow-xl"
+            src={IMG_1X_BASE_URL + person.profile_path}
+            srcSet={`${IMG_1X_BASE_URL}${person.profile_path} 1x, ${IMG_2X_BASE_URL}${person.profile_path} 2x`}
+            decoding="async"
+          />
+        ) : (
+          <div className="w-full mx-auto aspect-square">
+            <UnavailablePlaceholder text="Unavailable backdrop" />
+          </div>
+        )}
       </Link>
       <section className="py-2">
         <Link to={`/person/${person.id}`}>
@@ -36,7 +43,7 @@ function PersonCard({ person }: { person: APIPersonResults }) {
 
 export function PersonCardSkeleton() {
   return (
-    <article className="flex flex-col w-48 my-4 space-y-2 overflow-hidden rounded-lg  md:w-52">
+    <article className="flex flex-col w-48 my-4 space-y-2 overflow-hidden rounded-lg md:w-52">
       <SkeletonBox>
         <div className="w-full aspect-square" />
       </SkeletonBox>
