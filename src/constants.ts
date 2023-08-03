@@ -18,3 +18,8 @@ export const navigationLinks = [
 ]
 
 export const trailerTypes = ["In Theaters", "On TV"]
+
+export const titleMap = {
+  movie: "Movies",
+  tv: "TV Shows",
+}
