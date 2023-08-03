@@ -5,6 +5,7 @@ import TitleSection from "../../layout/TitleSection"
 import Actions from "./Actions"
 import GridView from "./GridView"
 import { useShowcaseStore } from "../../stores/showcaseStore"
+import Nav from "./Nav"
 
 function Showcase() {
   const { type } = useParams<ShowCaseParams>()
@@ -23,6 +24,7 @@ function Showcase() {
       </div>
       <div className="section-separator">
         <TitleSection title={titleMap[type]} />
+        <Nav />
         <div className="relative flex flex-col gap-8 lg:flex-row app-width section">
           <div className="basis-1/5 shrink-0">
             <Actions />

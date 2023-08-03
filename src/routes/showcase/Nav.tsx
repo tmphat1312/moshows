@@ -1,15 +1,18 @@
 import CustomSelect from "../../components/CustomSelect"
 import TabSwitcher from "../../components/TabSwitcher"
-import { queriesMap, useMovieStore } from "../../stores/movieStore"
-
-const navSelects = Array.from(queriesMap.entries(), ([key, value]) => ({
-  text: key,
-  value,
-}))
-const navTabs = Array.from(queriesMap.keys())
+import { tabQueryMaps } from "../../constants"
+import { useShowcaseStore } from "../../stores/showcaseStore"
 
 function Nav() {
-  const setQuery = useMovieStore((state) => state.setQuery)
+  const setQuery = useShowcaseStore((state) => state.setQuery)
+  const type = useShowcaseStore((state) => state.type)
+
+  const queriesMap = tabQueryMaps[type]
+  const navTabs = Array.from(queriesMap.keys())
+  const navSelects = Array.from(queriesMap.entries(), ([key, value]) => ({
+    text: key,
+    value,
+  }))
 
   return (
     <nav className="app-width">
