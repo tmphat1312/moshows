@@ -22,7 +22,7 @@ function Showcase() {
       <div className="invisible">
         <NavBar />
       </div>
-      <div className="section-separator">
+      <div className="section-separator" key={type}>
         <TitleSection title={titleMap[type]} />
         <Nav />
         <div className="relative flex flex-col gap-8 lg:flex-row app-width section">
