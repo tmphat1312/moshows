@@ -14,41 +14,15 @@ function GenreFilter({ toggleGenre, activeGenres }: GenreFilterProps) {
   const badgesContent =
     status == "pending" || !data ? (
       <>
-        <SkeletonBox>
-          <ActiveBadge
-            isActive={false}
-            text="action"
-            action={() => console.log("action")}
-          />
-        </SkeletonBox>
-        <SkeletonBox>
-          <ActiveBadge
-            isActive={false}
-            text="action"
-            action={() => console.log("action")}
-          />
-        </SkeletonBox>
-        <SkeletonBox>
-          <ActiveBadge
-            isActive={false}
-            text="action"
-            action={() => console.log("action")}
-          />
-        </SkeletonBox>
-        <SkeletonBox>
-          <ActiveBadge
-            isActive={false}
-            text="action"
-            action={() => console.log("action")}
-          />
-        </SkeletonBox>
-        <SkeletonBox>
-          <ActiveBadge
-            isActive={false}
-            text="action"
-            action={() => console.log("action")}
-          />
-        </SkeletonBox>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <SkeletonBox key={i}>
+            <ActiveBadge
+              isActive={false}
+              text="action"
+              action={() => console.log("action")}
+            />
+          </SkeletonBox>
+        ))}
       </>
     ) : (
       <>
