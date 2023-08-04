@@ -55,7 +55,9 @@ function TrendingPeople() {
     <section className="section">
       <BackgroundWall>
         <div className="items-center flex-btw">
-          <h2 className="title">Trending people</h2>
+          <h2 className="title">
+            Trending <span className="hidden sm:inline-block">people</span>
+          </h2>
           <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
         </div>
         {carouselContent}
