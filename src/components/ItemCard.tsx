@@ -21,7 +21,7 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
     <article className={`inline-block py-4 space-y-5 text-center ${cardWidth}`}>
       <div className="relative flex">
         <Link
-          to={`/movie/${mappedItem.id}`}
+          to={`/showcase/${type}/${mappedItem.id}`}
           className="overflow-hidden rounded-lg drop-shadow-lg"
         >
           {item.poster_path ? (
