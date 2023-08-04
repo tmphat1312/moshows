@@ -12,7 +12,7 @@ function PersonCard({ person }: { person: APIPersonResults }) {
   })
 
   return (
-    <article className="flex flex-col w-48 my-4 overflow-hidden text-center transition-transform rounded-lg md:w-52 hover:scale-105 bg-slate-500">
+    <article className="flex flex-col w-48 my-4 overflow-hidden text-center transition-transform rounded-lg md:w-52 hover:scale-105 bg-gradient-to-br to-slate-400 from-slate-600">
       <Link to={`/person/${person.id}`}>
         {person.profile_path ? (
           <img
