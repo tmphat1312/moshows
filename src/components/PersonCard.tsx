@@ -11,14 +11,17 @@ function PersonCard({ person }: { person: APIPersonResults }) {
     return item.media_type === "movie" ? item.title : item.name
   })
 
+  const cardWidth = "sm:w-48 w-44 md:w-52"
   return (
-    <article className="flex flex-col w-48 my-4 overflow-hidden text-center transition-transform rounded-lg md:w-52 hover:scale-105 bg-gradient-to-br to-slate-400 from-slate-600">
+    <article
+      className={`flex flex-col my-4 overflow-hidden text-center transition-transform rounded-lg ${cardWidth} hover:scale-105 bg-gradient-to-br to-slate-400 from-slate-600`}
+    >
       <Link to={`/person/${person.id}`}>
         {person.profile_path ? (
           <img
             alt={person.name}
             loading="lazy"
-            className="object-cover w-full mx-auto aspect-square bg-slate-900 drop-shadow-xl"
+            className={`object-cover ${cardWidth} mx-auto aspect-square bg-slate-900 drop-shadow-xl`}
             src={IMG_1X_BASE_URL + person.profile_path}
             srcSet={`${IMG_1X_BASE_URL}${person.profile_path} 1x, ${IMG_2X_BASE_URL}${person.profile_path} 2x`}
             decoding="async"
