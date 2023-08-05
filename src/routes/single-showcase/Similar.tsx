@@ -14,39 +14,42 @@ function Similar() {
   if (error) {
     return (
       <section className="section">
-        <div className="flex-btw">
-          <h2 className="title">Similar</h2>
-        </div>
+        <h2 className="title">Similar</h2>
         <CommonErrorMessage />
       </section>
     )
   }
 
-  const carouselContent =
-    status == "pending" || !data ? (
+  if (status == "pending") {
+    return (
+      <section className="section">
+        <h2 className="title">Similar</h2>
+        <CustomScrollingCarousel>
+          {Array.from({ length: 7 }).map((_, index) => (
+            <ItemCardSkeleton key={index} />
+          ))}
+          <ItemCardSkeleton />
+        </CustomScrollingCarousel>
+      </section>
+    )
+  }
+
+  const similarItems = data?.results ?? []
+  const content =
+    similarItems.length > 0 ? (
       <CustomScrollingCarousel>
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-      </CustomScrollingCarousel>
-    ) : (
-      <CustomScrollingCarousel>
-        {data.results.map((item) => (
+        {similarItems.map((item) => (
           <ItemCard key={item.id} item={item} type={type as "tv" | "movie"} />
         ))}
       </CustomScrollingCarousel>
+    ) : (
+      <p className="my-6 text-2xl font-display">No items available</p>
     )
-
-  // TODO: NO videos found
 
   return (
     <section>
       <h2 className="title">Similar</h2>
-      <div>{carouselContent}</div>
+      <div>{content}</div>
     </section>
   )
 }
