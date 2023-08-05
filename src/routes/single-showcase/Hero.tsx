@@ -10,7 +10,7 @@ function Hero({ item }: HeroProps) {
     <div
       className="bg-slate-900"
       style={{
-        backgroundImage: `url(${BASE_URL}${item.backdrop_path})`,
+        backgroundImage: `url(${BASE_URL}${item?.backdrop_path})`,
         backgroundSize: "cover",
         backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
