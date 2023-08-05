@@ -64,4 +64,12 @@ function NavBar() {
   )
 }
 
+export function NavBarPlaceholder() {
+  return (
+    <div className="invisible">
+      <NavBar />
+    </div>
+  )
+}
+
 export default NavBar

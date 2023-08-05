@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { titleMap } from "../../constants"
-import NavBar from "../../layout/NavBar"
+import { NavBarPlaceholder } from "../../layout/NavBar"
 import TitleSection from "../../layout/TitleSection"
 import { ShowCaseParams, isShowcaseType } from "../../services/helpers"
 import { useShowcaseStore } from "../../stores/showcaseStore"
@@ -20,9 +20,7 @@ function Showcase() {
 
   return (
     <>
-      <div className="invisible">
-        <NavBar />
-      </div>
+      <NavBarPlaceholder />
       <div className="section-separator" key={type}>
         <TitleSection title={titleMap[type]} />
         <Nav />

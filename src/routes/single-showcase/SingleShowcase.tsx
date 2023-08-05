@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import { useFetch } from "../../hooks/useFetch"
-import NavBar from "../../layout/NavBar"
+import NavBar, { NavBarPlaceholder } from "../../layout/NavBar"
 import { SingleShowcaseParams, isShowcaseType } from "../../services/helpers"
 import { APISingleMovieResult, APISingleTVResult } from "../../types/API"
 import MovieShowcase from "./MovieShowcase"
@@ -43,9 +43,7 @@ function SingleShowcase() {
 
   return (
     <>
-      <div className="invisible">
-        <NavBar />
-      </div>
+      <NavBarPlaceholder />
       <div className="section-separator">{showcaseMap[type]}</div>
     </>
   )
