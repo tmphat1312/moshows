@@ -4,6 +4,8 @@ import { APIVideoResult } from "../../types/API"
 import BackgroundWall from "../../components/BackgroundWall"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import PlayButton from "../../components/PlayButton"
+import CommonErrorMessage from "../../components/CommonErrorMessage"
+import { VideoCardSkeleton } from "../../components/VideoCard"
 
 function Videos() {
   const { id, type } = useParams<{ id: string; type: string }>()
@@ -12,40 +14,60 @@ function Videos() {
     results: APIVideoResult[]
   }>(`/${type}/${id}/videos`)
 
-  if (error) return <div>error</div>
+  if (error) {
+    return (
+      <BackgroundWall>
+        <h4 className="title">Official trailers</h4>
+        <CommonErrorMessage />
+      </BackgroundWall>
+    )
+  }
 
-  if (status === "pending") return <div>Loading...</div>
+  if (status === "pending") {
+    return (
+      <BackgroundWall>
+        <VideoCardSkeleton />
+      </BackgroundWall>
+    )
+  } // TODO: add loading skeleton
 
-  const videos = data?.results
-
-  if (videos?.length === 0 || !videos) return <div>No videos</div>
-
+  const videos = data?.results ?? []
   const officialVideos = videos.filter((video) => video.official).reverse()
-
-  return (
-    <BackgroundWall>
-      <h4 className="text-2xl">Official trailers</h4>
+  const content =
+    officialVideos.length > 0 ? (
       <CustomScrollingCarousel>
         {officialVideos.map((video) => (
-          <article key={video.id} className="relative my-4 w-[300px]">
-            <a
-              href={`https://www.youtube.com/watch?v=${video.key}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img
-                src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
-                alt={video.name}
-                className="rounded-md drop-shadow-lg"
-              />
-            </a>
-            <div className="absolute inset-center backdrop-blur-[2px] rounded-full">
-              <PlayButton />
+          <article key={video.id} className="my-4 md:my-6 w-[300px]">
+            <div className="relative">
+              <a
+                href={`https://www.youtube.com/watch?v=${video.key}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
+                  alt={video.name}
+                  className="rounded-md drop-shadow-lg"
+                />
+              </a>
+              <div className="absolute flex rounded-full inset-center backdrop-brightness-50">
+                <PlayButton />
+              </div>
             </div>
-            <h5 className="text-center line-clamp-2">{video.name}</h5>
+            <h5 className="text-lg text-center line-clamp-2 text-balance">
+              {video.name}
+            </h5>
           </article>
         ))}
       </CustomScrollingCarousel>
+    ) : (
+      <p className="my-6 text-2xl font-display">No videos available</p>
+    )
+
+  return (
+    <BackgroundWall>
+      <h4 className="title">Official trailers</h4>
+      {content}
     </BackgroundWall>
   )
 }
