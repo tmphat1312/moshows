@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom"
-import NoImage from "../../components/NoImage"
+import BackgroundWall from "../../components/BackgroundWall"
+import CommonErrorMessage from "../../components/CommonErrorMessage"
 import { useFetch } from "../../hooks/useFetch"
-import { APICreditResults } from "../../types/API"
 import { SingleShowcaseParams } from "../../services/helpers"
-
-const BASE_URL = import.meta.env.VITE_TMDB_CAST_BASE_URL
+import { APICreditResults } from "../../types/API"
+import Cast from "./Cast"
 
 function Credits() {
   const { type, id } = useParams<SingleShowcaseParams>()
@@ -13,11 +13,19 @@ function Credits() {
   )
 
   if (error) {
-    return <>error</>
+    return (
+      <BackgroundWall>
+        <CommonErrorMessage />
+      </BackgroundWall>
+    )
   }
 
-  if (status == "pending" || !data) {
+  if (status == "pending") {
     return <>loading</>
+  } // TODO: add skeleton
+
+  if (!data) {
+    return <h4 className="text-center text-red-500">Credits unavailable</h4>
   }
 
   const { cast, crew } = data
@@ -41,31 +49,7 @@ function Credits() {
         </div>
       </div>
       <hr />
-      <section>
-        <h3 className="text-2xl text-center text-gradient-primary">Cast</h3>
-        <ul className="flex gap-4 overflow-auto">
-          {cast.map((member) => (
-            <li
-              key={member.id}
-              className="my-4 overflow-hidden text-center rounded-md w-36 md:w-40 shrink-0 bg-gradient-to-r from-slate-600 to-slate-700"
-            >
-              {member.profile_path ? (
-                <img
-                  src={`${BASE_URL}${member.profile_path}`}
-                  alt={member.name}
-                  className="object-cover w-36 md:w-40 aspect-square"
-                />
-              ) : (
-                <div className="w-36 md:w-40 aspect-square">
-                  <NoImage />
-                </div>
-              )}
-              <h5 className="text-balance line-clamp-2">{member.name}</h5>
-              <p>{member.character}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Cast cast={cast} />
     </div>
   )
 }
