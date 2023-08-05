@@ -1,11 +1,11 @@
-import { BsBookmark } from "react-icons/bs"
+// import { BsBookmark } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import { getMediaItem } from "../services/constantMap"
 import dayjs from "../services/dayjs"
 import { APIResults } from "../types/API"
+import NoPoster from "./NoPoster"
 import RatingCircle from "./RatingCircle"
 import { SkeletonBox } from "./Skeleton"
-import { getMediaItem } from "../services/constantMap"
-import noPoster from "../assets/images/no-poster.webp"
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_IMG_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_IMG_2X_BASE_URL
@@ -15,8 +15,6 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
   const title =
     mappedItem.media_type == "movie" ? mappedItem.title : mappedItem.name
 
-  const cardWidth = "w-32 sm:w-36 md:w-44"
-
   return (
     <article className={`inline-block py-4 space-y-5 text-center ${cardWidth}`}>
       <div className="relative flex">
@@ -24,24 +22,22 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
           to={`/showcase/${type}/${mappedItem.id}`}
           className="overflow-hidden rounded-lg drop-shadow-lg"
         >
-          {item.poster_path ? (
-            <img
-              loading="lazy"
-              className={`object-cover ${cardWidth} aspect-[9/14] hover:scale-105 transition-transform bg-stone-400`}
-              src={IMG_1X_BASE_URL + mappedItem.poster_path}
-              srcSet={`${IMG_1X_BASE_URL}${mappedItem.poster_path} 1x, ${IMG_2X_BASE_URL}${mappedItem.poster_path} 2x`}
-              alt={title}
-              decoding="async"
-            />
-          ) : (
-            <img
-              loading="lazy"
-              className={`object-cover ${cardWidth} aspect-[9/14] hover:scale-105 transition-transform filter grayscale`}
-              src={noPoster}
-              alt={title}
-              decoding="async"
-            />
-          )}
+          <figure
+            className={`${cardWidth} aspect-[9/14] hover:scale-105 transition-transform flex bg-gray-500`}
+          >
+            {item.poster_path ? (
+              <img
+                loading="lazy"
+                className="object-cover bg-stone-400"
+                src={IMG_1X_BASE_URL + mappedItem.poster_path}
+                srcSet={`${IMG_1X_BASE_URL}${mappedItem.poster_path} 1x, ${IMG_2X_BASE_URL}${mappedItem.poster_path} 2x`}
+                alt={title}
+                decoding="async"
+              />
+            ) : (
+              <NoPoster />
+            )}
+          </figure>
         </Link>
         <div className="absolute bottom-0 left-0 translate-y-1/2 translate-x-1/4">
           <RatingCircle rating={mappedItem.vote_average} />
@@ -51,12 +47,12 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
             18+
           </div>
         )}
-        <button
+        {/* <button
           title="bookmark this item"
           className="absolute bottom-0 right-0 p-2 text-xl text-primary-600"
-        >
+        > // TODO: add bookmark feature
           <BsBookmark />
-        </button>
+        </button> */}
       </div>
       <section className="text-center">
         <h3 className="transition-colors hover:text-primary-500 hover:scale-105">
@@ -70,9 +66,13 @@ function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
   )
 }
 
+const cardWidth = "w-32 sm:w-36 md:w-44"
+
 export function ItemCardSkeleton() {
   return (
-    <article className="inline-flex flex-col w-32 py-4 space-y-4 sm:w-36 md:w-44">
+    <article
+      className={`inline-flex flex-col w-32 py-4 space-y-4 ${cardWidth}`}
+    >
       <SkeletonBox>
         <div className="aspect-[9/14] rounded-lg" />
       </SkeletonBox>
