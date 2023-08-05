@@ -1,6 +1,6 @@
 function BackgroundWall({ children }: BackgroundWallProps) {
   return (
-    <div className="relative p-6 overflow-hidden rounded-md bg-gradient-to-r from-primary-300/10 to-primary-400/10">
+    <div className="relative p-6 overflow-hidden rounded-md bg-gradient-to-r from-primary-200/10 to-slate-700/30">
       {children}
     </div>
   )

@@ -1,10 +1,9 @@
-import { BsBookmark } from "react-icons/bs"
+import { Link } from "react-router-dom"
 import { APIResults } from "../types/API"
 import PlayButton from "./PlayButton"
 import RatingCircle from "./RatingCircle"
-import { Link } from "react-router-dom"
-import UnavailablePlaceholder from "./UnavailablePlaceholder"
 import { SkeletonBox } from "./Skeleton"
+import UnavailablePlaceholder from "./UnavailablePlaceholder"
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_BD_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_BD_2X_BASE_URL
@@ -13,23 +12,27 @@ function VideoCard({ item }: { item: APIResults }) {
   const title = item.media_type == "movie" ? item.title : item.name
 
   return (
-    <article className="py-4 space-y-3 text-center w-52 sm:w-64 md:w-72">
+    <article className={`py-4 space-y-3 ${cardWidth}`}>
       <div className="relative aspect-video">
         <Link to={`/${item.media_type}/${item.id}`} className="h-full">
-          {item.backdrop_path ? (
-            <img
-              alt={title}
-              loading="lazy"
-              className="object-cover h-full transition-transform rounded-md bg-slate-600 drop-shadow-xl hover:scale-95"
-              src={IMG_1X_BASE_URL + item.backdrop_path}
-              srcSet={`${IMG_1X_BASE_URL}${item.backdrop_path} 1x, ${IMG_2X_BASE_URL}${item.backdrop_path} 2x`}
-              decoding="async"
-            />
-          ) : (
-            <UnavailablePlaceholder text="Unavailable backdrop" />
-          )}
+          <figure
+            className={`${cardWidth} aspect-video drop-shadow-lg  hover:scale-95 transition-transform bg-gray-500`}
+          >
+            {item.backdrop_path ? (
+              <img
+                alt={title}
+                loading="lazy"
+                className="object-cover h-full rounded-md bg-slate-600 drop-shadow-xl"
+                src={IMG_1X_BASE_URL + item.backdrop_path}
+                srcSet={`${IMG_1X_BASE_URL}${item.backdrop_path} 1x, ${IMG_2X_BASE_URL}${item.backdrop_path} 2x`}
+                decoding="async"
+              />
+            ) : (
+              <UnavailablePlaceholder text="No backdrop" />
+            )}
+          </figure>
         </Link>
-        <div className="absolute text-lg inset-center">
+        <div className="absolute flex text-lg rounded-full inset-center bg-slate-600/50">
           <PlayButton />
         </div>
         <div className="absolute bottom-0 translate-x-1/4 translate-y-1/4">
@@ -40,14 +43,8 @@ function VideoCard({ item }: { item: APIResults }) {
             18+
           </div>
         )}
-        <button
-          title="bookmark this item"
-          className="absolute bottom-0 right-0 p-2 text-xl drop-shadow-xl text-primary-600"
-        >
-          <BsBookmark />
-        </button>
       </div>
-      <section>
+      <section className="text-center">
         <h3 className="transition-all text-balance hover:text-primary-500 hover:scale-105">
           <Link to={`/${item.media_type}/${item.id}`} className="line-clamp-2">
             {title}
@@ -59,9 +56,11 @@ function VideoCard({ item }: { item: APIResults }) {
   )
 }
 
+const cardWidth = "w-52 sm:w-64 md:w-72"
+
 export function VideoCardSkeleton() {
   return (
-    <article className="py-4 space-y-3 text-center w-52 sm:w-64 md:w-72">
+    <article className={`py-4 space-y-3 text-center ${cardWidth}`}>
       <SkeletonBox>
         <div className="rounded-lg aspect-video" />
       </SkeletonBox>

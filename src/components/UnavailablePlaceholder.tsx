@@ -1,6 +1,6 @@
 function UnavailablePlaceholder({ text }: { text: string }) {
   return (
-    <div className="grid h-full text-2xl uppercase rounded-md bg-slate-800 place-content-center font-display text-slate-400">
+    <div className="grid h-full text-2xl uppercase rounded-md place-content-center text-slate-700 font-display filter grayscale bg-primary-500">
       {text}
     </div>
   )
