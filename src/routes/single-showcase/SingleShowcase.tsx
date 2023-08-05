@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import { useFetch } from "../../hooks/useFetch"
-import NavBar, { NavBarPlaceholder } from "../../layout/NavBar"
+import { NavBarPlaceholder } from "../../layout/NavBar"
+import NoResources from "../../layout/NoResources"
 import { SingleShowcaseParams, isShowcaseType } from "../../services/helpers"
 import { APISingleMovieResult, APISingleTVResult } from "../../types/API"
 import MovieShowcase from "./MovieShowcase"
@@ -10,7 +11,6 @@ import TvShowcase from "./TvShowcase"
 
 function SingleShowcase() {
   const { type, id } = useParams<SingleShowcaseParams>()
-
   if (!isShowcaseType(type)) {
     throw Error(`${type} is not a valid type of showcase`)
   }
@@ -22,9 +22,7 @@ function SingleShowcase() {
   if (error) {
     return (
       <>
-        <div className="invisible">
-          <NavBar />
-        </div>
+        <NavBarPlaceholder />
         <BackgroundWall>
           <CommonErrorMessage />
         </BackgroundWall>
@@ -32,9 +30,17 @@ function SingleShowcase() {
     )
   }
 
-  if (status == "pending" || !data) {
-    return <>loading</>
-  }
+  if (status == "pending") {
+    return (
+      <>
+        <NavBarPlaceholder />
+
+        <BackgroundWall>
+          <p className="text-2xl">Loading skeleton...</p>
+        </BackgroundWall>
+      </>
+    )
+  } // TODO: add skeleton
 
   const showcaseMap = {
     movie: <MovieShowcase data={data as APISingleMovieResult} />,
@@ -44,7 +50,9 @@ function SingleShowcase() {
   return (
     <>
       <NavBarPlaceholder />
-      <div className="section-separator">{showcaseMap[type]}</div>
+      <div className="section-separator">
+        {data ? showcaseMap[type] : <NoResources />}
+      </div>
     </>
   )
 }
