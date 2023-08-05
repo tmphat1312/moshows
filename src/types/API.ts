@@ -164,3 +164,34 @@ export type APISingleTVResult = {
   vote_average: number
   vote_count: number
 }
+
+export type APICreditResults = {
+  id: number
+  cast: Array<
+    APIPersonResults & {
+      character: string
+      credit_id: string
+      order: number
+    }
+  >
+  crew: Array<
+    APIPersonResults & {
+      credit_id: string
+      department: string
+      job: string
+    }
+  >
+}
+
+export type APIVideoResult = {
+  iso_639_1: string
+  iso_3166_1: string
+  name: string
+  key: string
+  site: string
+  size: number
+  type: string
+  official: boolean
+  published_at: string
+  id: string
+}
