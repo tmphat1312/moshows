@@ -1,56 +1,64 @@
 import { useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
-import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
 import { toCurrencyFormat } from "../../services/helpers"
+import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
 
 function MinorInfo({ item }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
-  const keywordsResponse = useFetch<{
+  const { data, error, status } = useFetch<{
     id: number
     keywords: APIKeywordResults[]
   }>(`${type}/${id}/keywords`)
 
-  const keywordsContent = keywordsResponse.error ? (
-    <p>error loading keywords</p>
-  ) : keywordsResponse.status === "pending" ? (
-    <p>loading keywords...</p>
-  ) : (
-    <ul className="flex flex-wrap gap-2">
-      {keywordsResponse.data?.keywords.map((keyword) => (
-        <li
-          key={keyword.id}
-          className="px-1 rounded-md bg-slate-300 text-slate-900 text-balance drop-shadow-md"
-        >
-          {keyword.name}
-        </li>
-      ))}
-    </ul>
-  )
+  if (error) {
+    return (
+      <p className="px-1 bg-red-500 rounded-md w-max">
+        Error loading resources
+      </p>
+    )
+  }
 
+  if (status === "pending") {
+    return <p>loading keywords...</p>
+  } // TODO: add loading skeleton
+
+  const keywords = data?.keywords ?? []
+  const keywordsContent =
+    keywords.length > 0 ? (
+      <ul className="flex flex-wrap gap-2">
+        {keywords.map((keyword) => (
+          <li
+            key={keyword.id}
+            className="px-1 rounded-md bg-slate-300 text-slate-900 drop-shadow-md"
+          >
+            {keyword.name}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>no keywords available</p>
+    )
+
+  const contentTable = {
+    status: item.status,
+    keywords: keywordsContent,
+    budget: toCurrencyFormat(item.budget),
+    revenue: toCurrencyFormat(item.revenue),
+  }
   return (
     <div className="space-y-2">
-      <section>
-        <h6>Status</h6>
-        <p>{item.status}</p>
-      </section>
-      <hr />
-      <section>
-        <h6>Keywords</h6>
-        {keywordsContent}
-      </section>
-      <hr />
-      <section>
-        <h6>Budget</h6>
-        <p>{toCurrencyFormat(item.budget)}</p>
-      </section>
-      <hr />
-      <section>
-        <h6>Revenue</h6>
-        <p>{toCurrencyFormat(item.budget)}</p>
-      </section>
+      {Object.entries(contentTable).map(([key, value]) => (
+        <>
+          <section key={key}>
+            <h6 className="capitalize">{key}</h6>
+            <p>{value}</p>
+          </section>
+          {key !== "revenue" && <hr />}
+        </>
+      ))}
     </div>
   )
-} // TODO: covert budget and revenue to currency format
+}
 
 export type MinorInfoProps = {
   item: APISingleMovieResult
