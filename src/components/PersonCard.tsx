@@ -1,52 +1,59 @@
 import { Link } from "react-router-dom"
 import { APIPersonResults } from "../types/API"
+import NoImage from "./NoImage"
 import { SkeletonBox } from "./Skeleton"
-import UnavailablePlaceholder from "./UnavailablePlaceholder"
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_PF_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_PF_2X_BASE_URL
 
 function PersonCard({ person }: { person: APIPersonResults }) {
-  const knownFors = person.known_for.map((item) => {
-    return item.media_type === "movie" ? item.title : item.name
-  })
+  const career = person.known_for
+    .map((item) => {
+      return item.media_type === "movie" ? item.title : item.name
+    })
+    .join(", ")
 
-  const cardWidth = "sm:w-48 w-44 md:w-52"
   return (
     <article
-      className={`flex flex-col my-4 overflow-hidden text-center transition-transform rounded-lg ${cardWidth} hover:scale-105 bg-gradient-to-br to-slate-400 from-slate-600`}
+      className={`flex flex-col my-4 overflow-hidden transition-transform rounded-lg ${cardWidth} hover:scale-105 bg-gradient-to-br to-slate-400 from-slate-600`}
     >
       <Link to={`/person/${person.id}`}>
-        {person.profile_path ? (
-          <img
-            alt={person.name}
-            loading="lazy"
-            className={`object-cover ${cardWidth} mx-auto aspect-square bg-slate-900 drop-shadow-xl`}
-            src={IMG_1X_BASE_URL + person.profile_path}
-            srcSet={`${IMG_1X_BASE_URL}${person.profile_path} 1x, ${IMG_2X_BASE_URL}${person.profile_path} 2x`}
-            decoding="async"
-          />
-        ) : (
-          <div className="w-full mx-auto aspect-square">
-            <UnavailablePlaceholder text="Unavailable backdrop" />
-          </div>
-        )}
+        <figure
+          className={`object-cover ${cardWidth} aspect-square bg-gray-500`}
+        >
+          {person.profile_path ? (
+            <img
+              alt={person.name}
+              loading="lazy"
+              className={`object-cover w-full h-full`}
+              src={IMG_1X_BASE_URL + person.profile_path}
+              srcSet={`${IMG_1X_BASE_URL}${person.profile_path} 1x, ${IMG_2X_BASE_URL}${person.profile_path} 2x`}
+              decoding="async"
+            />
+          ) : (
+            <NoImage />
+          )}
+        </figure>
       </Link>
-      <section className="py-2">
+      <section className="py-2 text-center">
         <Link to={`/person/${person.id}`}>
           <h3 className="px-1 transition-all hover:skew-y-2 bg-slate-600 line-clamp-2 text-balance hover:text-primary-500 hover:scale-105">
             {person.name}
           </h3>
         </Link>
-        <p className="line-clamp-2">{knownFors.join(", ")}</p>
+        <p className="line-clamp-2">{career}</p>
       </section>
     </article>
   )
 }
 
+const cardWidth = "sm:w-48 w-44 md:w-52"
+
 export function PersonCardSkeleton() {
   return (
-    <article className="flex flex-col w-48 my-4 space-y-2 overflow-hidden rounded-lg md:w-52">
+    <article
+      className={`flex flex-col my-4 space-y-2 overflow-hidden rounded-lg ${cardWidth}`}
+    >
       <SkeletonBox>
         <div className="w-full aspect-square" />
       </SkeletonBox>

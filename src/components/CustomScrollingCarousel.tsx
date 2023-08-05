@@ -1,7 +1,11 @@
 import "./CustomScrollingCarousel.css"
 
 function CustomScrollingCarousel({ children }: CustomScrollingCarouselProps) {
-  return <div className="scrolling-carousel">{children}</div>
+  return (
+    <div className="flex justify-center mx-auto">
+      <div className="scrolling-carousel">{children}</div>
+    </div>
+  )
 }
 
 export type CustomScrollingCarouselProps = {

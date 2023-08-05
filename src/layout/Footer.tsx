@@ -1,6 +1,7 @@
 import { AiFillFacebook, AiFillGithub, AiTwotoneMail } from "react-icons/ai"
 import Logo from "../components/Logo"
 
+// TODO: render footer content programmatically
 function Footer() {
   return (
     <section className="space-y-12 section">

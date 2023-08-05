@@ -1,17 +1,18 @@
 import { useParams } from "react-router-dom"
 import { titleMap } from "../../constants"
-import NavBar from "../../layout/NavBar"
+import { NavBarPlaceholder } from "../../layout/NavBar"
 import TitleSection from "../../layout/TitleSection"
+import { ShowCaseParams, isShowcaseType } from "../../services/helpers"
+import { useShowcaseStore } from "../../stores/showcaseStore"
 import Actions from "./Actions"
 import GridView from "./GridView"
-import { useShowcaseStore } from "../../stores/showcaseStore"
 import Nav from "./Nav"
 
 function Showcase() {
   const { type } = useParams<ShowCaseParams>()
   const setType = useShowcaseStore((state) => state.setType)
 
-  if (!type || !isShowcaseType(type)) {
+  if (!isShowcaseType(type)) {
     throw Error(`${type} is not a valid type of showcase`)
   }
 
@@ -19,9 +20,7 @@ function Showcase() {
 
   return (
     <>
-      <div className="invisible">
-        <NavBar />
-      </div>
+      <NavBarPlaceholder />
       <div className="section-separator" key={type}>
         <TitleSection title={titleMap[type]} />
         <Nav />
@@ -36,16 +35,6 @@ function Showcase() {
       </div>
     </>
   )
-}
-
-export type ShowcaseType = "movie" | "tv"
-
-export type ShowCaseParams = {
-  type: ShowcaseType
-}
-
-function isShowcaseType(type: string): type is ShowcaseType {
-  return type === "movie" || type === "tv"
 }
 
 export default Showcase
