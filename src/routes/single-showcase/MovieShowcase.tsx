@@ -1,0 +1,30 @@
+import { APISingleMovieResult } from "../../types/API"
+import Hero from "./Hero"
+import MinorInfo from "./MinorInfo"
+import Recommendation from "./Recommendation"
+import Similar from "./Similar"
+import Videos from "./Videos"
+
+function MovieShowcase({ data }: SingleShowCaseProps) {
+  return (
+    <>
+      <Hero item={data} />
+      <div className="gap-8 flex-btw section">
+        <div className="w-4/5 space-y-8">
+          <Videos />
+          <Similar />
+          <Recommendation />
+        </div>
+        <div className="grow">
+          <MinorInfo item={data} />
+        </div>
+      </div>
+    </>
+  )
+}
+
+export type SingleShowCaseProps = {
+  data: APISingleMovieResult
+}
+
+export default MovieShowcase
