@@ -11,3 +11,18 @@ export function toCurrencyFormat(value: number) {
     currency: "USD",
   }).format(value)
 }
+
+export type ShowcaseType = "movie" | "tv"
+
+export type ShowCaseParams = {
+  type: ShowcaseType
+}
+
+export type SingleShowcaseParams = {
+  id: string
+  type: ShowcaseType
+}
+
+export function isShowcaseType(type: string | undefined): type is ShowcaseType {
+  return !!type && (type === "movie" || type === "tv")
+}

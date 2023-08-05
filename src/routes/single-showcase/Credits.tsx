@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom"
-import { APICreditResults } from "../../types/API"
-import { SingleShowCaseParams } from "./SingleShowcase"
-import { useFetch } from "../../hooks/useFetch"
 import NoImage from "../../components/NoImage"
+import { useFetch } from "../../hooks/useFetch"
+import { APICreditResults } from "../../types/API"
+import { SingleShowcaseParams } from "../../services/helpers"
 
 const BASE_URL = import.meta.env.VITE_TMDB_CAST_BASE_URL
 
 function Credits() {
-  const { type, id } = useParams<SingleShowCaseParams>()
+  const { type, id } = useParams<SingleShowcaseParams>()
   const { data, error, status } = useFetch<APICreditResults>(
     `${type}/${id}/credits`
   )
