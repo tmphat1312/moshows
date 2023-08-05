@@ -1,4 +1,4 @@
-import noPoster from "../../assets/images/no-poster.webp"
+import NoPoster from "../../components/NoPoster"
 
 const BASE_1X_URL = import.meta.env.VITE_TMDB_POS_1X_BASE_URL
 const BASE_2X_URL = import.meta.env.VITE_TMDB_POS_2X_BASE_URL
@@ -14,13 +14,9 @@ function Poster({ adult, posterPath }: PosterProps) {
           className={imageClasses}
         />
       ) : (
-        <img
-          loading="lazy"
-          className={`${imageClasses} filter grayscale`}
-          src={noPoster}
-          alt="no poster"
-          decoding="async"
-        />
+        <div className={imageClasses}>
+          <NoPoster />
+        </div>
       )}
       {adult && (
         <div className="absolute top-0 right-0 font-bold text-black bg-white">
