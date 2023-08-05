@@ -16,7 +16,7 @@ function Info({ item }: InfoProps) {
           </span>
         </a>
       </h2>
-      <div className="text-lg italic text-primary-300">{item.tagline}</div>
+      <p className="text-lg italic text-primary-300">{item.tagline}</p>
       <div className="flex items-center gap-1 text-lg">
         <span>{item.release_date}</span>
         <BsDot />
