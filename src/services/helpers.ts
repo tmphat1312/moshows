@@ -4,3 +4,10 @@ export function toHoursAndMinutes(totalMinutes: number) {
 
   return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`
 }
+
+export function toCurrencyFormat(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value)
+}

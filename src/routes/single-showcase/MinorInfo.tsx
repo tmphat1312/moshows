@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
 import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
+import { toCurrencyFormat } from "../../services/helpers"
 
 function MinorInfo({ item }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
@@ -40,12 +41,12 @@ function MinorInfo({ item }: MinorInfoProps) {
       <hr />
       <section>
         <h6>Budget</h6>
-        <p>{item.budget}</p>
+        <p>{toCurrencyFormat(item.budget)}</p>
       </section>
       <hr />
       <section>
         <h6>Revenue</h6>
-        <p>{item.budget}</p>
+        <p>{toCurrencyFormat(item.budget)}</p>
       </section>
     </div>
   )
