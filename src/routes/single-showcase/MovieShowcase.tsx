@@ -8,7 +8,9 @@ import Videos from "./Videos"
 function MovieShowcase({ data }: SingleShowCaseProps) {
   return (
     <>
-      <Hero item={data} />
+      <div className="section-separator">
+        <Hero item={data} />
+      </div>
       <div className="gap-8 flex-btw section">
         <div className="w-4/5 space-y-8">
           <Videos />

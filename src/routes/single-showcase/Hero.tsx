@@ -17,7 +17,7 @@ function Hero({ item }: HeroProps) {
         backgroundBlendMode: "overlay",
       }}
     >
-      <div className="app-width">
+      <div className="section">
         <section className="flex flex-col gap-8 py-8 sm:flex-row sm:items-center backdrop-blur-sm">
           <div className="shrink-0">
             <Poster adult={item.adult} posterPath={item.poster_path} />
