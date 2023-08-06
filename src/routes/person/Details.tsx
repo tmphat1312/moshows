@@ -1,19 +1,9 @@
+import { getGenderFromNumber } from "../../services/constantMap"
 import { APISinglePersonResult } from "../../types/API"
 import SocialMedia from "./SocialMedia"
 
 function Details({ item }: DetailsProps) {
-  let gender = "N/A"
-  switch (item.gender) {
-    case 1:
-      gender = "female"
-      break
-    case 2:
-      gender = "male"
-      break
-    case 3:
-      gender = "non-binary"
-      break
-  }
+  const gender = getGenderFromNumber(item.gender)
 
   return (
     <section className="space-y-4">

@@ -22,3 +22,16 @@ export function getMediaItem(item: APIResults, mediaType: "movie" | "tv") {
     media_type: "tv",
   } as APIResponseTV
 }
+
+export function getGenderFromNumber(genderId: 0 | 1 | 2 | 3) {
+  switch (genderId) {
+    case 0:
+      return "unknown"
+    case 1:
+      return "female"
+    case 2:
+      return "male"
+    case 3:
+      return "non-binary"
+  }
+}
