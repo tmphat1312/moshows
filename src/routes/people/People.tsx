@@ -4,7 +4,7 @@ import PeopleView from "./PeopleView"
 function People() {
   return (
     <>
-      <div className="section-separator">
+      <div className="space-y-4 section">
         <TitleSection title="Popular people" />
         <div className="app-width">
           <PeopleView />
