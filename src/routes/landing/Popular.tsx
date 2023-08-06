@@ -44,11 +44,9 @@ function Popular() {
         <div className="invisible w-0 -ml-6">
           <ItemCardSkeleton />
         </div>
-        {data?.results.map((item) => {
-          // if (!item.backdrop_path) return null
-
-          return <ItemCard key={item.id} item={item} type={mediaType} />
-        })}
+        {data?.results.map((item) => (
+          <ItemCard key={item.id} item={item} type={mediaType} />
+        ))}
       </CustomScrollingCarousel>
     )
 
