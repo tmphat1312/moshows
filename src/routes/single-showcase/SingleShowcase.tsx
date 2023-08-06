@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import { useFetch } from "../../hooks/useFetch"
-import { NavBarPlaceholder } from "../../layout/NavBar"
 import NoResources from "../../layout/NoResources"
 import { SingleShowcaseParams, isShowcaseType } from "../../services/helpers"
 import { APISingleMovieResult, APISingleTVResult } from "../../types/API"
@@ -22,7 +21,6 @@ function SingleShowcase() {
   if (error) {
     return (
       <>
-        <NavBarPlaceholder />
         <BackgroundWall>
           <CommonErrorMessage />
         </BackgroundWall>
@@ -33,8 +31,6 @@ function SingleShowcase() {
   if (status == "pending") {
     return (
       <>
-        <NavBarPlaceholder />
-
         <BackgroundWall>
           <p className="text-2xl">Loading skeleton...</p>
         </BackgroundWall>
@@ -49,7 +45,6 @@ function SingleShowcase() {
 
   return (
     <>
-      <NavBarPlaceholder />
       <div className="section-separator">
         {data ? showcaseMap[type] : <NoResources />}
       </div>
