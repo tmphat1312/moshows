@@ -29,7 +29,9 @@ function Credits() {
   }
 
   const { cast, crew } = data
-  const directors = crew.filter((member) => member.job === "Director")
+  const directors = crew.filter(
+    (member) => member.known_for_department === "Directing"
+  )
   const writers = crew.filter(
     (member) => member.known_for_department === "Writing"
   )
@@ -40,11 +42,11 @@ function Credits() {
     <div className="space-y-4">
       <div className="flex justify-center gap-8 my-2 capitalize">
         <div>
-          <h5>director: </h5>
+          <h5>directing: </h5>
           {directorsContent == "" ? "N/A" : directorsContent}
         </div>
         <div>
-          <h5>writer: </h5>
+          <h5>writing: </h5>
           {writersContent == "" ? "N/A" : writersContent}
         </div>
       </div>

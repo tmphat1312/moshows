@@ -1,26 +1,33 @@
-import { BsDot } from "react-icons/bs"
 import PlayButton from "../../components/PlayButton"
-import { toHoursAndMinutes } from "../../services/helpers"
-import { APISingleMovieResult } from "../../types/API"
+import dayjs from "../../services/dayjs"
+import { APISingleTVResult } from "../../types/API"
 
-function Info({ item }: InfoProps) {
+function TvInfo({ item }: InfoProps) {
   const genres = item.genres.map((genre) => genre.name).join(", ")
 
   return (
     <section className="space-y-3 tracking-wide">
       <h2 className="text-3xl font-medium transition-colors hover:text-gradient-primary text-balance">
         <a href={item.homepage} rel="noreferrer noopener" target="_blank">
-          {item.title}{" "}
+          {item.name}{" "}
           <span className="font-sans">
-            ({new Date(item.release_date).getFullYear()})
+            ({new Date(item.first_air_date).getFullYear()})
           </span>
         </a>
       </h2>
       <p className="text-lg italic text-primary-300">{item.tagline}</p>
       <div className="flex items-center gap-1 text-lg">
-        <span>{item.release_date}</span>
-        <BsDot />
-        <span>{toHoursAndMinutes(item.runtime)}</span>
+        <span>{dayjs(item.first_air_date).format("LL")}</span>
+        <span>&rarr;</span>
+        <span>{dayjs(item.last_air_date).format("LL")}</span>
+      </div>
+      <div className="space-x-2">
+        <span className="inline-block px-1 rounded-sm skew-y-2 bg-primary-700">
+          {item.number_of_episodes} episode{item.number_of_episodes > 1 && "s"}
+        </span>
+        <span className="inline-block px-1 rounded-sm -skew-y-2 bg-primary-800">
+          {item.number_of_seasons} season{item.number_of_seasons > 1 && "s"}
+        </span>
       </div>
       <div className="flex items-center gap-8">
         <h6 className="text-xl">Play trailer{" >>"}</h6>
@@ -46,7 +53,7 @@ function Info({ item }: InfoProps) {
 }
 
 export type InfoProps = {
-  item: APISingleMovieResult
+  item: APISingleTVResult
 }
 
-export default Info
+export default TvInfo

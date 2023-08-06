@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
-import { toCurrencyFormat } from "../../services/helpers"
-import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
+import { APIKeywordResults, APISingleTVResult } from "../../types/API"
 
-function MinorInfo({ item }: MinorInfoProps) {
+function TvMinorInfo({ item }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
   const { data, error, status } = useFetch<{
     id: number
-    keywords: APIKeywordResults[]
+    keywords?: APIKeywordResults[]
+    results?: APIKeywordResults[]
   }>(`${type}/${id}/keywords`)
 
   if (error) {
@@ -22,7 +22,7 @@ function MinorInfo({ item }: MinorInfoProps) {
     return <p>loading keywords...</p>
   } // TODO: add loading skeleton
 
-  const keywords = data?.keywords ?? []
+  const keywords = data?.keywords ?? data?.results ?? []
   const keywordsContent =
     keywords.length > 0 ? (
       <ul className="flex flex-wrap gap-2">
@@ -42,8 +42,10 @@ function MinorInfo({ item }: MinorInfoProps) {
   const contentTable = {
     status: item.status,
     keywords: keywordsContent,
-    budget: toCurrencyFormat(item.budget),
-    revenue: toCurrencyFormat(item.revenue),
+    type: item.type,
+    "episode run time": item.episode_run_time
+      ? `${item.episode_run_time} minutes`
+      : "N/A",
   }
   return (
     <div className="space-y-2">
@@ -61,7 +63,7 @@ function MinorInfo({ item }: MinorInfoProps) {
 }
 
 export type MinorInfoProps = {
-  item: APISingleMovieResult
+  item: APISingleTVResult
 }
 
-export default MinorInfo
+export default TvMinorInfo
