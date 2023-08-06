@@ -46,13 +46,9 @@ function Latest() {
   const carouselContent =
     status == "pending" ? (
       <CustomScrollingCarousel>
-        <VideoCardSkeleton />
-        <VideoCardSkeleton />
-        <VideoCardSkeleton />
-        <VideoCardSkeleton />
-        <VideoCardSkeleton />
-        <VideoCardSkeleton />
-        <VideoCardSkeleton />
+        {[...Array(10)].map((_, index) => (
+          <VideoCardSkeleton key={index} />
+        ))}
       </CustomScrollingCarousel>
     ) : (
       <CustomScrollingCarousel>
