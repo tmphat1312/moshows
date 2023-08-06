@@ -212,3 +212,11 @@ export type APISinglePersonResult = {
   popularity: number
   profile_path: string
 }
+
+export type APISocialResult = {
+  facebook_id: string | null
+  instagram_id: string | null
+  tiktok_id: string | null
+  twitter_id: string | null
+  youtube_id: string | null
+}

@@ -7,16 +7,13 @@ import {
   AiFillYoutube,
 } from "react-icons/ai"
 import { BsTiktok } from "react-icons/bs"
+import { APISocialResult } from "../../types/API"
 
 function SocialMedia() {
   const { id } = useParams<{ id: string }>()
-  const { data, status, error } = useFetch<{
-    facebook_id: string | null
-    instagram_id: string | null
-    tiktok_id: string | null
-    twitter_id: string | null
-    youtube_id: string | null
-  }>(`/person/${id}/external_ids`)
+  const { data, status, error } = useFetch<APISocialResult>(
+    `/person/${id}/external_ids`
+  )
 
   if (status === "rejected") {
     return <div>There was an error: {error?.message}</div>
@@ -30,72 +27,64 @@ function SocialMedia() {
     return <div>Person not found</div>
   }
 
-  // TODO: no social media
+  const socialMediaLinks = [
+    {
+      id: "facebook",
+      icon: <AiFillFacebook />,
+      url: `https://www.facebook.com/${data.facebook_id}`,
+      username: data.facebook_id,
+      hasAccount: data.facebook_id != null && data.facebook_id !== "",
+    },
+    {
+      id: "instagram",
+      icon: <AiFillInstagram />,
+      url: `https://www.instagram.com/${data.instagram_id}`,
+      username: `@${data.instagram_id}`,
+      hasAccount: data.instagram_id != null && data.instagram_id !== "",
+    },
+    {
+      id: "tiktok",
+      icon: <BsTiktok />,
+      url: `https://www.tiktok.com/${data.tiktok_id}`,
+      username: `@${data.tiktok_id}`,
+      hasAccount: data.tiktok_id != null && data.tiktok_id !== "",
+    },
+    {
+      id: "twitter",
+      icon: <AiFillTwitterSquare />,
+      url: `https://www.twitter.com/${data.twitter_id}`,
+      username: `@${data.twitter_id}`,
+      hasAccount: data.twitter_id != null && data.twitter_id !== "",
+    },
+    {
+      id: "youtube",
+      icon: <AiFillYoutube />,
+      url: `https://www.youtube.com/${data.youtube_id}`,
+      username: data.youtube_id,
+      hasAccount: data.youtube_id != null && data.youtube_id !== "",
+    },
+  ]
+  const activeSocialMediaLinks = socialMediaLinks.filter(
+    (link) => link.hasAccount
+  )
 
   return (
     <section>
       <h4 className="mb-2">Social</h4>
       <ul className="space-y-2">
-        {data.facebook_id && data.facebook_id != "" && (
-          <li>
+        {activeSocialMediaLinks.map((link) => (
+          <li key={link.id}>
             <a
-              href={`https://www.facebook.com/${data.facebook_id}`}
+              href={link.url}
               target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1 text-lg"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 hover:underline"
             >
-              <AiFillFacebook /> {data.facebook_id}
+              {link.icon}
+              <span>{link.username}</span>
             </a>
           </li>
-        )}
-        {data.instagram_id && data.instagram_id != "" && (
-          <li>
-            <a
-              href={`https://www.instagram.com/${data.instagram_id}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1 text-lg"
-            >
-              <AiFillInstagram /> @{data.instagram_id}
-            </a>
-          </li>
-        )}
-        {data.tiktok_id && data.tiktok_id != "" && (
-          <li>
-            <a
-              href={`https://www.tiktok.com/${data.tiktok_id}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1 text-lg"
-            >
-              <BsTiktok /> @{data.tiktok_id}
-            </a>
-          </li>
-        )}
-        {data.twitter_id && data.twitter_id != "" && (
-          <li>
-            <a
-              href={`https://www.twitter.com/${data.twitter_id}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1 text-lg"
-            >
-              <AiFillTwitterSquare /> @{data.twitter_id}
-            </a>
-          </li>
-        )}
-        {data.youtube_id && data.youtube_id != "" && (
-          <li>
-            <a
-              href={`https://www.youtube.com/${data.youtube_id}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1 text-lg"
-            >
-              <AiFillYoutube /> {data.youtube_id}
-            </a>
-          </li>
-        )}
+        ))}
       </ul>
     </section>
   )
