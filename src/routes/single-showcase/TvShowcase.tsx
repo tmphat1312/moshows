@@ -6,7 +6,6 @@ import TvMinorInfo from "./TvMinorInfo"
 import Videos from "./Videos"
 
 function TvShowcase({ data }: SingleShowCaseProps) {
-  console.log(data)
   return (
     <>
       <div className="section-separator">
