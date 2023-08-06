@@ -35,6 +35,7 @@ export type APIResponseTV = {
   video: boolean
   vote_average: number
   vote_count: number
+  first_air_date: string
 }
 
 export type APIResults = APIResponseMovie | APIResponseTV
