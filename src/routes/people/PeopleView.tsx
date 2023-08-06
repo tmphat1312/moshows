@@ -1,10 +1,10 @@
 import { useState } from "react"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
+import Pagination from "../../components/Pagination"
 import PersonCard, { PersonCardSkeleton } from "../../components/PersonCard"
 import { useFetch } from "../../hooks/useFetch"
 import { APIPersonResults, APIResponse } from "../../types/API"
-import Pagination from "../../components/Pagination"
 
 function PeopleView() {
   const [page, setPage] = useState(1)
