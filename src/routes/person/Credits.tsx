@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
+import ItemCard from "../../components/ItemCard"
 import { useFetch } from "../../hooks/useFetch"
 import { APIResults } from "../../types/API"
-import ItemCard from "../../components/ItemCard"
+import CareerHistory from "./CareerHistory"
 
 function Credits() {
   const { id } = useParams<{ id: string }>()
   const { data, status, error } = useFetch<{
-    cast: APIResults[]
-    crew: APIResults[]
+    cast: (APIResults & { character: string })[]
+    crew: (APIResults & { character: string })[]
     id: number
   }>(`/person/${id}/combined_credits`)
 
@@ -25,16 +26,33 @@ function Credits() {
   }
 
   const content = [...data.cast, ...data.crew]
+  const uniqueContent = content.filter(
+    (item, index, self) =>
+      index ===
+      self.findIndex(
+        (t) => t.id === item.id && t.media_type === item.media_type
+      )
+  )
 
   return (
-    <section className="space-y-2">
-      <h4 className="text-center title">Known for</h4>
-      <CustomScrollingCarousel>
-        {content.map((item) => (
-          <ItemCard key={item.id} item={item} type={item.media_type} />
-        ))}
-      </CustomScrollingCarousel>
-    </section>
+    <>
+      <section className="space-y-2">
+        <h4 className="text-center title">Known for</h4>
+        <CustomScrollingCarousel>
+          {uniqueContent.map((item) => (
+            <ItemCard
+              key={item.id + item.media_type + item.overview}
+              item={item}
+              type={item.media_type}
+            />
+          ))}
+        </CustomScrollingCarousel>
+      </section>
+      <section className="my-4 space-y-2">
+        <h4 className="text-center title">Acting</h4>
+        <CareerHistory items={uniqueContent} />
+      </section>
+    </>
   )
 }
 
