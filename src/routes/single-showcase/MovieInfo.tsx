@@ -3,7 +3,7 @@ import PlayButton from "../../components/PlayButton"
 import { toHoursAndMinutes } from "../../services/helpers"
 import { APISingleMovieResult } from "../../types/API"
 
-function Info({ item }: InfoProps) {
+function MovieInfo({ item }: InfoProps) {
   const genres = item.genres.map((genre) => genre.name).join(", ")
 
   return (
@@ -49,4 +49,4 @@ export type InfoProps = {
   item: APISingleMovieResult
 }
 
-export default Info
+export default MovieInfo
