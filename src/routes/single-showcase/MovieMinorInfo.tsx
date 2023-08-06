@@ -48,13 +48,13 @@ function MovieMinorInfo({ item }: MinorInfoProps) {
   return (
     <div className="space-y-2">
       {Object.entries(contentTable).map(([key, value]) => (
-        <>
-          <section key={key}>
+        <div key={key}>
+          <section>
             <h6 className="capitalize">{key}</h6>
-            <p>{value}</p>
+            {value}
           </section>
           {key !== "revenue" && <hr />}
-        </>
+        </div>
       ))}
     </div>
   )
