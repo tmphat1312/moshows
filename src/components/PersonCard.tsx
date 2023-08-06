@@ -47,7 +47,7 @@ function PersonCard({ person }: { person: APIPersonResults }) {
   )
 }
 
-const cardWidth = "sm:w-48 w-44 md:w-52"
+const cardWidth = "sm:w-44 w-36 md:w-48 lg:52"
 
 export function PersonCardSkeleton() {
   return (

@@ -37,7 +37,7 @@ function Videos() {
     officialVideos.length > 0 ? (
       <CustomScrollingCarousel>
         {officialVideos.map((video) => (
-          <article key={video.id} className="my-4 md:my-6 w-[300px]">
+          <article key={video.id} className="w-56 my-4 sm:w-60 md:w-64 md:my-6">
             <div className="relative">
               <a
                 href={`https://www.youtube.com/watch?v=${video.key}`}

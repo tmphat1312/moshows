@@ -11,8 +11,8 @@ function TvShowcase({ data }: SingleShowCaseProps) {
       <div className="section-separator">
         <Hero item={data} />
       </div>
-      <div className="gap-8 flex-btw section">
-        <div className="w-4/5 space-y-8">
+      <div className="flex-col-reverse gap-8 md:flex-row flex-btw section">
+        <div className="space-y-8 md:w-4/5">
           <Videos />
           <Similar />
           <Recommendation />

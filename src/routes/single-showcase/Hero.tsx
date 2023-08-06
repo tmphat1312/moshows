@@ -29,7 +29,7 @@ function Hero({ item }: HeroProps) {
       }}
     >
       <div className="section">
-        <section className="flex flex-col gap-8 py-8 sm:flex-row sm:items-center backdrop-blur-sm">
+        <section className="flex flex-col items-center gap-8 py-8 sm:flex-row backdrop-blur-sm">
           <div className="shrink-0">
             <Poster adult={item.adult} posterPath={item.poster_path} />
           </div>
