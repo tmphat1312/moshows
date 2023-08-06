@@ -18,10 +18,12 @@ function Showcase() {
   setType(type)
 
   return (
-    <div key={type}>
-      <TitleSection title={titleMap[type]} />
-      <Nav />
-      <div className="relative flex flex-col gap-8 lg:flex-row app-width section">
+    <div key={type} className="space-y-12 section">
+      <header>
+        <TitleSection title={titleMap[type]} />
+        <Nav />
+      </header>
+      <div className="relative flex flex-col gap-8 lg:flex-row">
         <div className="basis-1/5 shrink-0">
           <Actions />
         </div>
