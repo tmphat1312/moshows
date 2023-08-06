@@ -5,6 +5,7 @@ import Landing from "./routes/landing/Landing"
 import People from "./routes/people/People"
 import Showcase from "./routes/showcase/Showcase"
 import SingleShowcase from "./routes/single-showcase/SingleShowcase"
+import Person from "./routes/person/Person"
 
 const routes = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
       {
         path: "showcase/:type/:id",
         element: <SingleShowcase />,
+      },
+      {
+        path: "person/:id",
+        element: <Person />,
       },
     ],
   },
