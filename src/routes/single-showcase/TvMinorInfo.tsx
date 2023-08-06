@@ -25,7 +25,7 @@ function TvMinorInfo({ item }: MinorInfoProps) {
   const keywords = data?.keywords ?? data?.results ?? []
   const keywordsContent =
     keywords.length > 0 ? (
-      <ul className="flex flex-wrap gap-2">
+      <ul className="flex flex-wrap gap-2 py-1">
         {keywords.map((keyword) => (
           <li
             key={keyword.id}
