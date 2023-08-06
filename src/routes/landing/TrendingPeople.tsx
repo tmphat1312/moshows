@@ -35,13 +35,9 @@ function TrendingPeople() {
   const carouselContent =
     status == "pending" ? (
       <CustomScrollingCarousel>
-        <PersonCardSkeleton />
-        <PersonCardSkeleton />
-        <PersonCardSkeleton />
-        <PersonCardSkeleton />
-        <PersonCardSkeleton />
-        <PersonCardSkeleton />
-        <PersonCardSkeleton />
+        {[...Array(10)].map((_, index) => (
+          <PersonCardSkeleton key={index} />
+        ))}
       </CustomScrollingCarousel>
     ) : (
       <CustomScrollingCarousel>
