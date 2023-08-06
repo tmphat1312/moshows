@@ -1,3 +1,5 @@
+import { AiFillFacebook, AiFillGithub, AiTwotoneMail } from "react-icons/ai"
+
 export const navigationLinks = [
   {
     name: "home",
@@ -16,6 +18,39 @@ export const navigationLinks = [
     path: "/people",
   },
 ]
+
+export const contactInfo = [
+  {
+    text: "tmphat1312",
+    icon: <AiFillFacebook />,
+    link: "https://www.facebook.com/tmphat1312",
+  },
+  {
+    text: "tmphat1312@gmail.com",
+    icon: <AiTwotoneMail />,
+    link: "mailto: tmphat1312@gmail.com",
+  },
+  {
+    text: "tmphat1312",
+    icon: <AiFillGithub />,
+    link: "https://github.com/tmphat1312",
+  },
+] as const
+
+export const inspiredBy = [
+  {
+    text: "The movie database",
+    link: "https://www.themoviedb.org/",
+  },
+  {
+    text: "TMDB API",
+    link: "https://developer.themoviedb.org/reference/intro/getting-started",
+  },
+  {
+    text: "Movix",
+    link: "https://movix-eta.vercel.app/",
+  },
+] as const
 
 export const trailerTypes = ["In Theaters", "On TV"]
 
