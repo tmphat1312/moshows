@@ -7,8 +7,13 @@ function TvInfo({ item }: InfoProps) {
 
   return (
     <section className="space-y-3 tracking-wide">
-      <h2 className="text-3xl font-medium transition-colors hover:text-gradient-primary text-balance">
-        <a href={item.homepage} rel="noreferrer noopener" target="_blank">
+      <h2 className="text-3xl font-medium text-balance">
+        <a
+          href={item.homepage}
+          rel="noreferrer noopener"
+          target="_blank"
+          className="transition-colors hover:text-gradient-primary"
+        >
           {item.name}{" "}
           <span className="font-sans">
             ({new Date(item.first_air_date).getFullYear()})
