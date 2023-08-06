@@ -3,7 +3,7 @@ import { useFetch } from "../../hooks/useFetch"
 import { toCurrencyFormat } from "../../services/helpers"
 import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
 
-function MinorInfo({ item }: MinorInfoProps) {
+function MovieMinorInfo({ item }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
   const { data, error, status } = useFetch<{
     id: number
@@ -64,4 +64,4 @@ export type MinorInfoProps = {
   item: APISingleMovieResult
 }
 
-export default MinorInfo
+export default MovieMinorInfo

@@ -1,6 +1,6 @@
 import { APISingleMovieResult } from "../../types/API"
 import Hero from "./Hero"
-import MinorInfo from "./MinorInfo"
+import MovieMinorInfo from "./MovieMinorInfo"
 import Recommendation from "./Recommendation"
 import Similar from "./Similar"
 import Videos from "./Videos"
@@ -18,7 +18,7 @@ function MovieShowcase({ data }: SingleShowCaseProps) {
           <Recommendation />
         </div>
         <div className="grow">
-          <MinorInfo item={data} />
+          <MovieMinorInfo item={data} />
         </div>
       </div>
     </>
