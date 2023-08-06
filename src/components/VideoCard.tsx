@@ -14,7 +14,7 @@ function VideoCard({ item }: { item: APIResults }) {
   return (
     <article className={`py-4 space-y-3 ${cardWidth}`}>
       <div className="relative aspect-video">
-        <Link to={`/${item.media_type}/${item.id}`} className="h-full">
+        <Link to={`/showcase/${item.media_type}/${item.id}`} className="h-full">
           <figure
             className={`${cardWidth} aspect-video drop-shadow-lg  hover:scale-95 transition-transform bg-gray-500`}
           >
