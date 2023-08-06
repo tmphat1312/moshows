@@ -5,6 +5,7 @@ import Credits from "./Credits"
 import Details from "./Details"
 import Info from "./Info"
 import ProfilePhoto from "./ProfilePhoto"
+import { NavBarPlaceholder } from "../../layout/NavBar"
 
 function Person() {
   const { id } = useParams<{ id: string }>()
@@ -25,24 +26,27 @@ function Person() {
   }
 
   return (
-    <section className="space-y-16 section">
-      <div className="flex items-center gap-8">
-        <div className="w-1/4 shrink-0">
-          <ProfilePhoto profilePath={data.profile_path} />
+    <>
+      <NavBarPlaceholder />
+      <section className="space-y-16 section">
+        <div className="flex items-center gap-8">
+          <div className="w-1/4 shrink-0">
+            <ProfilePhoto profilePath={data.profile_path} />
+          </div>
+          <div className="grow">
+            <Info item={data} />
+          </div>
         </div>
-        <div className="grow">
-          <Info item={data} />
+        <div className="flex gap-8">
+          <div className="w-1/4">
+            <Details item={data} />
+          </div>
+          <div className="w-3/4">
+            <Credits />
+          </div>
         </div>
-      </div>
-      <div className="flex gap-8">
-        <div className="w-1/4">
-          <Details item={data} />
-        </div>
-        <div className="w-3/4">
-          <Credits />
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 

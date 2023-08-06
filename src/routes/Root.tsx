@@ -1,14 +1,12 @@
 import { Outlet } from "react-router-dom"
-import Header from "../layout/Header"
-import Footer from "../layout/Footer"
 import ScrollToTop from "../components/ScrollToTop"
-import { NavBarPlaceholder } from "../layout/NavBar"
+import Footer from "../layout/Footer"
+import Header from "../layout/Header"
 
 function Root() {
   return (
     <>
       <Header />
-      <NavBarPlaceholder />
       <main className="section-separator">
         <Outlet />
       </main>
