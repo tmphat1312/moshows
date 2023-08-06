@@ -35,14 +35,9 @@ function Popular() {
   const carouselContent =
     status == "pending" ? (
       <CustomScrollingCarousel>
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
-        <ItemCardSkeleton />
+        {[...Array(10)].map((_, index) => (
+          <ItemCardSkeleton key={index} />
+        ))}
       </CustomScrollingCarousel>
     ) : (
       <CustomScrollingCarousel>
