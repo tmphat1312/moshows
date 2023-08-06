@@ -23,7 +23,9 @@ function CareerHistory({ items }: CareerHistoryProps) {
         const releaseDate =
           item.media_type === "movie" ? item.release_date : item.first_air_date
         const releaseYear =
-          releaseDate.length > 0 ? releaseDate.split("-")[0] : "____"
+          releaseDate && releaseDate.length > 0
+            ? releaseDate.split("-")[0]
+            : "____"
 
         return (
           <li
@@ -39,7 +41,9 @@ function CareerHistory({ items }: CareerHistoryProps) {
               <p className="italic capitalize">
                 as{" "}
                 <span className="text-primary-500 font-display">
-                  {item.character.length > 0 ? item.character : "____"}
+                  {item.character && item.character.length > 0
+                    ? item.character
+                    : "____"}
                 </span>
               </p>
             </div>
