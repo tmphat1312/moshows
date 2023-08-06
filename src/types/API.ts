@@ -196,3 +196,19 @@ export type APIVideoResult = {
   published_at: string
   id: string
 }
+
+export type APISinglePersonResult = {
+  adult: boolean
+  also_known_as: string[]
+  biography: string
+  birthday: string
+  deathday: string | null
+  gender: 0 | 1 | 2 | 3
+  homepage: string | null
+  id: number
+  known_for_department: string
+  name: string
+  place_of_birth: string | null
+  popularity: number
+  profile_path: string
+}
