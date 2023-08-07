@@ -2,60 +2,80 @@ import { useState } from "react"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
+import NoItemsMessage from "../../components/NoItemsMessage"
 import TabSwitcher from "../../components/TabSwitcher"
 import { useFetch } from "../../hooks/useFetch"
 import { APIResponse, APIResults } from "../../types/API"
 
-const timeWindows = ["day", "week"]
-export type TimeWindow = (typeof timeWindows)[number]
-
 function Trending() {
   const [timeWindow, setTimeWindow] = useState<TimeWindow>("day")
-  const { data, status, error } = useFetch<APIResponse<APIResults>>(
-    `/trending/all/${timeWindow}`
-  )
+  const { data, status } = useFetch<FetchType>(`/trending/all/${timeWindow}`)
 
   function toggleTimeWindow(tab: string) {
-    if (tab == timeWindow) return
-    setTimeWindow(tab)
+    if (tab != timeWindow) setTimeWindow(tab)
   }
 
-  if (error) {
+  if (status == "pending") {
     return (
-      <section className="section">
-        <div className="flex-btw">
-          <h2 className="title">Trending</h2>
-          <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
-        </div>
-        <CommonErrorMessage />
-      </section>
+      <CommonLayout tabAction={toggleTimeWindow}>
+        <CustomScrollingCarousel>
+          {[...Array(10)].map((_, index) => (
+            <ItemCardSkeleton key={index} />
+          ))}
+        </CustomScrollingCarousel>
+      </CommonLayout>
     )
   }
 
-  const carouselContent =
-    status == "pending" ? (
-      <CustomScrollingCarousel>
-        {[...Array(10)].map((_, index) => (
-          <ItemCardSkeleton key={index} />
-        ))}
-      </CustomScrollingCarousel>
-    ) : (
-      <CustomScrollingCarousel>
-        {data?.results.map((item) => (
-          <ItemCard key={item.id} item={item} type={item.media_type} />
-        ))}
-      </CustomScrollingCarousel>
+  if (status == "rejected" || data == null) {
+    return (
+      <CommonLayout tabAction={toggleTimeWindow}>
+        <CommonErrorMessage />
+      </CommonLayout>
     )
+  }
 
+  const trending = data?.results ?? []
   return (
     <section className="section">
       <div className="flex-btw">
         <h2 className="title">Trending</h2>
         <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
       </div>
-      {carouselContent}
+      {trending.length > 0 ? (
+        <CustomScrollingCarousel>
+          {trending.map((item) => (
+            <ItemCard key={item.id} item={item} type={item.media_type} />
+          ))}
+        </CustomScrollingCarousel>
+      ) : (
+        <NoItemsMessage />
+      )}
     </section>
   )
 }
 
+// #private
+const timeWindows = ["day", "week"]
+type FetchType = APIResponse<APIResults>
+type TimeWindow = (typeof timeWindows)[number]
+
+function CommonLayout({
+  children,
+  tabAction,
+}: {
+  children: React.ReactNode
+  tabAction: (tab: string) => void
+}) {
+  return (
+    <section className="section">
+      <div className="flex-btw">
+        <h2 className="title">Trending</h2>
+        <TabSwitcher tabs={timeWindows} action={tabAction} />
+      </div>
+      {children}
+    </section>
+  )
+}
+// #private
 export default Trending

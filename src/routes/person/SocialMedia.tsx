@@ -1,5 +1,3 @@
-import { useParams } from "react-router-dom"
-import { useFetch } from "../../hooks/useFetch"
 import {
   AiFillFacebook,
   AiFillInstagram,
@@ -7,25 +5,31 @@ import {
   AiFillYoutube,
 } from "react-icons/ai"
 import { BsTiktok } from "react-icons/bs"
+import { useParams } from "react-router-dom"
+import { useFetch } from "../../hooks/useFetch"
 import { APISocialResult } from "../../types/API"
 
-function SocialMedia() {
+export default function SocialMedia() {
   const { id } = useParams<{ id: string }>()
-  const { data, status, error } = useFetch<APISocialResult>(
+  const { data, status } = useFetch<APISocialResult>(
     `/person/${id}/external_ids`
   )
 
-  if (status === "rejected") {
-    return <div>There was an error: {error?.message}</div>
-  }
-
   if (status === "pending") {
-    return <div>Loading...</div>
-  }
+    return (
+      <CommonLayout>
+        <p>Loading...</p>
+      </CommonLayout>
+    )
+  } // TODO: Add skeleton
 
-  if (data == null) {
-    return <div>Person not found</div>
-  }
+  if (status == "rejected" || data == null) {
+    return (
+      <CommonLayout>
+        <p>Error loading social media</p>
+      </CommonLayout>
+    )
+  } // TODO: add error indicator
 
   const socialMediaLinks = [
     {
@@ -69,8 +73,7 @@ function SocialMedia() {
   )
 
   return (
-    <section>
-      <h4 className="mb-2">Social</h4>
+    <CommonLayout>
       <ul className="space-y-2">
         {activeSocialMediaLinks.map((link) => (
           <li key={link.id}>
@@ -86,8 +89,17 @@ function SocialMedia() {
           </li>
         ))}
       </ul>
-    </section>
+    </CommonLayout>
   )
 }
 
-export default SocialMedia
+// #private
+function CommonLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <section>
+      <h4 className="mb-2">Social</h4>
+      {children}
+    </section>
+  )
+}
+// #private

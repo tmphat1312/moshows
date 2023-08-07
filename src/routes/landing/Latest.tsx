@@ -2,6 +2,7 @@ import { useState } from "react"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
+import NoItemsMessage from "../../components/NoItemsMessage"
 import TabSwitcher from "../../components/TabSwitcher"
 import VideoCard, { VideoCardSkeleton } from "../../components/VideoCard"
 import { trailerTypes } from "../../constants"
@@ -13,67 +14,80 @@ import {
 } from "../../services/constantMap"
 import { APIResponse, APIResults } from "../../types/API"
 
-const today = new Date().toISOString().slice(0, 10)
-const urlsMap: Record<string, string> = {
-  movie: `movie?primary_release_date.lte=${today}&sort_by=primary_release_date.desc`,
-  tv: `tv?first_air_date.lte=${today}&sort_by=primary_release_date.desc`,
-}
-
-function Latest() {
+export default function Latest() {
   const [trailerType, setTrailerType] = useState<TrailerType>("In Theaters")
   const mediaType = getMediaType(trailerType)
-  const { data, status, error } = useFetch<APIResponse<APIResults>>(
-    `discover/${urlsMap[mediaType]}}`
-  )
+  const { data, status } = useFetch<FetchType>(`${urlsMap[mediaType]}}`)
 
   function toggleTrailerType(tab: string) {
-    if (tab == trailerType) return
-    setTrailerType(tab)
+    if (tab != trailerType) setTrailerType(tab)
   }
 
-  if (error) {
+  if (status == "pending") {
     return (
-      <section className="section">
-        <div className="flex-btw">
-          <h2 className="title">Popular</h2>
-          <TabSwitcher tabs={trailerTypes} action={toggleTrailerType} />
-        </div>
-        <CommonErrorMessage />
-      </section>
+      <CommonLayout tabAction={toggleTrailerType}>
+        <CustomScrollingCarousel>
+          {[...Array(10)].map((_, index) => (
+            <VideoCardSkeleton key={index} />
+          ))}
+        </CustomScrollingCarousel>
+      </CommonLayout>
     )
   }
 
-  const carouselContent =
-    status == "pending" ? (
-      <CustomScrollingCarousel>
-        {[...Array(10)].map((_, index) => (
-          <VideoCardSkeleton key={index} />
-        ))}
-      </CustomScrollingCarousel>
-    ) : (
-      <CustomScrollingCarousel>
-        <div className="invisible w-0 -ml-6">
-          <VideoCardSkeleton />
-        </div>
-        {data?.results.map((item) => {
-          const mediaItem = getMediaItem(item, mediaType)
-          if (!mediaItem) return null
-
-          return <VideoCard key={item.id} item={mediaItem} />
-        })}
-      </CustomScrollingCarousel>
+  if (status == "rejected" || data == null) {
+    return (
+      <CommonLayout tabAction={toggleTrailerType}>
+        <CommonErrorMessage />
+      </CommonLayout>
     )
+  }
 
+  const latest = data?.results ?? []
+  return (
+    <CommonLayout tabAction={toggleTrailerType}>
+      {latest.length > 0 ? (
+        <CustomScrollingCarousel>
+          <div className="invisible w-0 -ml-6">
+            <VideoCardSkeleton />
+          </div>
+          {latest.map((item) => (
+            <VideoCard key={item.id} item={getMediaItem(item, mediaType)} />
+          ))}
+        </CustomScrollingCarousel>
+      ) : (
+        <NoItemsMessage />
+      )}
+    </CommonLayout>
+  )
+}
+
+// #private
+type FetchType = APIResponse<APIResults>
+
+const today = new Date().toISOString().slice(0, 10)
+const urlsMap: Record<string, string> = {
+  movie: `discover/movie?primary_release_date.lte=${today}&sort_by=primary_release_date.desc`,
+  tv: `discover/tv?first_air_date.lte=${today}&sort_by=primary_release_date.desc`,
+}
+
+function CommonLayout({
+  children,
+  tabAction,
+}: {
+  children: React.ReactNode
+  tabAction: (tab: string) => void
+}) {
   return (
     <section className="section">
       <BackgroundWall>
         <div className="flex-btw">
           <h2 className="title">Latest</h2>
-          <TabSwitcher tabs={trailerTypes} action={toggleTrailerType} />
+          <TabSwitcher tabs={trailerTypes} action={tabAction} />
         </div>
-        {carouselContent}
+        {children}
       </BackgroundWall>
     </section>
   )
 }
-export default Latest
+// #private

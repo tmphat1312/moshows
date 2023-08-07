@@ -8,7 +8,7 @@ function LanguageFilter({ currentLanguage, setLanguage }: LanguageFilterProps) {
     "/configuration/languages"
   )
 
-  if (status == "pending" || !data) {
+  if (status == "pending") {
     return (
       <label htmlFor="language" className="block font-semibold capitalize">
         language
@@ -18,6 +18,10 @@ function LanguageFilter({ currentLanguage, setLanguage }: LanguageFilterProps) {
       </label>
     )
   }
+
+  if (status == "rejected" || data == null) {
+    return <p>Error loading languages</p>
+  } // TODO: error indicator
 
   const languageSelectOptions = data.map((language) => {
     return {

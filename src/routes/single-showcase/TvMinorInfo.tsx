@@ -2,25 +2,21 @@ import { useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
 import { APIKeywordResults, APISingleTVResult } from "../../types/API"
 
-function TvMinorInfo({ item }: MinorInfoProps) {
+export default function TvMinorInfo({ item }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
-  const { data, error, status } = useFetch<{
-    id: number
-    keywords?: APIKeywordResults[]
-    results?: APIKeywordResults[]
-  }>(`${type}/${id}/keywords`)
+  const { data, status } = useFetch<FetchType>(`${type}/${id}/keywords`)
 
-  if (error) {
+  if (status === "pending") {
+    return <p>loading keywords...</p>
+  } // TODO: add loading skeleton
+
+  if (status == "rejected" || data == null) {
     return (
       <p className="px-1 bg-red-500 rounded-md w-max">
         Error loading resources
       </p>
     )
   }
-
-  if (status === "pending") {
-    return <p>loading keywords...</p>
-  } // TODO: add loading skeleton
 
   const keywords = data?.keywords ?? data?.results ?? []
   const keywordsContent =
@@ -62,8 +58,14 @@ function TvMinorInfo({ item }: MinorInfoProps) {
   )
 }
 
-export type MinorInfoProps = {
+// #private
+type MinorInfoProps = {
   item: APISingleTVResult
 }
 
-export default TvMinorInfo
+type FetchType = {
+  id: number
+  keywords?: APIKeywordResults[]
+  results?: APIKeywordResults[]
+}
+// #private

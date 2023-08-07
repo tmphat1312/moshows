@@ -14,19 +14,7 @@ function SingleShowcase() {
     throw Error(`${type} is not a valid type of showcase`)
   }
 
-  const { data, error, status } = useFetch<
-    APISingleMovieResult | APISingleTVResult
-  >(`${type}/${id}`)
-
-  if (error) {
-    return (
-      <>
-        <BackgroundWall>
-          <CommonErrorMessage />
-        </BackgroundWall>
-      </>
-    )
-  }
+  const { data, status } = useFetch<FetchType>(`${type}/${id}`)
 
   if (status == "pending") {
     return (
@@ -37,6 +25,16 @@ function SingleShowcase() {
       </>
     )
   } // TODO: add skeleton
+
+  if (status == "rejected" || data == null) {
+    return (
+      <>
+        <BackgroundWall>
+          <CommonErrorMessage />
+        </BackgroundWall>
+      </>
+    )
+  }
 
   const showcaseMap = {
     movie: <MovieShowcase data={data as APISingleMovieResult} />,
@@ -51,5 +49,10 @@ function SingleShowcase() {
     </>
   )
 }
+
+// #private
+type FetchType = APISingleMovieResult | APISingleTVResult
+
+// #private
 
 export default SingleShowcase

@@ -45,7 +45,7 @@ function Info({ item }: InfoProps) {
         <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-red-600 to-red-700">
           Date of birth
         </h4>
-        <p>{item.birthday}</p>
+        <p>{item.birthday ?? "N/A"}</p>
       </section>
       <section className="space-y-2">
         <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-red-600 to-red-700">

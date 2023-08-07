@@ -2,51 +2,68 @@ import { useState } from "react"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
+import NoItemsMessage from "../../components/NoItemsMessage"
 import PersonCard, { PersonCardSkeleton } from "../../components/PersonCard"
 import TabSwitcher from "../../components/TabSwitcher"
 import { useFetch } from "../../hooks/useFetch"
 import { APIPersonResults, APIResponse } from "../../types/API"
 
-const timeWindows = ["day", "week"]
-export type TimeWindow = (typeof timeWindows)[number]
-
 function TrendingPeople() {
   const [timeWindow, setTimeWindow] = useState<TimeWindow>("day")
-  const { data, status, error } = useFetch<APIResponse<APIPersonResults>>(
-    `/trending/person/${timeWindow}`
-  )
+  const { data, status } = useFetch<FetchType>(`/trending/person/${timeWindow}`)
 
   function toggleTimeWindow(tab: string) {
-    if (tab == timeWindow) return
-    setTimeWindow(tab)
+    if (tab != timeWindow) setTimeWindow(tab)
   }
 
-  if (error) {
+  if (status == "pending") {
     return (
-      <section className="section">
-        <div className="flex-btw">
-          <h2 className="title">Trending People</h2>
-        </div>
-        <CommonErrorMessage />
-      </section>
+      <CommonLayout tabAction={toggleTimeWindow}>
+        <CustomScrollingCarousel>
+          {[...Array(10)].map((_, index) => (
+            <PersonCardSkeleton key={index} />
+          ))}
+        </CustomScrollingCarousel>
+      </CommonLayout>
     )
   }
 
-  const carouselContent =
-    status == "pending" ? (
-      <CustomScrollingCarousel>
-        {[...Array(10)].map((_, index) => (
-          <PersonCardSkeleton key={index} />
-        ))}
-      </CustomScrollingCarousel>
-    ) : (
-      <CustomScrollingCarousel>
-        {data?.results.map((person) => {
-          return <PersonCard key={person.id} person={person} />
-        })}
-      </CustomScrollingCarousel>
+  if (status == "rejected" || data == null) {
+    return (
+      <CommonLayout tabAction={toggleTimeWindow}>
+        <CommonErrorMessage />
+      </CommonLayout>
     )
+  }
 
+  const trendingPeople = data?.results ?? []
+  return (
+    <CommonLayout tabAction={toggleTimeWindow}>
+      {trendingPeople.length > 0 ? (
+        <CustomScrollingCarousel>
+          {trendingPeople.map((person) => {
+            return <PersonCard key={person.id} person={person} />
+          })}
+        </CustomScrollingCarousel>
+      ) : (
+        <NoItemsMessage />
+      )}
+    </CommonLayout>
+  )
+}
+
+// #private
+const timeWindows = ["day", "week"]
+type TimeWindow = (typeof timeWindows)[number]
+type FetchType = APIResponse<APIPersonResults>
+
+function CommonLayout({
+  children,
+  tabAction,
+}: {
+  children: React.ReactNode
+  tabAction: (tab: string) => void
+}) {
   return (
     <section className="section">
       <BackgroundWall>
@@ -54,12 +71,13 @@ function TrendingPeople() {
           <h2 className="title">
             Trending <span className="hidden sm:inline-block">people</span>
           </h2>
-          <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
+          <TabSwitcher tabs={timeWindows} action={tabAction} />
         </div>
-        {carouselContent}
+        {children}
       </BackgroundWall>
     </section>
   )
 }
+// #private
 
 export default TrendingPeople

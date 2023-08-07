@@ -5,22 +5,22 @@ import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
 
 function MovieMinorInfo({ item }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
-  const { data, error, status } = useFetch<{
+  const { data, status } = useFetch<{
     id: number
     keywords: APIKeywordResults[]
   }>(`${type}/${id}/keywords`)
 
-  if (error) {
+  if (status === "pending") {
+    return <p>loading keywords...</p>
+  } // TODO: add loading skeleton
+
+  if (status == "rejected" || data == null) {
     return (
       <p className="px-1 bg-red-500 rounded-md w-max">
         Error loading resources
       </p>
     )
-  }
-
-  if (status === "pending") {
-    return <p>loading keywords...</p>
-  } // TODO: add loading skeleton
+  } // TODO: add error indicator
 
   const keywords = data?.keywords ?? []
   const keywordsContent =
@@ -36,7 +36,7 @@ function MovieMinorInfo({ item }: MinorInfoProps) {
         ))}
       </ul>
     ) : (
-      <p>no keywords available</p>
+      <p>no keywords available</p> // TODO: no keywords indicator
     )
 
   const contentTable = {
