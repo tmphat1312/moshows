@@ -7,7 +7,7 @@ import TabSwitcher from "../../components/TabSwitcher"
 import { useFetch } from "../../hooks/useFetch"
 import { APIResponse, APIResults } from "../../types/API"
 
-function Trending() {
+export default function Trending() {
   const [timeWindow, setTimeWindow] = useState<TimeWindow>("day")
   const { data, status } = useFetch<FetchType>(`/trending/all/${timeWindow}`)
 
@@ -78,4 +78,3 @@ function CommonLayout({
   )
 }
 // #private
-export default Trending

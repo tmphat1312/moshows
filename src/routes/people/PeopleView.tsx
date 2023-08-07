@@ -6,7 +6,7 @@ import PersonCard, { PersonCardSkeleton } from "../../components/PersonCard"
 import { useFetch } from "../../hooks/useFetch"
 import { APIPersonResults, APIResponse } from "../../types/API"
 
-function PeopleView() {
+export default function PeopleView() {
   const [page, setPage] = useState(1)
   const { data, status } = useFetch<FetchType>(`/person/popular?page=${page}`)
 
@@ -65,5 +65,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
   return <BackgroundWall>{children}</BackgroundWall>
 }
 // #private
-
-export default PeopleView

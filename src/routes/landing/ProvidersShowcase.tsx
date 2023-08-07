@@ -3,7 +3,10 @@ import ProviderCard from "../../components/ProviderCard"
 import { SkeletonBox } from "../../components/Skeleton"
 import { APIProviderResults } from "../../types/API"
 
-function ProvidersShowcase({ title, providers }: ProvidersShowcaseProps) {
+export default function ProvidersShowcase({
+  title,
+  providers,
+}: ProvidersShowcaseProps) {
   return (
     <section>
       <h3 className="subtitle">{title}</h3>
@@ -44,5 +47,3 @@ export type ProvidersShowcaseProps = {
   title: string
   providers: APIProviderResults[]
 }
-
-export default ProvidersShowcase

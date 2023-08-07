@@ -6,7 +6,7 @@ import NoItemsMessage from "../../components/NoItemsMessage"
 import { useFetch } from "../../hooks/useFetch"
 import { APIResponse, APIResults } from "../../types/API"
 
-function Similar() {
+export default function Similar() {
   const { id, type } = useParams<{ id: string; type: string }>()
   const { data, status } = useFetch<FetchType>(`/${type}/${id}/similar`)
 
@@ -59,5 +59,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
   )
 }
 // #private
-
-export default Similar

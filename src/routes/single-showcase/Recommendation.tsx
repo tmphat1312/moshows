@@ -7,7 +7,7 @@ import NoItemsMessage from "../../components/NoItemsMessage"
 import { useFetch } from "../../hooks/useFetch"
 import { APIResponse, APIResults } from "../../types/API"
 
-function Recommendation() {
+export default function Recommendation() {
   const { id, type } = useParams<{ id: string; type: string }>()
   const { data, status } = useFetch<FetchType>(`/${type}/${id}/recommendations`)
 
@@ -66,5 +66,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
   )
 }
 // #private
-
-export default Recommendation

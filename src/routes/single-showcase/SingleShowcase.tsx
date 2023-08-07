@@ -8,7 +8,7 @@ import { APISingleMovieResult, APISingleTVResult } from "../../types/API"
 import MovieShowcase from "./MovieShowcase"
 import TvShowcase from "./TvShowcase"
 
-function SingleShowcase() {
+export default function SingleShowcase() {
   const { type, id } = useParams<SingleShowcaseParams>()
   if (!isShowcaseType(type)) {
     throw Error(`${type} is not a valid type of showcase`)
@@ -54,5 +54,3 @@ function SingleShowcase() {
 type FetchType = APISingleMovieResult | APISingleTVResult
 
 // #private
-
-export default SingleShowcase
