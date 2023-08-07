@@ -1,5 +1,6 @@
 import { BsDot } from "react-icons/bs"
 import PlayButton from "../../components/PlayButton"
+import ShowMore from "../../components/ShowMore"
 import { toHoursAndMinutes } from "../../services/helpers"
 import { APISingleMovieResult } from "../../types/API"
 
@@ -44,7 +45,7 @@ function MovieInfo({ item }: InfoProps) {
       </div>
       <section>
         <h5 className="text-xl">Overview:</h5>
-        <p className="tracking-wider drop-shadow-md">{item.overview}</p>
+        <ShowMore text={item.overview} />
       </section>
     </section>
   )

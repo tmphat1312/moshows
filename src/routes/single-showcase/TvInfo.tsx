@@ -1,4 +1,5 @@
 import PlayButton from "../../components/PlayButton"
+import ShowMore from "../../components/ShowMore"
 import dayjs from "../../services/dayjs"
 import { APISingleTVResult } from "../../types/API"
 
@@ -51,7 +52,7 @@ function TvInfo({ item }: InfoProps) {
       </div>
       <section>
         <h5 className="text-xl">Overview:</h5>
-        <p className="tracking-wider drop-shadow-md">{item.overview}</p>
+        <ShowMore text={item.overview} />
       </section>
     </section>
   )
