@@ -44,7 +44,9 @@ export default function BrowseMore() {
   )
 }
 
-/* #private */
+// #private
+type FetchType = APIResponse<APIProviderResults>
+
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return (
     <section className="section">
@@ -58,6 +60,4 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
     </section>
   )
 }
-
-type FetchType = APIResponse<APIProviderResults>
-/* #private */
+// #private
