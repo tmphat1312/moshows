@@ -29,12 +29,8 @@ function MovieMinorInfo({ item }: MinorInfoProps) {
   }
 
   if (status == "rejected" || data == null) {
-    return (
-      <p className="px-1 bg-red-500 rounded-md w-max">
-        Error loading resources
-      </p>
-    )
-  } // TODO: add error indicator
+    return <p className="error-message">Error loading additional resources</p>
+  }
 
   const keywords = data?.keywords ?? []
   const keywordsContent =
@@ -50,7 +46,7 @@ function MovieMinorInfo({ item }: MinorInfoProps) {
         ))}
       </ul>
     ) : (
-      <p>no keywords available</p> // TODO: no keywords indicator
+      <p className="italic text-primary-400">no keywords available</p>
     )
 
   const contentTable = {

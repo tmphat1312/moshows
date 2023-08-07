@@ -99,6 +99,12 @@
       text-wrap: balance;
     }
   }
+
+  .error-message {
+    @apply px-1 w-max;
+    @apply rounded-sm;
+    @apply italic bg-gradient-to-r from-red-600 to-red-700 text-slate-50;
+  }
 }
 
 @layer utilities {

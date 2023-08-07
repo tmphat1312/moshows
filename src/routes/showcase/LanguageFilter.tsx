@@ -20,8 +20,8 @@ function LanguageFilter({ currentLanguage, setLanguage }: LanguageFilterProps) {
   }
 
   if (status == "rejected" || data == null) {
-    return <p>Error loading languages</p>
-  } // TODO: error indicator
+    return <p className="error-message">Error loading language filter</p>
+  }
 
   const languageSelectOptions = data.map((language) => {
     return {

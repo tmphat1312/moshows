@@ -25,12 +25,8 @@ export default function TvMinorInfo({ item }: MinorInfoProps) {
   }
 
   if (status == "rejected" || data == null) {
-    return (
-      <p className="px-1 bg-red-500 rounded-md w-max">
-        Error loading resources
-      </p>
-    )
-  } // TODO: add error message
+    return <p className="error-message">Error loading additional resources</p>
+  }
 
   const keywords = data?.keywords ?? data?.results ?? []
   const keywordsContent =

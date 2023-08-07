@@ -39,8 +39,8 @@ export default function KeywordFilter({ setKeywords }: KeywordFilterProps) {
   }
 
   if (status == "rejected" || data == null) {
-    return <p>Error loading keywords</p>
-  } // TODO: error indicator
+    return <p className="error-message">Error loading keywords</p>
+  }
 
   const suggestions = (
     <KeywordSuggestions keywords={data.results} addKeyword={addKeyword} />

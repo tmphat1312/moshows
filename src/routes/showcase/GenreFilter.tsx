@@ -29,8 +29,8 @@ export default function GenreFilter({
   }
 
   if (status == "rejected" || data == null) {
-    return <p>Error loading genres</p>
-  } // TODO: error indicator
+    return <p className="error-message">Error loading genres</p>
+  }
 
   return (
     <TextCollapse title="Genres">

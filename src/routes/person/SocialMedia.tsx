@@ -33,10 +33,10 @@ export default function SocialMedia() {
   if (status == "rejected" || data == null) {
     return (
       <CommonLayout>
-        <p>Error loading social media</p>
+        <p className="error-message">Error loading social media</p>
       </CommonLayout>
     )
-  } // TODO: add error indicator
+  }
 
   const socialMediaLinks = [
     {
