@@ -24,10 +24,9 @@ export default function Similar() {
 
   if (status == "rejected" || data == null) {
     return (
-      <section className="section">
-        <h2 className="title">Similar</h2>
+      <CommonLayout>
         <CommonErrorMessage />
-      </section>
+      </CommonLayout>
     )
   }
 
