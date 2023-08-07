@@ -1,7 +1,7 @@
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import { useFetch } from "../../hooks/useFetch"
 import DiscoverHint from "../../layout/DiscoverHint"
-import { APIProviderResults, APIResponse } from "../../types/API"
+import { APIProviderResult, APIResponse } from "../../types/API"
 import ProvidersShowcase, {
   ProvidersShowcaseSkeleton,
 } from "./ProvidersShowcase"
@@ -45,7 +45,7 @@ export default function BrowseMore() {
 }
 
 // #private
-type FetchType = APIResponse<APIProviderResults>
+type FetchType = APIResponse<APIProviderResult>
 
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,7 +1,7 @@
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import ProviderCard from "../../components/ProviderCard"
 import { SkeletonBox } from "../../components/Skeleton"
-import { APIProviderResults } from "../../types/API"
+import { APIProviderResult } from "../../types/API"
 
 export default function ProvidersShowcase({
   title,
@@ -22,7 +22,7 @@ export default function ProvidersShowcase({
 }
 
 export function ProvidersShowcaseSkeleton() {
-  const sampleProvider: APIProviderResults = {
+  const sampleProvider: APIProviderResult = {
     display_priority: 1,
     logo_path: "/tbEdFQDwx5LEVr8WpSeXQSIirVq.jpg",
     provider_id: 8,
@@ -45,5 +45,5 @@ export function ProvidersShowcaseSkeleton() {
 
 export type ProvidersShowcaseProps = {
   title: string
-  providers: APIProviderResults[]
+  providers: APIProviderResult[]
 }

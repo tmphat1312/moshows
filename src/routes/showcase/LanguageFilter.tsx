@@ -1,10 +1,10 @@
 import CustomSelect from "../../components/CustomSelect"
 import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
-import { APILanguageResults } from "../../types/API"
+import { APILanguageResult } from "../../types/API"
 
 function LanguageFilter({ currentLanguage, setLanguage }: LanguageFilterProps) {
-  const { data, status } = useFetch<APILanguageResults[]>(
+  const { data, status } = useFetch<APILanguageResult[]>(
     "/configuration/languages"
   )
 

@@ -7,7 +7,7 @@ import TabSwitcher from "../../components/TabSwitcher"
 import { trailerTypes } from "../../constants"
 import { useFetch } from "../../hooks/useFetch"
 import { TrailerType, getMediaType } from "../../services/constantMap"
-import { APIResponse, APIResults } from "../../types/API"
+import { APIResponse, APIResult } from "../../types/API"
 
 function Popular() {
   const [trailerType, setTrailerType] = useState<TrailerType>("In Theaters")
@@ -58,7 +58,7 @@ function Popular() {
 }
 
 // #private
-type FetchType = APIResponse<APIResults>
+type FetchType = APIResponse<APIResult>
 
 function CommonLayout({
   children,

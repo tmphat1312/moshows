@@ -38,27 +38,27 @@ export type APIResponseTV = {
   first_air_date: string
 }
 
-export type APIResults = APIResponseMovie | APIResponseTV
+export type APIResult = APIResponseMovie | APIResponseTV
 
-export type APIPersonResults = {
+export type APIPersonResult = {
   adult: boolean
   gender: 0 | 1 | 2
   id: number
-  known_for: APIResults[]
+  known_for: APIResult[]
   known_for_department: string
   name: string
   popularity: number
   profile_path: string
 }
 
-export type APIProviderResults = {
+export type APIProviderResult = {
   display_priority: number
   logo_path: string
   provider_name: string
   provider_id: number
 }
 
-export type APIRegionResults = {
+export type APIRegionResult = {
   iso_3166_1: string
   english_name: string
   native_name: string
@@ -69,13 +69,13 @@ export type APIKeywordResults = {
   name: string
 }
 
-export type APILanguageResults = {
+export type APILanguageResult = {
   iso_639_1: string
   english_name: string
   name: string
 }
 
-export type APIGenreResults = {
+export type APIGenreResult = {
   id: number
   name: string
 }
@@ -85,7 +85,7 @@ export type APISingleMovieResult = {
   backdrop_path: string
   belongs_to_collection: null
   budget: number
-  genres: APIGenreResults[]
+  genres: APIGenreResult[]
   homepage: string
   id: number
   original_language: string
@@ -109,7 +109,7 @@ export type APISingleTVResult = {
   backdrop_path: string
   episode_run_time: number[]
   first_air_date: string
-  genres: APIGenreResults[]
+  genres: APIGenreResult[]
   homepage: string
   id: number
   last_air_date: string
@@ -166,17 +166,17 @@ export type APISingleTVResult = {
   vote_count: number
 }
 
-export type APICreditResults = {
+export type APICreditResult = {
   id: number
   cast: Array<
-    APIPersonResults & {
+    APIPersonResult & {
       character: string
       credit_id: string
       order: number
     }
   >
   crew: Array<
-    APIPersonResults & {
+    APIPersonResult & {
       credit_id: string
       department: string
       job: string

@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom"
 import { getMediaItem } from "../services/constantMap"
 import dayjs from "../services/dayjs"
-import { APIResults } from "../types/API"
+import { APIResult } from "../types/API"
 import NoPoster from "./NoPoster"
 import RatingCircle from "./RatingCircle"
 import { SkeletonBox } from "./Skeleton"
@@ -10,7 +10,7 @@ import { SkeletonBox } from "./Skeleton"
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_IMG_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_IMG_2X_BASE_URL
 
-function ItemCard({ item, type }: { item: APIResults; type: "movie" | "tv" }) {
+function ItemCard({ item, type }: { item: APIResult; type: "movie" | "tv" }) {
   const mappedItem = getMediaItem(item, type)
   const title =
     mappedItem.media_type == "movie" ? mappedItem.title : mappedItem.name

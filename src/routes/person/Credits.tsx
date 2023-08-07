@@ -6,7 +6,7 @@ import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import NoItemsMessage from "../../components/NoItemsMessage"
 import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
-import { APIResults } from "../../types/API"
+import { APIResult } from "../../types/API"
 import CareerHistory from "./CareerHistory"
 
 export default function Credits() {
@@ -83,8 +83,8 @@ export default function Credits() {
 
 // #private
 type FetchType = {
-  cast: (APIResults & { character: string })[]
-  crew: (APIResults & { character: string })[]
+  cast: (APIResult & { character: string })[]
+  crew: (APIResult & { character: string })[]
   id: number
 }
 // #private
