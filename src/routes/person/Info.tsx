@@ -28,7 +28,7 @@ function Info({ item }: InfoProps) {
     <section className="space-y-4">
       <h2 className="text-4xl">{item.name}</h2>
       <section className="space-y-2">
-        <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-red-600 to-red-700">
+        <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-primary-600 to-primary-700">
           Biography
         </h4>
         <p className="tracking-wider text-balance">
@@ -42,13 +42,13 @@ function Info({ item }: InfoProps) {
         </p>
       </section>
       <section className="space-y-2">
-        <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-red-600 to-red-700">
+        <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-primary-600 to-primary-700">
           Date of birth
         </h4>
         <p>{item.birthday ?? "N/A"}</p>
       </section>
       <section className="space-y-2">
-        <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-red-600 to-red-700">
+        <h4 className="px-1 text-lg rounded-sm bg-gradient-to-r w-max from-primary-600 to-primary-700">
           Place of birth
         </h4>
         <p>{item.place_of_birth ?? "N/A"}</p>

@@ -40,7 +40,7 @@ function TvInfo({ item }: InfoProps) {
           <PlayButton />
         </div>
       </div>
-      <div className="px-1 font-display bg-gradient-to-r from-red-700 to-red-800 w-max">
+      <div className="px-1 font-display bg-gradient-to-r from-primary-700 to-primary-800 w-max">
         {genres}
       </div>
       <div className="text-xl font-medium font-display">

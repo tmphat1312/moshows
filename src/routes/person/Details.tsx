@@ -23,7 +23,7 @@ function Details({ item }: DetailsProps) {
             {item.also_known_as.map((name) => (
               <li
                 key={name}
-                className="px-1 rounded-sm bg-gradient-to-r from-red-600 to-red-700 w-max"
+                className="px-1 rounded-sm bg-gradient-to-r from-primary-600 to-primary-700 w-max"
               >
                 {name}
               </li>
