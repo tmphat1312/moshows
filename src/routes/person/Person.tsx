@@ -87,19 +87,19 @@ export default function Person() {
 
   return (
     <CommonLayout>
-      <div className="flex items-center gap-8">
-        <div className="w-1/4 shrink-0">
+      <div className="flex flex-col items-center gap-8 sm:flex-row">
+        <div className="shrink-0">
           <ProfilePhoto profilePath={data.profile_path} />
         </div>
         <div className="grow">
           <Info item={data} />
         </div>
       </div>
-      <div className="flex gap-8">
-        <div className="w-1/4">
+      <div className="flex flex-col gap-8 sm:flex-row">
+        <div className="grow">
           <Details item={data} />
         </div>
-        <div className="w-3/4">
+        <div className="sm:w-3/4">
           <Credits />
         </div>
       </div>
