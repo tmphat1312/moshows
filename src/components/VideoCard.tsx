@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { APIResults } from "../types/API"
+import { APIResult } from "../types/API"
 import PlayButton from "./PlayButton"
 import RatingCircle from "./RatingCircle"
 import { SkeletonBox } from "./Skeleton"
@@ -8,7 +8,7 @@ import UnavailablePlaceholder from "./UnavailablePlaceholder"
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_BD_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_BD_2X_BASE_URL
 
-function VideoCard({ item }: { item: APIResults }) {
+function VideoCard({ item }: { item: APIResult }) {
   const title = item.media_type == "movie" ? item.title : item.name
 
   return (

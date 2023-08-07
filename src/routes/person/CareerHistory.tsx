@@ -1,4 +1,4 @@
-import { APIResults } from "../../types/API"
+import { APIResult } from "../../types/API"
 
 function CareerHistory({ items }: CareerHistoryProps) {
   const sortedByDateItems = items.sort((a, b) => {
@@ -55,6 +55,6 @@ function CareerHistory({ items }: CareerHistoryProps) {
 }
 
 export type CareerHistoryProps = {
-  items: (APIResults & { character: string })[]
+  items: (APIResult & { character: string })[]
 }
 export default CareerHistory

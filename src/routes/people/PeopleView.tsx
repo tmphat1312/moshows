@@ -4,7 +4,7 @@ import CommonErrorMessage from "../../components/CommonErrorMessage"
 import Pagination from "../../components/Pagination"
 import PersonCard, { PersonCardSkeleton } from "../../components/PersonCard"
 import { useFetch } from "../../hooks/useFetch"
-import { APIPersonResults, APIResponse } from "../../types/API"
+import { APIPersonResult, APIResponse } from "../../types/API"
 
 export default function PeopleView() {
   const [page, setPage] = useState(1)
@@ -53,7 +53,7 @@ export default function PeopleView() {
 }
 
 // #private
-type FetchType = APIResponse<APIPersonResults>
+type FetchType = APIResponse<APIPersonResult>
 
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return <BackgroundWall>{children}</BackgroundWall>

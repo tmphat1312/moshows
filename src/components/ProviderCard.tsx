@@ -1,8 +1,8 @@
-import { APIProviderResults } from "../types/API"
+import { APIProviderResult } from "../types/API"
 
 const PROVIDER_LOGO_BASE_URL = import.meta.env.VITE_TMDB_PD_BASE_URL
 
-function ProviderCard({ provider }: { provider: APIProviderResults }) {
+function ProviderCard({ provider }: { provider: APIProviderResult }) {
   return (
     <article className="w-20 my-4 space-y-2 text-center md:w-16 ">
       <img

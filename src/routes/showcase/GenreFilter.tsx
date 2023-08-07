@@ -3,7 +3,7 @@ import { SkeletonBox } from "../../components/Skeleton"
 import TextCollapse from "../../components/TextCollapse"
 import { useFetch } from "../../hooks/useFetch"
 import { useShowcaseStore } from "../../stores/showcaseStore"
-import { APIGenreResults } from "../../types/API"
+import { APIGenreResult } from "../../types/API"
 
 export default function GenreFilter({
   toggleGenre,
@@ -48,7 +48,7 @@ export default function GenreFilter({
   )
 }
 
-type FetchType = { genres: APIGenreResults[] }
+type FetchType = { genres: APIGenreResult[] }
 
 export type GenreFilterProps = {
   activeGenres: Set<number>

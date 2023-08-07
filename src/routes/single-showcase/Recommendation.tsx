@@ -5,7 +5,7 @@ import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import NoItemsMessage from "../../components/NoItemsMessage"
 import { useFetch } from "../../hooks/useFetch"
-import { APIResponse, APIResults } from "../../types/API"
+import { APIResponse, APIResult } from "../../types/API"
 
 export default function Recommendation() {
   const { id, type } = useParams<{ id: string; type: string }>()
@@ -55,7 +55,7 @@ export default function Recommendation() {
 }
 
 // #private
-type FetchType = APIResponse<APIResults>
+type FetchType = APIResponse<APIResult>
 
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return (

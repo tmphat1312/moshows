@@ -12,7 +12,7 @@ import {
   getMediaItem,
   getMediaType,
 } from "../../services/constantMap"
-import { APIResponse, APIResults } from "../../types/API"
+import { APIResponse, APIResult } from "../../types/API"
 
 export default function Latest() {
   const [trailerType, setTrailerType] = useState<TrailerType>("In Theaters")
@@ -63,7 +63,7 @@ export default function Latest() {
 }
 
 // #private
-type FetchType = APIResponse<APIResults>
+type FetchType = APIResponse<APIResult>
 
 const today = new Date().toISOString().slice(0, 10)
 const urlsMap: Record<string, string> = {

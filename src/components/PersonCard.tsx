@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom"
-import { APIPersonResults } from "../types/API"
+import { APIPersonResult } from "../types/API"
 import NoImage from "./NoImage"
 import { SkeletonBox } from "./Skeleton"
 
 const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_PF_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_PF_2X_BASE_URL
 
-function PersonCard({ person }: { person: APIPersonResults }) {
+function PersonCard({ person }: { person: APIPersonResult }) {
   const career = person.known_for
     .map((item) => {
       return item.media_type === "movie" ? item.title : item.name

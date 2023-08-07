@@ -6,7 +6,7 @@ import NoItemsMessage from "../../components/NoItemsMessage"
 import PersonCard, { PersonCardSkeleton } from "../../components/PersonCard"
 import TabSwitcher from "../../components/TabSwitcher"
 import { useFetch } from "../../hooks/useFetch"
-import { APIPersonResults, APIResponse } from "../../types/API"
+import { APIPersonResult, APIResponse } from "../../types/API"
 
 export default function TrendingPeople() {
   const [timeWindow, setTimeWindow] = useState<TimeWindow>("day")
@@ -55,7 +55,7 @@ export default function TrendingPeople() {
 // #private
 const timeWindows = ["day", "week"]
 type TimeWindow = (typeof timeWindows)[number]
-type FetchType = APIResponse<APIPersonResults>
+type FetchType = APIResponse<APIPersonResult>
 
 function CommonLayout({
   children,

@@ -1,5 +1,5 @@
 import { trailerTypes } from "../constants"
-import { APIResponseMovie, APIResponseTV, APIResults } from "../types/API"
+import { APIResponseMovie, APIResponseTV, APIResult } from "../types/API"
 
 export type TrailerType = (typeof trailerTypes)[number]
 
@@ -9,7 +9,7 @@ export function getMediaType(tab: TrailerType) {
   return "movie"
 }
 
-export function getMediaItem(item: APIResults, mediaType: "movie" | "tv") {
+export function getMediaItem(item: APIResult, mediaType: "movie" | "tv") {
   if (mediaType == "movie") {
     return {
       ...item,

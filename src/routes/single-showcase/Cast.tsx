@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import NoImage from "../../components/NoImage"
 import { SkeletonBox } from "../../components/Skeleton"
@@ -14,19 +15,22 @@ export default function Cast({ cast }: CastProps) {
             key={member.id}
             className={`my-4 overflow-hidden rounded-md ${castCardWidth} bg-gradient-to-r from-slate-200 to-slate-400 text-slate-900`}
           >
-            <div className={`${castCardWidth} aspect-square`}>
+            <Link
+              to={"/person/" + member.id}
+              className={`${castCardWidth} block aspect-square overflow-hidden`}
+            >
               {member.profile_path ? (
                 <img
                   src={`${BASE_URL}${member.profile_path}`}
                   alt={member.name}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full h-full transition-transform hover:scale-105"
                 />
               ) : (
                 <div className="bg-gradient-to-b from-slate-500 to-slate-400">
                   <NoImage />
                 </div>
               )}
-            </div>
+            </Link>
             <section className="p-1 text-center">
               <h5 className="text-balance line-clamp-2">{member.name}</h5>
               <p className="text-balance line-clamp-2">{member.character}</p>
