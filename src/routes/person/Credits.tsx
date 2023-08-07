@@ -2,19 +2,41 @@ import { useParams } from "react-router-dom"
 import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
-import ItemCard from "../../components/ItemCard"
+import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
+import NoItemsMessage from "../../components/NoItemsMessage"
+import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
 import { APIResults } from "../../types/API"
 import CareerHistory from "./CareerHistory"
-import NoItemsMessage from "../../components/NoItemsMessage"
 
-function Credits() {
+export default function Credits() {
   const { id } = useParams<{ id: string }>()
   const { data, status } = useFetch<FetchType>(`/person/${id}/combined_credits`)
 
   if (status === "pending") {
-    return <div>Loading...</div>
-  } // TODO: Add skeleton
+    return (
+      <div>
+        <section className="space-y-2">
+          <SkeletonBox>
+            <h4 className="invisible title">sample</h4>
+          </SkeletonBox>
+          <CustomScrollingCarousel>
+            {[...Array(5)].map((_, index) => (
+              <ItemCardSkeleton key={index} />
+            ))}
+          </CustomScrollingCarousel>
+        </section>
+        <section className="my-4 space-y-2">
+          <SkeletonBox>
+            <h4 className="invisible title">sample</h4>
+          </SkeletonBox>
+          <SkeletonBox>
+            <div className="w-full h-80" />
+          </SkeletonBox>
+        </section>
+      </div>
+    )
+  }
 
   if (status == "rejected" || data == null) {
     return (
@@ -66,4 +88,3 @@ type FetchType = {
   id: number
 }
 // #private
-export default Credits

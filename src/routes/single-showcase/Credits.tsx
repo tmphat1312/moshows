@@ -1,16 +1,25 @@
 import { useParams } from "react-router-dom"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
+import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
 import { APICreditResults } from "../../types/API"
-import Cast from "./Cast"
+import Cast, { CastSkeleton } from "./Cast"
 
 function Credits() {
   const { type, id } = useParams<{ type: string; id: string }>()
   const { data, status } = useFetch<APICreditResults>(`${type}/${id}/credits`)
 
   if (status == "pending") {
-    return <>loading</>
-  } // TODO: add skeleton
+    return (
+      <div className="space-y-4">
+        <SkeletonBox>
+          <div className="h-16" />
+        </SkeletonBox>
+        <hr />
+        <CastSkeleton />
+      </div>
+    )
+  }
 
   if (status == "rejected" || data == null) {
     return <CommonErrorMessage />

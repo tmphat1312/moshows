@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
 import { toCurrencyFormat } from "../../services/helpers"
 import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
+import { SkeletonBox } from "../../components/Skeleton"
 
 function MovieMinorInfo({ item }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
@@ -11,8 +12,21 @@ function MovieMinorInfo({ item }: MinorInfoProps) {
   }>(`${type}/${id}/keywords`)
 
   if (status === "pending") {
-    return <p>loading keywords...</p>
-  } // TODO: add loading skeleton
+    return (
+      <div className="space-y-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className="space-y-1">
+            <SkeletonBox>
+              <div className="h-4" />
+            </SkeletonBox>
+            <SkeletonBox>
+              <div className="h-10" />
+            </SkeletonBox>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   if (status == "rejected" || data == null) {
     return (

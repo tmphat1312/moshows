@@ -8,6 +8,7 @@ import { BsTiktok } from "react-icons/bs"
 import { useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
 import { APISocialResult } from "../../types/API"
+import { SkeletonBox } from "../../components/Skeleton"
 
 export default function SocialMedia() {
   const { id } = useParams<{ id: string }>()
@@ -18,10 +19,16 @@ export default function SocialMedia() {
   if (status === "pending") {
     return (
       <CommonLayout>
-        <p>Loading...</p>
+        <div className="space-y-1">
+          {[...Array(5)].map((_, index) => (
+            <SkeletonBox key={index}>
+              <p className="invisible">Loading...</p>
+            </SkeletonBox>
+          ))}
+        </div>
       </CommonLayout>
     )
-  } // TODO: Add skeleton
+  }
 
   if (status == "rejected" || data == null) {
     return (

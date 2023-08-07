@@ -15,10 +15,14 @@ export default function Videos() {
   if (status === "pending") {
     return (
       <CommonLayout>
-        <VideoCardSkeleton />
+        <CustomScrollingCarousel>
+          {Array.from({ length: 9 }).map((_, index) => (
+            <VideoCardSkeleton key={index} />
+          ))}
+        </CustomScrollingCarousel>
       </CommonLayout>
     )
-  } // TODO: add loading skeleton
+  }
 
   if (status == "rejected" || data == null) {
     return (
@@ -83,5 +87,4 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
     </BackgroundWall>
   )
 }
-
 // #private
