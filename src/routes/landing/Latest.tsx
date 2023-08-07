@@ -17,7 +17,7 @@ import { APIResponse, APIResults } from "../../types/API"
 export default function Latest() {
   const [trailerType, setTrailerType] = useState<TrailerType>("In Theaters")
   const mediaType = getMediaType(trailerType)
-  const { data, status } = useFetch<FetchType>(`${urlsMap[mediaType]}}`)
+  const { data, status } = useFetch<FetchType>(urlsMap[mediaType])
 
   function toggleTrailerType(tab: string) {
     if (tab != trailerType) setTrailerType(tab)
