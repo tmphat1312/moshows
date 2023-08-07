@@ -1,12 +1,14 @@
+import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import NoImage from "../../components/NoImage"
+import { SkeletonBox } from "../../components/Skeleton"
 
 const BASE_URL = import.meta.env.VITE_TMDB_CAST_BASE_URL
 
-function Cast({ cast }: CastProps) {
+export default function Cast({ cast }: CastProps) {
   return (
     <section>
       <h3 className="text-3xl text-center text-gradient-primary">Cast</h3>
-      <div className="flex gap-4 overflow-auto md:gap-6 children-no-shrink">
+      <CustomScrollingCarousel>
         {cast.map((member) => (
           <article
             key={member.id}
@@ -31,7 +33,7 @@ function Cast({ cast }: CastProps) {
             </section>
           </article>
         ))}
-      </div>
+      </CustomScrollingCarousel>
     </section>
   )
 }
@@ -47,4 +49,32 @@ export type CastProps = {
   }[]
 }
 
-export default Cast
+export function CastSkeleton() {
+  return (
+    <section className="space-y-4">
+      <SkeletonBox>
+        <h3 className="invisible text-3xl">Cast</h3>
+      </SkeletonBox>
+      <CustomScrollingCarousel>
+        {Array.from({ length: 7 }).map((_, index) => (
+          <article
+            key={index}
+            className={`my-4 overflow-hidden rounded-md ${castCardWidth} space-y-2`}
+          >
+            <SkeletonBox>
+              <div className={`${castCardWidth} aspect-square`} />
+            </SkeletonBox>
+            <section className="space-y-1">
+              <SkeletonBox>
+                <h5 className="invisible line-clamp-2">sample</h5>
+              </SkeletonBox>
+              <SkeletonBox>
+                <p className="invisible line-clamp-2">sample</p>
+              </SkeletonBox>
+            </section>
+          </article>
+        ))}
+      </CustomScrollingCarousel>
+    </section>
+  )
+}

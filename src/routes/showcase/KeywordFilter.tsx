@@ -4,13 +4,13 @@ import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
 import { APIKeywordResults, APIResponse } from "../../types/API"
 
-function KeywordFilter({ setKeywords }: KeywordFilterProps) {
+export default function KeywordFilter({ setKeywords }: KeywordFilterProps) {
   const [query, setQuery] = useState("")
   const [keywordsList, setKeywordsList] = useState<
     Map<number, APIKeywordResults>
   >(new Map())
   const deferredQuery = useDeferredValue(query)
-  const { data, status } = useFetch<APIResponse<APIKeywordResults>>(
+  const { data, status } = useFetch<FetchType>(
     `/search/keyword?query=${deferredQuery}`
   )
   const searchKeywords = Array.from(keywordsList.values())
@@ -30,15 +30,21 @@ function KeywordFilter({ setKeywords }: KeywordFilterProps) {
     setKeywords(Array.from(newMap.keys()))
   }
 
-  const keywords = data?.results
-  const suggestions =
-    status == "pending" || !keywords ? (
+  if (status == "pending") {
+    return (
       <SkeletonBox>
         <p className="px-2 py-1 text-white">Loading...</p>
       </SkeletonBox>
-    ) : (
-      <KeywordSuggestions keywords={keywords} addKeyword={addKeyword} />
     )
+  }
+
+  if (status == "rejected" || data == null) {
+    return <p className="error-message">Error loading keywords</p>
+  }
+
+  const suggestions = (
+    <KeywordSuggestions keywords={data.results} addKeyword={addKeyword} />
+  )
 
   return (
     <div className="relative">
@@ -66,6 +72,8 @@ function KeywordFilter({ setKeywords }: KeywordFilterProps) {
     </div>
   )
 }
+
+type FetchType = APIResponse<APIKeywordResults>
 
 function KeywordSuggestions({ keywords, addKeyword }: KeywordSuggestionsProps) {
   return (
@@ -123,5 +131,3 @@ export type SearchKeywordsProps = {
 export type KeywordFilterProps = {
   setKeywords: (keywords: number[]) => void
 }
-
-export default KeywordFilter

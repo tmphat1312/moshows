@@ -8,7 +8,7 @@ function LanguageFilter({ currentLanguage, setLanguage }: LanguageFilterProps) {
     "/configuration/languages"
   )
 
-  if (status == "pending" || !data) {
+  if (status == "pending") {
     return (
       <label htmlFor="language" className="block font-semibold capitalize">
         language
@@ -17,6 +17,10 @@ function LanguageFilter({ currentLanguage, setLanguage }: LanguageFilterProps) {
         </SkeletonBox>
       </label>
     )
+  }
+
+  if (status == "rejected" || data == null) {
+    return <p className="error-message">Error loading language filter</p>
   }
 
   const languageSelectOptions = data.map((language) => {

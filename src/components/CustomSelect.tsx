@@ -1,7 +1,7 @@
 function CustomSelect({ items, action, defaultValue }: CustomSelectProps) {
   return (
     <select
-      className="w-full px-4 py-1 text-base text-gray-900 capitalize border border-gray-400 rounded-md shadow-sm bg-slate-400 hover:border-gray-500"
+      className="w-full px-4 py-1 text-gray-900 capitalize border border-gray-400 rounded-md bg-slate-400 hover:border-gray-500"
       onChange={(e) => action(e.target.value)}
       defaultValue={defaultValue}
     >

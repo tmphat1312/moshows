@@ -1,31 +1,28 @@
 import { useParams } from "react-router-dom"
-import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
+import { SkeletonBox } from "../../components/Skeleton"
 import { useFetch } from "../../hooks/useFetch"
-import { SingleShowcaseParams } from "../../services/helpers"
 import { APICreditResults } from "../../types/API"
-import Cast from "./Cast"
+import Cast, { CastSkeleton } from "./Cast"
 
 function Credits() {
-  const { type, id } = useParams<SingleShowcaseParams>()
-  const { data, error, status } = useFetch<APICreditResults>(
-    `${type}/${id}/credits`
-  )
+  const { type, id } = useParams<{ type: string; id: string }>()
+  const { data, status } = useFetch<APICreditResults>(`${type}/${id}/credits`)
 
-  if (error) {
+  if (status == "pending") {
     return (
-      <BackgroundWall>
-        <CommonErrorMessage />
-      </BackgroundWall>
+      <div className="space-y-4">
+        <SkeletonBox>
+          <div className="h-16" />
+        </SkeletonBox>
+        <hr />
+        <CastSkeleton />
+      </div>
     )
   }
 
-  if (status == "pending") {
-    return <>loading</>
-  } // TODO: add skeleton
-
-  if (!data) {
-    return <h4 className="text-center text-red-500">Credits unavailable</h4>
+  if (status == "rejected" || data == null) {
+    return <CommonErrorMessage />
   }
 
   const { cast, crew } = data

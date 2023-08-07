@@ -3,61 +3,66 @@ import BackgroundWall from "../../components/BackgroundWall"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
+import NoItemsMessage from "../../components/NoItemsMessage"
 import { useFetch } from "../../hooks/useFetch"
 import { APIResponse, APIResults } from "../../types/API"
 
-function Recommendation() {
+export default function Recommendation() {
   const { id, type } = useParams<{ id: string; type: string }>()
-  const { data, status, error } = useFetch<APIResponse<APIResults>>(
-    `/${type}/${id}/recommendations`
-  )
-
-  if (error) {
-    return (
-      <section>
-        <BackgroundWall>
-          <h2 className="title">Recommendation</h2>
-          <CommonErrorMessage />
-        </BackgroundWall>
-      </section>
-    )
-  }
+  const { data, status } = useFetch<FetchType>(`/${type}/${id}/recommendations`)
 
   if (status == "pending") {
     return (
-      <section>
-        <h2 className="title">Recommendation</h2>
-        <BackgroundWall>
-          <CustomScrollingCarousel>
-            {Array.from({ length: 7 }).map((_, index) => (
-              <ItemCardSkeleton key={index} />
-            ))}
-          </CustomScrollingCarousel>
-        </BackgroundWall>
-      </section>
+      <CommonLayout>
+        <CustomScrollingCarousel>
+          {Array.from({ length: 7 }).map((_, index) => (
+            <ItemCardSkeleton key={index} />
+          ))}
+        </CustomScrollingCarousel>
+      </CommonLayout>
+    )
+  }
+
+  if (status == "rejected" || data == null) {
+    return (
+      <CommonLayout>
+        <CommonErrorMessage />
+      </CommonLayout>
     )
   }
 
   const recommendationItems = data?.results ?? []
-  const content =
-    recommendationItems.length > 0 ? (
-      <CustomScrollingCarousel>
-        {recommendationItems.map((item) => (
-          <ItemCard key={item.id} item={item} type={type as "tv" | "movie"} />
-        ))}
-      </CustomScrollingCarousel>
-    ) : (
-      <p className="my-6 text-2xl font-display">No items available</p>
-    )
-
   return (
     <section>
       <BackgroundWall>
         <h2 className="title">Recommendation</h2>
-        {content}
+        {recommendationItems.length > 0 ? (
+          <CustomScrollingCarousel>
+            {recommendationItems.map((item) => (
+              <ItemCard
+                key={item.id}
+                item={item}
+                type={type as "tv" | "movie"}
+              />
+            ))}
+          </CustomScrollingCarousel>
+        ) : (
+          <NoItemsMessage />
+        )}
       </BackgroundWall>
     </section>
   )
 }
 
-export default Recommendation
+// #private
+type FetchType = APIResponse<APIResults>
+
+function CommonLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <section>
+      <h2 className="title">Recommendation</h2>
+      <BackgroundWall>{children}</BackgroundWall>
+    </section>
+  )
+}
+// #private

@@ -17,9 +17,7 @@ function Landing() {
         <Popular />
         <TrendingPeople />
       </div>
-      <div className="section-separator">
-        <BrowseMore />
-      </div>
+      <BrowseMore />
     </>
   )
 }

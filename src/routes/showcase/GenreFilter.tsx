@@ -5,14 +5,15 @@ import { useFetch } from "../../hooks/useFetch"
 import { useShowcaseStore } from "../../stores/showcaseStore"
 import { APIGenreResults } from "../../types/API"
 
-function GenreFilter({ toggleGenre, activeGenres }: GenreFilterProps) {
+export default function GenreFilter({
+  toggleGenre,
+  activeGenres,
+}: GenreFilterProps) {
   const type = useShowcaseStore((state) => state.type)
-  const { data, status } = useFetch<{ genres: APIGenreResults[] }>(
-    `genre/${type}/list`
-  )
+  const { data, status } = useFetch<FetchType>(`genre/${type}/list`)
 
-  const badgesContent =
-    status == "pending" || !data ? (
+  if (status == "pending") {
+    return (
       <>
         {Array.from({ length: 5 }).map((_, i) => (
           <SkeletonBox key={i}>
@@ -24,8 +25,16 @@ function GenreFilter({ toggleGenre, activeGenres }: GenreFilterProps) {
           </SkeletonBox>
         ))}
       </>
-    ) : (
-      <>
+    )
+  }
+
+  if (status == "rejected" || data == null) {
+    return <p className="error-message">Error loading genres</p>
+  }
+
+  return (
+    <TextCollapse title="Genres">
+      <div className="flex flex-wrap gap-1">
         {data.genres.map((genre) => (
           <ActiveBadge
             key={genre.id}
@@ -34,19 +43,14 @@ function GenreFilter({ toggleGenre, activeGenres }: GenreFilterProps) {
             isActive={activeGenres.has(genre.id)}
           />
         ))}
-      </>
-    )
-
-  return (
-    <TextCollapse title="Genres">
-      <div className="flex flex-wrap gap-1">{badgesContent}</div>
+      </div>
     </TextCollapse>
   )
 }
+
+type FetchType = { genres: APIGenreResults[] }
 
 export type GenreFilterProps = {
   activeGenres: Set<number>
   toggleGenre: (genreId: number) => void
 }
-
-export default GenreFilter

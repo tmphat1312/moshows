@@ -4,6 +4,7 @@ import CommonErrorMessage from "../../components/CommonErrorMessage"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import Pagination from "../../components/Pagination"
 import { useShowcaseStore } from "../../stores/showcaseStore"
+import { NavBarPlaceholder } from "../../layout/NavBar"
 
 function GridView() {
   const getData = useShowcaseStore((state) => state.getData)
@@ -20,9 +21,12 @@ function GridView() {
 
   if (error) {
     return (
-      <BackgroundWall>
-        <CommonErrorMessage />
-      </BackgroundWall>
+      <>
+        <NavBarPlaceholder />
+        <BackgroundWall>
+          <CommonErrorMessage />
+        </BackgroundWall>
+      </>
     )
   }
 
