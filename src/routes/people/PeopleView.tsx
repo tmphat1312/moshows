@@ -31,22 +31,16 @@ export default function PeopleView() {
   }
 
   const people = data?.results ?? []
-  const items = (
-    <>
-      {people.length > 0 ? (
-        people.map((person) => <PersonCard key={person.id} person={person} />)
-      ) : (
-        <p className="text-2xl font-display text-gradient-primary">
-          No items found
-        </p>
-      )}
-    </>
-  )
-
   return (
     <CommonLayout>
       <div className="flex flex-wrap justify-center gap-4 mb-4 md:gap-6">
-        {items}
+        {people.length > 0 ? (
+          people.map((person) => <PersonCard key={person.id} person={person} />)
+        ) : (
+          <p className="text-2xl font-display text-gradient-primary">
+            No items found
+          </p>
+        )}
       </div>
       <div className="flex justify-center">
         <Pagination
