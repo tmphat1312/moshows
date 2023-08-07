@@ -17,7 +17,7 @@ function CareerHistory({ items }: CareerHistoryProps) {
   })
 
   return (
-    <ul className="py-4 space-y-1 overflow-auto max-h-96">
+    <ul className="my-4 space-y-1 overflow-auto max-h-96">
       {sortedByDateItems.map((item) => {
         const title = item.media_type === "movie" ? item.title : item.name
         const releaseDate =
