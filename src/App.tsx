@@ -3,9 +3,10 @@ import PageNotFound from "./routes/PageNotFound"
 import Root from "./routes/Root"
 import Landing from "./routes/landing/Landing"
 import People from "./routes/people/People"
+import Person from "./routes/person/Person"
 import Showcase from "./routes/showcase/Showcase"
 import SingleShowcase from "./routes/single-showcase/SingleShowcase"
-import Person from "./routes/person/Person"
+import Search from "./routes/search/Search"
 
 const routes = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const routes = createBrowserRouter([
       {
         path: "person/:id",
         element: <Person />,
+      },
+      {
+        path: "search/:type/:query",
+        element: <Search />,
       },
     ],
   },
