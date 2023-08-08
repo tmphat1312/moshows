@@ -6,10 +6,11 @@ const PER_PAGE = 20 // 20 items per page, default value by TMDB API
 function Pagination({
   totalItems,
   perPage = PER_PAGE,
+  defaultPage = 1,
   onPageChange,
 }: PaginationProps) {
   const totalPages = Math.ceil(totalItems / perPage)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(defaultPage)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -75,6 +76,7 @@ function Pagination({
 export type PaginationProps = {
   totalItems: number
   perPage?: number
+  defaultPage?: number
   onPageChange: (page: number) => void
 }
 
