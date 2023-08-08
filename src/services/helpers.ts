@@ -14,10 +14,6 @@ export function toCurrencyFormat(value: number) {
 
 export type ShowcaseType = "movie" | "tv"
 
-export type ShowCaseParams = {
-  type: ShowcaseType
-}
-
 export type SingleShowcaseParams = {
   id: string
   type: ShowcaseType

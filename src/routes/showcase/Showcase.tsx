@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom"
 import { titleMap } from "../../constants"
 import TitleSection from "../../layout/TitleSection"
-import { ShowCaseParams, isShowcaseType } from "../../services/helpers"
+import { isShowcaseType } from "../../services/helpers"
 import { useShowcaseStore } from "../../stores/showcaseStore"
 import Actions from "./Actions"
 import GridView from "./GridView"
 import Nav from "./Nav"
 
 function Showcase() {
-  const { type } = useParams<ShowCaseParams>()
+  const { type } = useParams<{ type: string }>()
   const setType = useShowcaseStore((state) => state.setType)
 
   if (!isShowcaseType(type)) {

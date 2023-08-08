@@ -4,55 +4,47 @@ import CommonErrorMessage from "../../components/CommonErrorMessage"
 import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import Pagination from "../../components/Pagination"
 import { useShowcaseStore } from "../../stores/showcaseStore"
-import { NavBarPlaceholder } from "../../layout/NavBar"
+import NoItemsMessage from "../../components/NoItemsMessage"
 
 function GridView() {
   const getData = useShowcaseStore((state) => state.getData)
-  const data = useShowcaseStore((state) => state.data)
-  const status = useShowcaseStore((state) => state.status)
-  const error = useShowcaseStore((state) => state.error)
-  const totalItems = useShowcaseStore((state) => state.totalItems)
   const setPage = useShowcaseStore((state) => state.setPage)
+  const data = useShowcaseStore((state) => state.data)
   const type = useShowcaseStore((state) => state.type)
+  const status = useShowcaseStore((state) => state.status)
+  const totalItems = useShowcaseStore((state) => state.totalItems)
 
   useEffect(() => {
     getData()
   }, [])
 
-  if (error) {
-    return (
-      <>
-        <NavBarPlaceholder />
-        <BackgroundWall>
-          <CommonErrorMessage />
-        </BackgroundWall>
-      </>
-    )
-  }
-
-  const items =
-    status == "pending" ? (
-      <>
+  let htmlContent
+  if (status == "pending") {
+    htmlContent = (
+      <div className="flex flex-wrap justify-center gap-8">
         {Array.from({ length: 20 }).map((_, index) => (
           <ItemCardSkeleton key={index} />
         ))}
-      </>
-    ) : (
-      <>
-        {data != null && data.length > 0 ? (
+      </div>
+    )
+  } else if (status == "rejected" || data == null) {
+    htmlContent = <CommonErrorMessage />
+  } else {
+    htmlContent = (
+      <div className="flex flex-wrap justify-center gap-8">
+        {data.length > 0 ? (
           data.map((item) => <ItemCard key={item.id} item={item} type={type} />)
         ) : (
-          <p className="text-2xl font-display text-gradient-primary">
-            No items found
-          </p>
+          <NoItemsMessage />
         )}
-      </>
+      </div>
     )
+  }
 
   return (
     <BackgroundWall>
-      <div className="flex flex-wrap justify-center gap-8">{items}</div>
-      {totalItems > 0 && (
+      {htmlContent}
+      {data && data.length < totalItems && (
         <div className="flex justify-center mt-4">
           <Pagination
             key={totalItems}
