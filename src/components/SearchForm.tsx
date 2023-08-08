@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FaSearch } from "react-icons/fa"
 import { titleMap } from "../constants"
 import { useNavigate } from "react-router-dom"
@@ -11,6 +11,8 @@ const searchOptions = Object.entries(titleMap).map(([key, value]) => ({
 function SearchForm({ action = "/" }: SearchFormProps) {
   const ref = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
+  const [search, setSearch] = useState("")
+  const [type, setType] = useState(searchOptions[0].value)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -34,13 +36,8 @@ function SearchForm({ action = "/" }: SearchFormProps) {
       className="flex items-center px-4 transition-all bg-slate-600 rounded-3xl focus-within:ring-2 focus-within:ring-primary-400 group"
       action={action}
       onSubmit={(e) => {
-        const form = e.target as HTMLFormElement
-        console.dir(form["search"].value)
-        const searchValue = form["search"].value
-        const typeValue = form["type"].value
-
         e.preventDefault()
-        navigate(action + `?search=${searchValue}&type=${typeValue}`)
+        navigate(action + `?search=${search}&type=${type}`)
       }}
     >
       <span className="group-focus-within:text-primary-400">
@@ -54,11 +51,15 @@ function SearchForm({ action = "/" }: SearchFormProps) {
         placeholder="Type / to search"
         ref={ref}
         autoComplete="off"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <select
         className="border-0 md:text-sm bg-slate-700"
         name="type"
         id="type"
+        value={type}
+        onChange={(e) => setType(e.target.value)}
       >
         {searchOptions.map((option) => (
           <option key={option.value} value={option.value}>
