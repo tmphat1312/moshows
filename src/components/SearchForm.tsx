@@ -56,7 +56,7 @@ function SearchForm({ action = "/" }: SearchFormProps) {
         autoComplete="off"
       />
       <select
-        className="border-0 border-gray-200 border-x-2 md:text-sm bg-slate-700 focus:ring-0 focus:border-primary-400"
+        className="border-0 md:text-sm bg-slate-700"
         name="type"
         id="type"
       >
