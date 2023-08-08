@@ -80,6 +80,7 @@ export type ShowcaseState = {
   toggleGenre: (genre: number) => void
   setFilter: (newFilter: Filter) => void
   resetFilter: () => void
+  resetSort: () => void
 }
 
 export const useShowcaseStore = create<ShowcaseState>()(
@@ -97,6 +98,8 @@ export const useShowcaseStore = create<ShowcaseState>()(
     // actions
     setType: (type) => {
       set({ type, page: 1, tabQuery: `discover/${type}` })
+      get().resetFilter()
+      get().resetSort()
       get().getData()
     },
 
@@ -189,7 +192,10 @@ export const useShowcaseStore = create<ShowcaseState>()(
         filter: defaultFilter,
         page: 1,
       })
-      get().getData()
+    },
+
+    resetSort() {
+      set({ sortQuery: "popularity.desc" })
     },
   }))
 )
