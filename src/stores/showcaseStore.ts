@@ -2,7 +2,7 @@ import { devtools } from "zustand/middleware"
 import { isAxiosError } from "axios"
 import { create } from "zustand"
 import { authorizedFetcher } from "../services/axios"
-import { APIResponse, APIResponseMovie, APIResponseTV } from "../types/API"
+import { APIResponse, APIMovieResult, APITVResult } from "../types/API"
 
 export type Filter = {
   keywords: number[]
@@ -54,7 +54,7 @@ function urlMap({ tabQuery, sortQuery, filter, page }: ShowcaseState) {
   )
 }
 
-export type Data = APIResponseMovie[] | APIResponseTV[]
+export type Data = APIMovieResult[] | APITVResult[]
 
 export type ShowcaseState = {
   // state
@@ -108,7 +108,7 @@ export const useShowcaseStore = create<ShowcaseState>()(
 
       set({ status: "pending" })
       try {
-        type T = APIResponse<APIResponseMovie>
+        type T = APIResponse<APIMovieResult>
         const response = await authorizedFetcher.get<T>(url)
 
         set({

@@ -5,7 +5,7 @@ export type APIResponse<T> = {
   total_results: number
 }
 
-export type APIResponseMovie = {
+export type APIMovieResult = {
   adult: boolean
   backdrop_path: string
   id: number
@@ -21,7 +21,7 @@ export type APIResponseMovie = {
   vote_count: number
 }
 
-export type APIResponseTV = {
+export type APITVResult = {
   adult: boolean
   backdrop_path: string
   id: number
@@ -38,7 +38,7 @@ export type APIResponseTV = {
   first_air_date: string
 }
 
-export type APIResult = APIResponseMovie | APIResponseTV
+export type APIResult = APIMovieResult | APITVResult
 
 export type APIPersonResult = {
   adult: boolean

@@ -1,5 +1,5 @@
 import { trailerTypes } from "../constants"
-import { APIResponseMovie, APIResponseTV, APIResult } from "../types/API"
+import { APIMovieResult, APITVResult, APIResult } from "../types/API"
 
 export type TrailerType = (typeof trailerTypes)[number]
 
@@ -14,13 +14,13 @@ export function getMediaItem(item: APIResult, mediaType: "movie" | "tv") {
     return {
       ...item,
       media_type: "movie",
-    } as APIResponseMovie
+    } as APIMovieResult
   }
 
   return {
     ...item,
     media_type: "tv",
-  } as APIResponseTV
+  } as APITVResult
 }
 
 export function getGenderFromNumber(genderId: 0 | 1 | 2 | 3) {
