@@ -30,21 +30,20 @@ export default function KeywordFilter({ setKeywords }: KeywordFilterProps) {
     setKeywords(Array.from(newMap.keys()))
   }
 
+  let htmlContent
   if (status == "pending") {
-    return (
+    htmlContent = (
       <SkeletonBox>
         <p className="px-2 py-1 text-white">Loading...</p>
       </SkeletonBox>
     )
+  } else if (status == "rejected" || data == null) {
+    htmlContent = <p className="error-message">Error loading keywords</p>
+  } else {
+    htmlContent = (
+      <KeywordSuggestions keywords={data.results} addKeyword={addKeyword} />
+    )
   }
-
-  if (status == "rejected" || data == null) {
-    return <p className="error-message">Error loading keywords</p>
-  }
-
-  const suggestions = (
-    <KeywordSuggestions keywords={data.results} addKeyword={addKeyword} />
-  )
 
   return (
     <div className="relative">
@@ -67,7 +66,7 @@ export default function KeywordFilter({ setKeywords }: KeywordFilterProps) {
         onChange={(e) => setQuery(e.target.value)}
       />
       <div className="absolute inset-x-0 overflow-y-auto text-sm rounded-md top-[110%] bg-slate-50 max-h-32 drop-shadow-lg">
-        {suggestions}
+        {htmlContent}
       </div>
     </div>
   )
@@ -79,12 +78,9 @@ function KeywordSuggestions({ keywords, addKeyword }: KeywordSuggestionsProps) {
   return (
     <ul>
       {keywords.map((item) => (
-        <li
-          className="px-2 py-1 cursor-pointer hover:bg-slate-200"
-          key={item.id}
-        >
+        <li className="cursor-pointer hover:bg-slate-200" key={item.id}>
           <button
-            className="w-full text-start"
+            className="w-full px-2 py-1 text-start"
             onClick={() => addKeyword(item)}
             type="button"
           >
