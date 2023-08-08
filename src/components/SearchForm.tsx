@@ -1,8 +1,16 @@
 import { useEffect, useRef } from "react"
 import { FaSearch } from "react-icons/fa"
+import { titleMap } from "../constants"
+import { useNavigate } from "react-router-dom"
+
+const searchOptions = Object.entries(titleMap).map(([key, value]) => ({
+  text: value,
+  value: key,
+}))
 
 function SearchForm({ action = "/" }: SearchFormProps) {
   const ref = useRef<HTMLInputElement>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -25,6 +33,15 @@ function SearchForm({ action = "/" }: SearchFormProps) {
     <form
       className="flex items-center px-4 transition-all bg-slate-600 rounded-3xl focus-within:ring-2 focus-within:ring-primary-400 group"
       action={action}
+      onSubmit={(e) => {
+        const form = e.target as HTMLFormElement
+        console.dir(form["search"].value)
+        const searchValue = form["search"].value
+        const typeValue = form["type"].value
+
+        e.preventDefault()
+        navigate(action + `?search=${searchValue}&type=${typeValue}`)
+      }}
     >
       <span className="group-focus-within:text-primary-400">
         <FaSearch />
@@ -33,14 +50,22 @@ function SearchForm({ action = "/" }: SearchFormProps) {
         type="text"
         name="search"
         id="search"
-        className="w-full py-1 bg-transparent border-0 border-r-2 border-gray-200 focus:ring-0 focus:border-primary-400 placeholder-slate-400"
+        className="w-full py-1 bg-transparent border-0 focus:ring-0 focus:border-primary-400 placeholder-slate-400"
         placeholder="Type / to search"
         ref={ref}
         autoComplete="off"
       />
-      <label htmlFor="search" hidden>
-        search
-      </label>
+      <select
+        className="border-0 border-gray-200 border-x-2 md:text-sm bg-slate-700 focus:ring-0 focus:border-primary-400"
+        name="type"
+        id="type"
+      >
+        {searchOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.text}
+          </option>
+        ))}
+      </select>
       <button type="submit" className="px-4">
         Search
       </button>
