@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { FaSearch } from "react-icons/fa"
 
-function SearchForm() {
+function SearchForm({ action = "/" }: SearchFormProps) {
   const ref = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -22,7 +22,10 @@ function SearchForm() {
   }, [])
 
   return (
-    <form className="flex items-center px-4 transition-all bg-slate-600 rounded-3xl focus-within:ring-2 focus-within:ring-primary-400 group">
+    <form
+      className="flex items-center px-4 transition-all bg-slate-600 rounded-3xl focus-within:ring-2 focus-within:ring-primary-400 group"
+      action={action}
+    >
       <span className="group-focus-within:text-primary-400">
         <FaSearch />
       </span>
@@ -45,4 +48,7 @@ function SearchForm() {
   )
 }
 
+type SearchFormProps = {
+  action?: string
+}
 export default SearchForm

@@ -35,7 +35,7 @@ const routes = createBrowserRouter([
         element: <Person />,
       },
       {
-        path: "search/:type/:query",
+        path: "search/:type",
         element: <Search />,
       },
     ],

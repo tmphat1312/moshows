@@ -35,7 +35,7 @@ function NavBar() {
         <Logo />
       </div>
       <div className="hidden max-w-lg lg:block grow">
-        <SearchForm />
+        <SearchForm action="/search/tv" />
       </div>
       <div className="hidden sm:block">
         <Navigation />
@@ -44,7 +44,7 @@ function NavBar() {
         {shownStatus == "nav" && <FloatNavigation />}
       </div>
       <div className="lg:hidden">
-        {shownStatus == "search" && <FloatSearchForm />}
+        {shownStatus == "search" && <FloatSearchForm action="/search/tv" />}
       </div>
       <div className="flex items-center gap-6 lg:hidden">
         <button
