@@ -5,6 +5,7 @@ import Pagination from "../../components/Pagination"
 import PersonCard, { PersonCardSkeleton } from "../../components/PersonCard"
 import { useFetch } from "../../hooks/useFetch"
 import { APIPersonResult, APIResponse } from "../../types/API"
+import GridView from "../../layout/GridView"
 
 export default function PeopleView() {
   const [page, setPage] = useState(1)
@@ -33,7 +34,7 @@ export default function PeopleView() {
   const people = data?.results ?? []
   return (
     <CommonLayout>
-      <div className="flex flex-wrap justify-center gap-4 mb-4 md:gap-6">
+      <GridView>
         {people.length > 0 ? (
           people.map((person) => <PersonCard key={person.id} person={person} />)
         ) : (
@@ -41,7 +42,7 @@ export default function PeopleView() {
             No items found
           </p>
         )}
-      </div>
+      </GridView>
       <div className="flex justify-center">
         <Pagination
           onPageChange={setPage}

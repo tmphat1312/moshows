@@ -5,7 +5,7 @@ const BASE_2X_URL = import.meta.env.VITE_TMDB_POS_2X_BASE_URL
 
 function ProfilePhoto({ profilePath }: ProfilePhotoProps) {
   return (
-    <div className="max-w-[240px] md:max-w-[300px]">
+    <div className="max-w-[240px] md:max-w-[300px] aspect-[2/3]">
       {profilePath ? (
         <img
           src={`${BASE_1X_URL}${profilePath}`}

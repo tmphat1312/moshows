@@ -42,7 +42,7 @@ export default function TvMinorInfo({ item }: MinorInfoProps) {
         ))}
       </ul>
     ) : (
-      <p>no keywords available</p>
+      <p className="italic text-primary-400">no keywords available</p>
     )
 
   const contentTable = {

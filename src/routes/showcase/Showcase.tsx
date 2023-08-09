@@ -4,7 +4,7 @@ import TitleSection from "../../layout/TitleSection"
 import { isShowcaseType } from "../../services/helpers"
 import { useShowcaseStore } from "../../stores/showcaseStore"
 import Actions from "./Actions"
-import GridView from "./GridView"
+import ShowcaseView from "./ShowcaseView"
 import Nav from "./Nav"
 
 function Showcase() {
@@ -28,7 +28,7 @@ function Showcase() {
           <Actions />
         </div>
         <div className="grow">
-          <GridView />
+          <ShowcaseView />
         </div>
       </div>
     </div>

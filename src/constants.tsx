@@ -54,9 +54,10 @@ export const inspiredBy = [
 
 export const trailerTypes = ["In Theaters", "On TV"]
 
-export const titleMap = {
+export const titleMap: Record<string, string> = {
   movie: "Movies",
   tv: "TV Shows",
+  person: "People",
 }
 
 export const movieTabs = new Map([

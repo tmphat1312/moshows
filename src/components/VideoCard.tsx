@@ -46,7 +46,10 @@ function VideoCard({ item }: { item: APIResult }) {
       </div>
       <section className="text-center">
         <h3 className="transition-all text-balance hover:text-primary-500 hover:scale-105">
-          <Link to={`/${item.media_type}/${item.id}`} className="line-clamp-2">
+          <Link
+            to={`/showcase/${item.media_type}/${item.id}`}
+            className="line-clamp-2"
+          >
             {title}
           </Link>
         </h3>

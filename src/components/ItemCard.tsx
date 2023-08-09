@@ -56,7 +56,10 @@ function ItemCard({ item, type }: { item: APIResult; type: "movie" | "tv" }) {
       </div>
       <section className="text-center">
         <h3 className="transition-colors hover:text-primary-500 hover:scale-105">
-          <Link to={`/movie/${mappedItem.id}`} className="line-clamp-2">
+          <Link
+            to={`/showcase/${type}/${mappedItem.id}`}
+            className="line-clamp-2"
+          >
             {title}
           </Link>
         </h3>

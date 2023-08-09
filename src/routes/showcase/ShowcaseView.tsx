@@ -5,8 +5,9 @@ import ItemCard, { ItemCardSkeleton } from "../../components/ItemCard"
 import Pagination from "../../components/Pagination"
 import { useShowcaseStore } from "../../stores/showcaseStore"
 import NoItemsMessage from "../../components/NoItemsMessage"
+import GridView from "../../layout/GridView"
 
-function GridView() {
+function ShowcaseView() {
   const getData = useShowcaseStore((state) => state.getData)
   const setPage = useShowcaseStore((state) => state.setPage)
   const data = useShowcaseStore((state) => state.data)
@@ -21,23 +22,23 @@ function GridView() {
   let htmlContent
   if (status == "pending") {
     htmlContent = (
-      <div className="flex flex-wrap justify-center gap-8">
+      <GridView>
         {Array.from({ length: 20 }).map((_, index) => (
           <ItemCardSkeleton key={index} />
         ))}
-      </div>
+      </GridView>
     )
   } else if (status == "rejected" || data == null) {
     htmlContent = <CommonErrorMessage />
   } else {
     htmlContent = (
-      <div className="flex flex-wrap justify-center gap-8">
+      <GridView>
         {data.length > 0 ? (
           data.map((item) => <ItemCard key={item.id} item={item} type={type} />)
         ) : (
           <NoItemsMessage />
         )}
-      </div>
+      </GridView>
     )
   }
 
@@ -57,4 +58,4 @@ function GridView() {
   )
 }
 
-export default GridView
+export default ShowcaseView
