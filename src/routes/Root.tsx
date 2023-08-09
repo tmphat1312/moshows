@@ -1,9 +1,15 @@
 import { Outlet, ScrollRestoration } from "react-router-dom"
+import Modal from "../components/Modal"
 import ScrollToTop from "../components/ScrollToTop"
+import VideoPlayer from "../components/VideoPlayer"
 import Footer from "../layout/Footer"
 import Header from "../layout/Header"
+import { useVideoPlayerStore } from "../stores/videoPlayerStore"
 
 function Root() {
+  const videoId = useVideoPlayerStore((state) => state.videoId)
+  const clearVideoId = useVideoPlayerStore((state) => state.clearVideoId)
+
   return (
     <>
       <Header />
@@ -17,6 +23,13 @@ function Root() {
         <ScrollToTop />
       </div>
       <ScrollRestoration />
+      <Modal
+        title="title content"
+        closeAction={clearVideoId}
+        controlState={videoId.length > 0}
+      >
+        <VideoPlayer />
+      </Modal>
     </>
   )
 }
