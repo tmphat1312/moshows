@@ -8,7 +8,7 @@ const BASE_URL = import.meta.env.VITE_TMDB_CAST_BASE_URL
 export default function Cast({ cast }: CastProps) {
   return (
     <section>
-      <h3 className="text-3xl text-center text-gradient-primary">Cast</h3>
+      <h3 className="text-center title">Cast</h3>
       <CustomScrollingCarousel>
         {cast.map((member) => (
           <article
