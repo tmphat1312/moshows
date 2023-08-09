@@ -1,11 +1,18 @@
+import { toCurrencyFormat } from "../../services/helpers"
 import { APISingleMovieResult } from "../../types/API"
 import Hero from "./Hero"
-import MovieMinorInfo from "./MovieMinorInfo"
+import MinorInfo from "./MinorInfo"
 import Recommendation from "./Recommendation"
 import Similar from "./Similar"
 import Videos from "./Videos"
 
 function MovieShowcase({ data }: SingleShowCaseProps) {
+  const contentTable = {
+    status: data.status,
+    budget: toCurrencyFormat(data.budget),
+    revenue: toCurrencyFormat(data.revenue),
+  }
+
   return (
     <>
       <div className="section-separator">
@@ -18,7 +25,7 @@ function MovieShowcase({ data }: SingleShowCaseProps) {
           <Recommendation />
         </div>
         <div className="grow">
-          <MovieMinorInfo item={data} />
+          <MinorInfo contentTable={contentTable} />
         </div>
       </div>
     </>

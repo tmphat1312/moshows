@@ -1,15 +1,11 @@
 import { useParams } from "react-router-dom"
-import { useFetch } from "../../hooks/useFetch"
-import { toCurrencyFormat } from "../../services/helpers"
-import { APIKeywordResults, APISingleMovieResult } from "../../types/API"
 import { SkeletonBox } from "../../components/Skeleton"
+import { useFetch } from "../../hooks/useFetch"
+import { APIKeywordResults } from "../../types/API"
 
-function MovieMinorInfo({ item }: MinorInfoProps) {
+export default function MinorInfo({ contentTable }: MinorInfoProps) {
   const { type, id } = useParams<{ type: string; id: string }>()
-  const { data, status } = useFetch<{
-    id: number
-    keywords: APIKeywordResults[]
-  }>(`${type}/${id}/keywords`)
+  const { data, status } = useFetch<FetchType>(`${type}/${id}/keywords`)
 
   if (status === "pending") {
     return (
@@ -32,7 +28,7 @@ function MovieMinorInfo({ item }: MinorInfoProps) {
     return <p className="error-message">Error loading additional resources</p>
   }
 
-  const keywords = data?.keywords ?? []
+  const keywords = data?.keywords ?? data?.results ?? []
   const keywordsContent =
     keywords.length > 0 ? (
       <ul className="flex flex-wrap gap-2 py-1">
@@ -49,29 +45,31 @@ function MovieMinorInfo({ item }: MinorInfoProps) {
       <p className="italic text-primary-400">no keywords available</p>
     )
 
-  const contentTable = {
-    status: item.status,
+  const newContentTable = {
+    ...contentTable,
     keywords: keywordsContent,
-    budget: toCurrencyFormat(item.budget),
-    revenue: toCurrencyFormat(item.revenue),
   }
   return (
     <div className="space-y-2">
-      {Object.entries(contentTable).map(([key, value]) => (
+      {Object.entries(newContentTable).map(([key, value]) => (
         <div key={key}>
           <section>
             <h6 className="capitalize">{key}</h6>
             {value}
           </section>
-          {key !== "revenue" && <hr />}
+          {key !== "keywords" && <hr />}
         </div>
       ))}
     </div>
   )
 }
 
-export type MinorInfoProps = {
-  item: APISingleMovieResult
+type MinorInfoProps = {
+  contentTable: Record<string, string>
 }
 
-export default MovieMinorInfo
+type FetchType = {
+  id: number
+  keywords?: APIKeywordResults[]
+  results?: APIKeywordResults[]
+}

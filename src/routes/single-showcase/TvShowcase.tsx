@@ -1,11 +1,19 @@
 import { APISingleTVResult } from "../../types/API"
 import Hero from "./Hero"
+import MinorInfo from "./MinorInfo"
 import Recommendation from "./Recommendation"
 import Similar from "./Similar"
-import TvMinorInfo from "./TvMinorInfo"
 import Videos from "./Videos"
 
 function TvShowcase({ data }: SingleShowCaseProps) {
+  const contentTable = {
+    status: data.status,
+    type: data.type,
+    "episode run time": data.episode_run_time
+      ? `${data.episode_run_time} minutes`
+      : "N/A",
+  }
+
   return (
     <>
       <div className="section-separator">
@@ -18,7 +26,7 @@ function TvShowcase({ data }: SingleShowCaseProps) {
           <Recommendation />
         </div>
         <div className="grow">
-          <TvMinorInfo item={data} />
+          <MinorInfo contentTable={contentTable} />
         </div>
       </div>
     </>
