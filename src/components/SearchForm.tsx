@@ -1,18 +1,22 @@
 import { useEffect, useRef, useState } from "react"
 import { FaSearch } from "react-icons/fa"
 import { titleMap } from "../constants"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useSearchStore } from "../stores/searchStore"
 
 const searchOptions = Object.entries(titleMap).map(([key, value]) => ({
   text: value,
   value: key,
 }))
 
-function SearchForm({ action = "/" }: SearchFormProps) {
-  const ref = useRef<HTMLInputElement>(null)
-  const navigate = useNavigate()
-  const [search, setSearch] = useState("")
+function SearchForm() {
+  const setSearchData = useSearchStore((state) => state.setSearchData)
+  const searchQuery = useSearchStore((state) => state.searchQuery)
   const [type, setType] = useState(searchOptions[0].value)
+  const ref = useRef<HTMLInputElement>(null)
+  const [search, setSearch] = useState(searchQuery)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -31,14 +35,18 @@ function SearchForm({ action = "/" }: SearchFormProps) {
     }
   }, [])
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (search.length > 0) {
+      setSearchData({ type, query: search })
+      location.pathname != "/search" && navigate(`/search`)
+    }
+  }
+
   return (
     <form
       className="flex items-center px-4 transition-all bg-slate-600 rounded-3xl focus-within:ring-2 focus-within:ring-primary-400 group"
-      action={action}
-      onSubmit={(e) => {
-        e.preventDefault()
-        navigate(action + `?search=${search}&type=${type}`)
-      }}
+      onSubmit={handleSubmit}
     >
       <span className="group-focus-within:text-primary-400">
         <FaSearch />
@@ -74,7 +82,4 @@ function SearchForm({ action = "/" }: SearchFormProps) {
   )
 }
 
-type SearchFormProps = {
-  action?: string
-}
 export default SearchForm
