@@ -37,11 +37,7 @@ export default function Trending() {
 
   const trending = data?.results ?? []
   return (
-    <section className="section">
-      <div className="flex-btw">
-        <h2 className="title">Trending</h2>
-        <TabSwitcher tabs={timeWindows} action={toggleTimeWindow} />
-      </div>
+    <CommonLayout tabAction={toggleTimeWindow}>
       {trending.length > 0 ? (
         <CustomScrollingCarousel>
           {trending.map((item) => (
@@ -51,7 +47,7 @@ export default function Trending() {
       ) : (
         <NoItemsMessage />
       )}
-    </section>
+    </CommonLayout>
   )
 }
 

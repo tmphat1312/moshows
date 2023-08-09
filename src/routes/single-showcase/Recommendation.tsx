@@ -33,24 +33,17 @@ export default function Recommendation() {
 
   const recommendationItems = data?.results ?? []
   return (
-    <section>
-      <BackgroundWall>
-        <h2 className="title">Recommendation</h2>
-        {recommendationItems.length > 0 ? (
-          <CustomScrollingCarousel>
-            {recommendationItems.map((item) => (
-              <ItemCard
-                key={item.id}
-                item={item}
-                type={type as "tv" | "movie"}
-              />
-            ))}
-          </CustomScrollingCarousel>
-        ) : (
-          <NoItemsMessage />
-        )}
-      </BackgroundWall>
-    </section>
+    <CommonLayout>
+      {recommendationItems.length > 0 ? (
+        <CustomScrollingCarousel>
+          {recommendationItems.map((item) => (
+            <ItemCard key={item.id} item={item} type={type as "tv" | "movie"} />
+          ))}
+        </CustomScrollingCarousel>
+      ) : (
+        <NoItemsMessage />
+      )}
+    </CommonLayout>
   )
 }
 
@@ -60,8 +53,10 @@ type FetchType = APIResponse<APIResult>
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="title">Recommendation</h2>
-      <BackgroundWall>{children}</BackgroundWall>
+      <BackgroundWall>
+        <h2 className="title">Recommendation</h2>
+        {children}
+      </BackgroundWall>
     </section>
   )
 }
