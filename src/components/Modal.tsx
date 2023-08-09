@@ -9,12 +9,12 @@ function Modal({
   controlState,
   closeAction,
 }: ModalProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null)
+  const dialogCntRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     function handleClose(e: MouseEvent) {
-      const dialog = dialogRef.current
-      if (dialog && !dialog.contains(e.target as Node)) {
+      const dialogCnt = dialogCntRef.current
+      if (dialogCnt == e.target) {
         closeAction()
       }
     }
@@ -38,18 +38,21 @@ function Modal({
     <>
       {controlState &&
         createPortal(
-          <div className="fixed inset-0 z-20 grid place-items-center backdrop-brightness-50">
+          <div
+            className="fixed inset-0 z-20 grid backdrop-brightness-50 place-items-center"
+            ref={dialogCntRef}
+          >
             <dialog
-              ref={dialogRef}
               open={defaultOpen}
-              className="w-full bg-transparent"
+              className="overflow-hidden bg-transparent rounded-sm"
             >
-              <div className="w-3/4 max-w-4xl mx-auto bg-slate-500">
+              <div className="bg-slate-500">
                 <form method="dialog" className="flex-btw-center">
                   <h2 className="px-2 text-xl capitalize">{title}</h2>
                   <button
                     className="p-2 text-3xl hover:text-red-500"
                     onClick={closeAction}
+                    title="Hit escape to close"
                   >
                     <FaRegWindowClose />
                   </button>

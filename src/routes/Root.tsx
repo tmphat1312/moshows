@@ -5,10 +5,13 @@ import VideoPlayer from "../components/VideoPlayer"
 import Footer from "../layout/Footer"
 import Header from "../layout/Header"
 import { useVideoPlayerStore } from "../stores/videoPlayerStore"
+import YoutubePlayer from "../components/YoutubePlayer"
 
 function Root() {
-  const videoId = useVideoPlayerStore((state) => state.videoId)
+  const clearVideoKey = useVideoPlayerStore((state) => state.clearVideoKey)
   const clearVideoId = useVideoPlayerStore((state) => state.clearVideoId)
+  const videoKey = useVideoPlayerStore((state) => state.videoKey)
+  const videoId = useVideoPlayerStore((state) => state.videoId)
 
   return (
     <>
@@ -24,11 +27,18 @@ function Root() {
       </div>
       <ScrollRestoration />
       <Modal
-        title="title content"
+        title="trailer player"
         closeAction={clearVideoId}
         controlState={videoId.length > 0}
       >
         <VideoPlayer />
+      </Modal>
+      <Modal
+        title="trailer player"
+        closeAction={clearVideoKey}
+        controlState={videoKey.length > 0}
+      >
+        <YoutubePlayer videoKey={videoKey} />
       </Modal>
     </>
   )

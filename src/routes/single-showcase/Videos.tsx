@@ -1,16 +1,18 @@
 import { useParams } from "react-router-dom"
-import { useFetch } from "../../hooks/useFetch"
-import { APIVideoResult } from "../../types/API"
 import BackgroundWall from "../../components/BackgroundWall"
-import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
-import PlayButton from "../../components/PlayButton"
 import CommonErrorMessage from "../../components/CommonErrorMessage"
-import { VideoCardSkeleton } from "../../components/VideoCard"
+import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import NoItemsMessage from "../../components/NoItemsMessage"
+import PlayButton from "../../components/PlayButton"
+import { VideoCardSkeleton } from "../../components/VideoCard"
+import { useFetch } from "../../hooks/useFetch"
+import { useVideoPlayerStore } from "../../stores/videoPlayerStore"
+import { APIVideoResult } from "../../types/API"
 
 export default function Videos() {
   const { id, type } = useParams<{ id: string; type: string }>()
   const { data, status } = useFetch<FetchType>(`/${type}/${id}/videos`)
+  const setVideoKey = useVideoPlayerStore((state) => state.setVideoKey)
 
   if (status === "pending") {
     return (
@@ -57,7 +59,7 @@ export default function Videos() {
                   />
                 </a>
                 <div className="absolute flex rounded-full inset-center backdrop-brightness-50">
-                  <PlayButton />
+                  <PlayButton playAction={() => setVideoKey(video.key)} />
                 </div>
               </div>
               <h5 className="text-lg text-center line-clamp-2 text-balance">

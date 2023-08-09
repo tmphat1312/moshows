@@ -1,8 +1,8 @@
 import { BsDot } from "react-icons/bs"
-import PlayButton from "../../components/PlayButton"
 import ShowMore from "../../components/ShowMore"
 import { toHoursAndMinutes } from "../../services/helpers"
 import { APISingleMovieResult } from "../../types/API"
+import VideoPlayerButton from "./VideoPlayerButton"
 
 function MovieInfo({ item }: InfoProps) {
   const genres = item.genres.map((genre) => genre.name).join(", ")
@@ -28,12 +28,7 @@ function MovieInfo({ item }: InfoProps) {
         <BsDot />
         <span>{toHoursAndMinutes(item.runtime)}</span>
       </div>
-      <div className="flex items-center gap-8">
-        <h6 className="text-xl">Play trailer{" >>"}</h6>
-        <div className="inline-flex p-1 ring-[2px] hover:ring-0 rounded-full ring-slate-50">
-          <PlayButton />
-        </div>
-      </div>
+      <VideoPlayerButton id={item.id.toString()} type="movie" />
       <div className="px-1 font-display bg-gradient-to-r from-primary-700 to-primary-800 w-max">
         {genres}
       </div>
