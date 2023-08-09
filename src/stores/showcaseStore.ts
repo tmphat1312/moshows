@@ -54,14 +54,14 @@ function urlMap({ tabQuery, sortQuery, filter, page }: ShowcaseState) {
   )
 }
 
-export type Data = APIMovieResult[] | APITVResult[]
+export type Data = APIMovieResult | APITVResult
 
 export type ShowcaseState = {
   // state
   type: "movie" | "tv"
   status: "pending" | "resolved" | "rejected" | "idle"
   error: null | Error
-  data: Data | null
+  data: Data[] | null
   totalItems: number
   page: number
   tabQuery: string
@@ -108,7 +108,7 @@ export const useShowcaseStore = create<ShowcaseState>()(
 
       set({ status: "pending" })
       try {
-        type T = APIResponse<APIMovieResult>
+        type T = APIResponse<Data>
         const response = await authorizedFetcher.get<T>(url)
 
         set({
