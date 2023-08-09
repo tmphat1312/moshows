@@ -1,4 +1,3 @@
-// import { BsBookmark } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import { getMediaItem } from "../services/constantMap"
 import dayjs from "../services/dayjs"
@@ -47,12 +46,6 @@ function ItemCard({ item, type }: { item: APIResult; type: "movie" | "tv" }) {
             18+
           </div>
         )}
-        {/* <button
-          title="bookmark this item"
-          className="absolute bottom-0 right-0 p-2 text-xl text-primary-600"
-        > // TODO: add bookmark feature
-          <BsBookmark />
-        </button> */}
       </div>
       <section className="text-center">
         <h3 className="transition-colors hover:text-primary-500 hover:scale-105">

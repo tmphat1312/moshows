@@ -57,7 +57,6 @@ function Popular() {
   )
 }
 
-// #private
 type FetchType = APIResponse<APIResult>
 
 function CommonLayout({
@@ -77,6 +76,5 @@ function CommonLayout({
     </section>
   )
 }
-// #private
 
 export default Popular

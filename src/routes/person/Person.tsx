@@ -107,7 +107,6 @@ export default function Person() {
   )
 }
 
-// #private
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -116,4 +115,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
     </>
   )
 }
-// #private

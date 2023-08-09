@@ -52,7 +52,6 @@ export default function TrendingPeople() {
   )
 }
 
-// #private
 const timeWindows = ["day", "week"]
 type TimeWindow = (typeof timeWindows)[number]
 type FetchType = APIResponse<APIPersonResult>
@@ -78,4 +77,3 @@ function CommonLayout({
     </section>
   )
 }
-// #private

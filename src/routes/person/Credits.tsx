@@ -81,10 +81,8 @@ export default function Credits() {
   )
 }
 
-// #private
 type FetchType = {
   cast: (APIResult & { character: string })[]
   crew: (APIResult & { character: string })[]
   id: number
 }
-// #private

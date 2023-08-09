@@ -53,10 +53,8 @@ export default function PeopleView() {
   )
 }
 
-// #private
 type FetchType = APIResponse<APIPersonResult>
 
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return <BackgroundWall>{children}</BackgroundWall>
 }
-// #private

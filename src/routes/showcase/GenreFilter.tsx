@@ -17,11 +17,7 @@ export default function GenreFilter({
       <>
         {Array.from({ length: 5 }).map((_, i) => (
           <SkeletonBox key={i}>
-            <ActiveBadge
-              isActive={false}
-              text="action"
-              action={() => console.log("action")}
-            />
+            <ActiveBadge isActive={false} text="action" action={() => null} />
           </SkeletonBox>
         ))}
       </>

@@ -114,7 +114,4 @@ export default function SingleShowcase() {
   )
 }
 
-// #private
 type FetchType = APISingleMovieResult | APISingleTVResult
-
-// #private

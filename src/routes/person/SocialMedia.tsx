@@ -100,7 +100,6 @@ export default function SocialMedia() {
   )
 }
 
-// #private
 function CommonLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
@@ -109,4 +108,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
     </section>
   )
 }
-// #private

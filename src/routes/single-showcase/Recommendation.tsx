@@ -47,7 +47,6 @@ export default function Recommendation() {
   )
 }
 
-// #private
 type FetchType = APIResponse<APIResult>
 
 function CommonLayout({ children }: { children: React.ReactNode }) {
@@ -60,4 +59,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
     </section>
   )
 }
-// #private

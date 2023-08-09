@@ -46,7 +46,6 @@ export default function Similar() {
   )
 }
 
-// #private
 type FetchType = APIResponse<APIResult>
 
 function CommonLayout({ children }: { children: React.ReactNode }) {
@@ -57,4 +56,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
     </section>
   )
 }
-// #private

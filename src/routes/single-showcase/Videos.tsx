@@ -75,7 +75,6 @@ export default function Videos() {
   )
 }
 
-// #private
 type FetchType = {
   id: number
   results: APIVideoResult[]
@@ -89,4 +88,3 @@ function CommonLayout({ children }: { children: React.ReactNode }) {
     </BackgroundWall>
   )
 }
-// #private

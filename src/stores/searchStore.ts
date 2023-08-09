@@ -45,7 +45,6 @@ export const useSearchStore = create<SearchState>()(
       try {
         type T = APIResponse<Data>
         const url = `search/${type}?query=${query}&page=${page}`
-        console.log(url)
         const response = await authorizedFetcher.get<T>(url)
 
         set({

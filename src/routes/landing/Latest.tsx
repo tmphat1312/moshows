@@ -62,7 +62,6 @@ export default function Latest() {
   )
 }
 
-// #private
 type FetchType = APIResponse<APIResult>
 
 const today = new Date().toISOString().slice(0, 10)
@@ -90,4 +89,3 @@ function CommonLayout({
     </section>
   )
 }
-// #private
