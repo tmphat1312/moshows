@@ -16,7 +16,7 @@ export default function Cast({ cast }: CastProps) {
             className={`my-4 overflow-hidden rounded-md ${castCardWidth} bg-gradient-to-r from-slate-200 to-slate-400 text-slate-900`}
           >
             <Link
-              to={"/person/" + member.id}
+              to={"/people/" + member.id}
               className={`${castCardWidth} block aspect-square overflow-hidden`}
             >
               {member.profile_path ? (

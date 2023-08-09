@@ -31,7 +31,7 @@ const routes = createBrowserRouter([
         element: <SingleShowcase />,
       },
       {
-        path: "person/:id",
+        path: "people/:id",
         element: <Person />,
       },
       {

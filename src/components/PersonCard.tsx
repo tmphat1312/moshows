@@ -17,7 +17,7 @@ function PersonCard({ person }: { person: APIPersonResult }) {
     <article
       className={`flex flex-col my-4 overflow-hidden transition-transform rounded-lg ${cardWidth} hover:scale-105 bg-gradient-to-br to-slate-400 from-slate-600`}
     >
-      <Link to={`/person/${person.id}`}>
+      <Link to={`/people/${person.id}`}>
         <figure
           className={`object-cover ${cardWidth} aspect-square bg-gray-500`}
         >
@@ -36,7 +36,7 @@ function PersonCard({ person }: { person: APIPersonResult }) {
         </figure>
       </Link>
       <section className="py-2 text-center">
-        <Link to={`/person/${person.id}`}>
+        <Link to={`/people/${person.id}`}>
           <h3 className="px-1 transition-all hover:skew-y-2 bg-slate-600 line-clamp-2 text-balance hover:text-primary-500 hover:scale-105">
             {person.name}
           </h3>
