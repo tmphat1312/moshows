@@ -9,7 +9,7 @@ function MovieInfo({ item }: InfoProps) {
 
   return (
     <section className="space-y-3 tracking-wide">
-      <h2 className="text-3xl font-medium text-balance">
+      <h2 className="text-3xl text-balance">
         <a
           href={item.homepage}
           rel="noreferrer noopener"
@@ -22,8 +22,8 @@ function MovieInfo({ item }: InfoProps) {
           </span>
         </a>
       </h2>
-      <p className="text-lg italic text-primary-300">{item.tagline}</p>
-      <div className="flex items-center gap-1 text-lg">
+      <p className="text-lg italic text-primary-400/80">{item.tagline}</p>
+      <div className="flex items-center text-lg">
         <span>{item.release_date}</span>
         <BsDot />
         <span>{toHoursAndMinutes(item.runtime)}</span>
