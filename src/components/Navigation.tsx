@@ -11,8 +11,8 @@ function Navigation() {
           to={link.path}
           className={({ isActive }) =>
             clsx(
-              "transition-transform hover:scale-110 hover:underline underline-offset-2",
-              isActive && "text-primary-500 underline"
+              "transition-transform hover:scale-110 hover:underline underline-offset-4",
+              isActive && "text-primary-500 overline"
             )
           }
         >
