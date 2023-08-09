@@ -1,8 +1,8 @@
 import "./PlayButton.css"
 
-function PlayButton() {
+function PlayButton({ playAction }: PlayButtonProps) {
   return (
-    <button className="playBut">
+    <button className="playBut" onClick={playAction}>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +41,10 @@ function PlayButton() {
       </svg>
     </button>
   )
+}
+
+type PlayButtonProps = {
+  playAction: () => void
 }
 
 export default PlayButton

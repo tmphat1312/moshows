@@ -1,7 +1,7 @@
-import PlayButton from "../../components/PlayButton"
 import ShowMore from "../../components/ShowMore"
 import dayjs from "../../services/dayjs"
 import { APISingleTVResult } from "../../types/API"
+import VideoPlayerButton from "./VideoPlayerButton"
 
 function TvInfo({ item }: InfoProps) {
   const genres = item.genres.map((genre) => genre.name).join(", ")
@@ -35,12 +35,7 @@ function TvInfo({ item }: InfoProps) {
           {item.number_of_seasons} season{item.number_of_seasons > 1 && "s"}
         </span>
       </div>
-      <div className="flex items-center gap-8">
-        <h6 className="text-xl">Play trailer{" >>"}</h6>
-        <div className="inline-flex p-1 ring-[2px] hover:ring-0 rounded-full ring-slate-50">
-          <PlayButton />
-        </div>
-      </div>
+      <VideoPlayerButton id={item.id.toString()} type="tv" />
       <div className="px-1 font-display bg-gradient-to-r from-primary-700 to-primary-800 w-max">
         {genres}
       </div>

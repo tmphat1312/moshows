@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { useVideoPlayerStore } from "../stores/videoPlayerStore"
 import { APIResult } from "../types/API"
 import PlayButton from "./PlayButton"
 import RatingCircle from "./RatingCircle"
@@ -9,7 +10,14 @@ const IMG_1X_BASE_URL = import.meta.env.VITE_TMDB_BD_1X_BASE_URL
 const IMG_2X_BASE_URL = import.meta.env.VITE_TMDB_BD_2X_BASE_URL
 
 function VideoCard({ item }: { item: APIResult }) {
+  const setVideoId = useVideoPlayerStore((state) => state.setVideoId)
+  const setType = useVideoPlayerStore((state) => state.setType)
   const title = item.media_type == "movie" ? item.title : item.name
+
+  function playAction() {
+    setVideoId(item.id.toString())
+    setType(item.media_type)
+  }
 
   return (
     <article className={`py-4 space-y-3 ${cardWidth}`}>
@@ -33,7 +41,7 @@ function VideoCard({ item }: { item: APIResult }) {
           </figure>
         </Link>
         <div className="absolute flex text-lg rounded-full inset-center bg-slate-600/50">
-          <PlayButton />
+          <PlayButton playAction={playAction} />
         </div>
         <div className="absolute bottom-0 translate-x-1/4 translate-y-1/4">
           <RatingCircle rating={item.vote_average} />
