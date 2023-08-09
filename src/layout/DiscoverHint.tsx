@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import BackgroundWall from "../components/BackgroundWall"
 
 function DiscoverHint() {
@@ -7,7 +8,9 @@ function DiscoverHint() {
         <h3 className="subtitle">
           Sound somewhat interesting, you can discover more to find your way!!!
         </h3>
-        <button className="btn btn--primary">browse now</button>
+        <Link to="/people" className="btn btn--primary">
+          browse cast
+        </Link>
       </div>
     </BackgroundWall>
   )
