@@ -185,4 +185,8 @@
   .min-h-dvh {
     min-block-size: 100dvh;
   }
+
+  .cool-radius {
+    border-radius: 68% 32% 84% 16% / 30% 83% 17% 70%;
+  }
 }
