@@ -52,17 +52,17 @@ const cardWidth = "sm:w-44 w-36 md:w-48 lg:52"
 export function PersonCardSkeleton() {
   return (
     <article
-      className={`flex flex-col my-4 space-y-2 overflow-hidden rounded-lg ${cardWidth}`}
+      className={`flex flex-col my-4 overflow-hidden rounded-lg ${cardWidth}`}
     >
       <SkeletonBox>
         <div className="w-full aspect-square" />
       </SkeletonBox>
-      <section className="space-y-1">
+      <section className="py-2 space-y-1">
         <SkeletonBox>
           <h3 className="invisible">name</h3>
         </SkeletonBox>
         <SkeletonBox>
-          <p className="invisible line-clamp-2">
+          <p className="invisible py-[2.5px] line-clamp-2">
             known for Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Ullam itaque laboriosam modi.
           </p>
