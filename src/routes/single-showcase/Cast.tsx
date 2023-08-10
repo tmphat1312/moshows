@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import CustomScrollingCarousel from "../../components/CustomScrollingCarousel"
 import NoImage from "../../components/NoImage"
+import NoItemsMessage from "../../components/NoItemsMessage"
 import { SkeletonBox } from "../../components/Skeleton"
 
 const BASE_URL = import.meta.env.VITE_TMDB_CAST_BASE_URL
@@ -10,33 +11,37 @@ export default function Cast({ cast }: CastProps) {
     <section>
       <h3 className="text-center title">Cast</h3>
       <CustomScrollingCarousel>
-        {cast.map((member) => (
-          <article
-            key={member.id}
-            className={`my-4 overflow-hidden rounded-md ${castCardWidth} bg-gradient-to-r from-slate-200 to-slate-400 text-slate-900`}
-          >
-            <Link
-              to={"/people/" + member.id}
-              className={`${castCardWidth} block aspect-square overflow-hidden`}
+        {cast.length > 0 ? (
+          cast.map((member) => (
+            <article
+              key={member.id}
+              className={`my-4 overflow-hidden rounded-md ${castCardWidth} bg-gradient-to-r from-slate-200 to-slate-400 text-slate-900`}
             >
-              {member.profile_path ? (
-                <img
-                  src={`${BASE_URL}${member.profile_path}`}
-                  alt={member.name}
-                  className="object-cover w-full h-full transition-transform hover:scale-105"
-                />
-              ) : (
-                <div className="bg-gradient-to-b from-slate-500 to-slate-400">
-                  <NoImage />
-                </div>
-              )}
-            </Link>
-            <section className="p-1 text-center">
-              <h5 className="text-balance line-clamp-2">{member.name}</h5>
-              <p className="text-balance line-clamp-2">{member.character}</p>
-            </section>
-          </article>
-        ))}
+              <Link
+                to={"/people/" + member.id}
+                className={`${castCardWidth} block aspect-square overflow-hidden`}
+              >
+                {member.profile_path ? (
+                  <img
+                    src={`${BASE_URL}${member.profile_path}`}
+                    alt={member.name}
+                    className="object-cover w-full h-full transition-transform hover:scale-105"
+                  />
+                ) : (
+                  <div className="bg-gradient-to-b from-slate-500 to-slate-400">
+                    <NoImage />
+                  </div>
+                )}
+              </Link>
+              <section className="p-1 text-center">
+                <h5 className="text-balance line-clamp-2">{member.name}</h5>
+                <p className="text-balance line-clamp-2">{member.character}</p>
+              </section>
+            </article>
+          ))
+        ) : (
+          <NoItemsMessage />
+        )}
       </CustomScrollingCarousel>
     </section>
   )
