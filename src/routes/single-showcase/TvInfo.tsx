@@ -36,7 +36,7 @@ function TvInfo({ item }: InfoProps) {
         </span>
       </div>
       <VideoPlayerButton id={item.id.toString()} type="tv" />
-      <div className="px-1 font-display bg-gradient-to-r from-primary-700 to-primary-800 w-max">
+      <div className="px-1 font-display bg-gradient-to-r from-primary-700 to-primary-800 w-fit">
         {genres}
       </div>
       <div className="text-xl font-medium font-display">

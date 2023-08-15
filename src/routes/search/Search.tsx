@@ -75,7 +75,7 @@ function CommonLayout({
         <SearchForm />
       </div>
       <div className="space-y-2">
-        <p className="px-1 mx-auto rounded-sm bg-gradient-to-r from-slate-600 to-slate-500 w-max">
+        <p className="px-1 mx-auto rounded-sm bg-gradient-to-r from-slate-600 to-slate-500 w-fit">
           Search results for{" "}
           <b className="font-display text-gradient-primary">{search}</b>
         </p>
